@@ -1,0 +1,5 @@
+package fioSelenium;
+
+class SetProperties {
+
+}
