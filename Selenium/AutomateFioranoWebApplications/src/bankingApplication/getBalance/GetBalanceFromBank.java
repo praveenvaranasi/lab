@@ -24,8 +24,8 @@ public class GetBalanceFromBank
 			//driver.get("http://site21.way2sms.com/entry?ec=0080&id=g3mg");
 			Thread.sleep(10000);
 			driver.findElement(By.xpath(".//*[@id='phishing_banner']/div/a")).click();
-			driver.findElement(By.xpath(".//*[@id='username']")).sendKeys("vvssprasad31");
-			driver.findElement(By.xpath(".//*[@id='label2']")).sendKeys("vvsimg896.");
+			driver.findElement(By.xpath(".//*[@id='username']")).sendKeys("");
+			driver.findElement(By.xpath(".//*[@id='label2']")).sendKeys("");
 			driver.findElement(By.xpath(".//*[@id='Button2']")).click();
 			Thread.sleep(10000);
 			System.out.println("Logged into the SBI Netbanking");
