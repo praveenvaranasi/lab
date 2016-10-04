@@ -11,7 +11,7 @@ public class test
 	public static void main(String[] args) throws IOException, InterruptedException  
 	{
 			// TODO Auto-generated method stub
-			String username, password, bankName;
+			String bankName;
 			
 			//Giving Bank Name
 			System.out.println("Please enter the Bank Name");
