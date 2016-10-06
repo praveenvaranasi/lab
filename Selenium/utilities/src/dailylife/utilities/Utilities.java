@@ -14,7 +14,6 @@ public class Utilities
 		System.out.println("Please select an option from the below utilities: \n1.Banking \n2.to be developed Dude");
 		BufferedReader bufferedReaderOption = new BufferedReader(new InputStreamReader(System.in));
 		option=Integer.valueOf(bufferedReaderOption.readLine()).intValue();
-		System.out.println(option);
 		switch(option)
 		{
 			case 1: System.out.println("Please select the bank");

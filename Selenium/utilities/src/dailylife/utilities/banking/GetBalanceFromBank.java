@@ -11,7 +11,10 @@ import java.io.IOException;
 
 public class GetBalanceFromBank
 {
-		
+	String sbiurl="https://retail.onlinesbi.com/retail/login.htm";
+	String hdfcurl="https://netbanking.hdfcbank.com/netbanking/";
+	String username, password;
+	
 	public void getBalance(String bankName) throws InterruptedException, IOException
 	{
 		SetGeckoDriver gecDrive = new SetGeckoDriver();
@@ -20,17 +23,15 @@ public class GetBalanceFromBank
 		String bank=bankName;
 		if(bank.equals("sbi"))
 		{
-			String username, password;
 			System.out.println("Enter the Username of your "+bank+" account");
-			BufferedReader usernameBufferedReader = new BufferedReader(new InputStreamReader(System.in));
-			username = usernameBufferedReader.readLine() ;
+			BufferedReader sbiusernameBufferedReader = new BufferedReader(new InputStreamReader(System.in));
+			username = sbiusernameBufferedReader.readLine() ;
 			System.out.println("Enter the password of your "+bank+" account");
-			BufferedReader passwordBufferedReader = new BufferedReader(new InputStreamReader(System.in));
-			password = passwordBufferedReader.readLine() ;
+			BufferedReader sbipasswordBufferedReader = new BufferedReader(new InputStreamReader(System.in));
+			password = sbipasswordBufferedReader.readLine() ;
 			WebDriver driver=new FirefoxDriver();
-			driver.navigate().to("https://retail.onlinesbi.com/retail/login.htm");
+			driver.navigate().to(sbiurl);
 			driver.manage().window().maximize();
-			//driver.get("http://site21.way2sms.com/entry?ec=0080&id=g3mg");
 			Thread.sleep(10000);
 			driver.findElement(By.xpath(".//*[@id='phishing_banner']/div/a")).click();
 			driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
@@ -45,6 +46,10 @@ public class GetBalanceFromBank
 			balance=driver.findElement(By.xpath(".//*[@id='accBalRes00000031891672921']")).getText();
 			System.out.println("Balance in your "+bank+" account is "+balance);
 			driver.findElement(By.xpath(".//*[@id='tblContainer']/tbody/tr/td/table[2]/tbody/tr/td[9]/span/a")).click();
+		}
+		else
+		{
+			System.out.println("I cant process your request. Right now, I can give balance only");
 		}
 	}
 }
