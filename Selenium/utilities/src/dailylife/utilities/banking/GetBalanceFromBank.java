@@ -1,20 +1,20 @@
-package bankingApplication.getBalance;
+package dailylife.utilities.banking;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import bankingApplication.SetProperties.SetGeckodriver;
+import dailylife.utilities.properties.SetGeckoDriver;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import org.openqa.selenium.support.ui.Select;
+
 
 public class GetBalanceFromBank
 {
 		
 	public void getBalance(String bankName) throws InterruptedException, IOException
 	{
-		SetGeckodriver gecDrive = new SetGeckodriver();
+		SetGeckoDriver gecDrive = new SetGeckoDriver();
 		gecDrive.geckoDriver();
 		String balance="null";
 		String bank=bankName;
@@ -29,7 +29,7 @@ public class GetBalanceFromBank
 			password = passwordBufferedReader.readLine() ;
 			WebDriver driver=new FirefoxDriver();
 			driver.navigate().to("https://retail.onlinesbi.com/retail/login.htm");
-			//driver.manage().window().maximize();
+			driver.manage().window().maximize();
 			//driver.get("http://site21.way2sms.com/entry?ec=0080&id=g3mg");
 			Thread.sleep(10000);
 			driver.findElement(By.xpath(".//*[@id='phishing_banner']/div/a")).click();
@@ -45,7 +45,6 @@ public class GetBalanceFromBank
 			balance=driver.findElement(By.xpath(".//*[@id='accBalRes00000031891672921']")).getText();
 			System.out.println("Balance in your "+bank+" account is "+balance);
 			driver.findElement(By.xpath(".//*[@id='tblContainer']/tbody/tr/td/table[2]/tbody/tr/td[9]/span/a")).click();
-			driver.close();
 		}
 	}
 }
