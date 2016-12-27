@@ -1,0 +1,56 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >-->
+<suite name="Suite1">
+
+    <!--<test name="group">
+        &lt;!&ndash;Running the Groups by including in run tag&ndash;&gt;
+        &lt;!&ndash;<groups>
+            <run>
+                <include name="original"/>
+                <exclude name="modification"/>
+            </run>
+        </groups>&ndash;&gt;
+        &lt;!&ndash;End of Running the individual Groups&ndash;&gt;
+
+        &lt;!&ndash;Defining the Group that contains the individual groups defined in the TestNG Source code&ndash;&gt;
+       &lt;!&ndash; <groups>
+            <define name="grp"> &lt;!&ndash;define tag defines the Group in suite itself&ndash;&gt;
+                <include name="original"/>&lt;!&ndash;include tag includes the original tag&ndash;&gt;
+                <exclude name="modification"/> &lt;!&ndash;exclude tag excludes the modification group&ndash;&gt;
+            </define>
+            <run>
+                <include name="grp"/>
+            </run>
+        </groups>&ndash;&gt;
+        &lt;!&ndash;Defined Group that contains the individual groups&ndash;&gt;
+
+
+        &lt;!&ndash;<classes>
+            &lt;!&ndash;<class name="com.fiorano.testng.GroupUtilImplementation"/>&ndash;&gt;
+            &lt;!&ndash;<class name="com.fiorano.testng.TestngExample"/>&ndash;&gt;
+            &lt;!&ndash;<class name="com.fiorano.testng.DependencyImplementation"/>&ndash;&gt;
+        </classes>&ndash;&gt;
+    </test>-->
+    <!--Following is the script that works with Parameters annotation-->
+
+    <!--<parameter name="parameter" value="global"/>
+    <test name="parameterTests">
+        <classes>
+            &lt;!&ndash;<parameter name="parameter" value="local"/>&ndash;&gt;
+            <class name="com.fiorano.testng.ParameterisedClass"/>
+        </classes>
+    </test>
+    <test name="parameterTest2">
+        <parameter name="parameter" value="local"/>
+        <classes>
+            <class name="com.fiorano.testng.ParameterisedClass"/>
+        </classes>
+    </test>-->
+
+    <test name="dataProviderTests">
+        <parameter name="parameter" value="fiorano"/>
+        <classes>
+            <class name="com.fiorano.testng.ParameterisedClass"/>
+        </classes>
+    </test>
+</suite>
