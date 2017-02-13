@@ -1,12 +1,27 @@
 #! /bin/sh
 
+# 
+#
+#
+#
+#
+#
+
 #Runs the program in tracing mode
-#set -x
+#set -x;
 
 logFile=dirList.txt;
 patchFile=patches.txt;
+jarList=jars.txt
 workingDirectory=$(pwd);
 
+function test
+{
+	echo "$";
+	numbers=1
+	echo "$"$numbers;
+	
+}
 #Checks whether the parameter passed is Directory or Not 
 function isDir
 {
@@ -27,14 +42,31 @@ function readFile
 
 function apply
 {
-	echo $1;
+	echo "Applying the Patch: "$1;
 	cd $1/;
-	. $workingDirectory/$1/patch.properties;
-	jar=$(echo $jars);
-	echo $jar;
-	echo $$jar;
-	pwd;
-	#cp $jar $($jar);
+	. ./patch.properties;
+	echo $jars > $jarList;
+	oldIFS=$IFS;
+	IFS=',';
+	readarray jarArray < $jarList;
+	echo -n ${jarArray[0]} > $jarList;
+	num=$(awk '{print NF}' jars.txt);
+	echo $num;
+	#jar=$(echo ${jarArray[0]} | awk '{print $1}' );
+	#echo $jar;	
+	for (( i=1; i <= $num; i++ ))
+	do
+		#echo $i;
+		#echo ${jarArray[0]};
+		#pls=$(echo ${jarArray[0]} | awk '{print $i}' );
+		#echo $pls;
+		echo hi
+	done
+	number=1;
+	echo $$number;
+	pls=$(echo ${jarArray[0]} | awk '{print $$number}' );
+	echo $pls;
+	IFS=$oldIFS;
 	exit;
 }
 
@@ -42,17 +74,23 @@ function apply
 function install
 {
 	ls $workingDirectory > $logFile;
-	readFile $logFile;
+	# Lists the directories in a file, filters the patch files among them-
+	# -and keeps the filtered list in a file named 'patches.txt'.
+	readFile $logFile;	
 	echo -n "Enter the Patch name to be applied: ";
 	read patchName;
-	while IFS= read line
+	
+	# Looks for the entered Patch name in the Patches.txt and then proceeds if its there.
+	# If its not there, it 'll throw an error message and exits
+	# while IFS= read line
+	while read line
 	do
 		if [ $patchName = $line ]
 		then
-			echo "Patch found. Applying the Patch";
+			echo -n "Patch found.";
 			apply $patchName;
 		else
-			echo -n;
+			echo -n ;
 		fi
 	done < "$patchFile"
 	echo "The Patch name you have entered is not valid. Please check above and apply";
@@ -64,3 +102,18 @@ rm -f $patchFile;
 
 #echo -n "Enter the directory: "
 #read -s input
+# read <Some Variable>: reads the value given in command line and saves the same in 'Some Variable' which can be used in future.
+#cat -etv <<<"$IFS";
+#read f1 f2 -u $jarList;
+#read -u fd $jarList; 
+#while read f1 f2 
+#do
+#	echo $f1;
+#	echo $f2;
+#done < $jarList;
+#declare -a Array;
+#Arr=( $(echo ${jarArray[0]}) );
+#Array=( $Arr );
+#Array=$(${jarArray[0]});
+#echo ${Array[1]};
+#echo ${Array[1]};
