@@ -17,11 +17,9 @@ workingDirectory=$(pwd);
 
 function test
 {
-	echo "$";
-	numbers=1
-	echo "$"$numbers;
-	
+	echo "$1";
 }
+
 #Checks whether the parameter passed is Directory or Not 
 function isDir
 {
@@ -52,20 +50,11 @@ function apply
 	echo -n ${jarArray[0]} > $jarList;
 	num=$(awk '{print NF}' jars.txt);
 	echo $num;
-	#jar=$(echo ${jarArray[0]} | awk '{print $1}' );
-	#echo $jar;	
 	for (( i=1; i <= $num; i++ ))
-	do
-		#echo $i;
-		#echo ${jarArray[0]};
-		#pls=$(echo ${jarArray[0]} | awk '{print $i}' );
-		#echo $pls;
-		echo hi
-	done
-	number=1;
-	echo $$number;
-	pls=$(echo ${jarArray[0]} | awk '{print $$number}' );
-	echo $pls;
+	do		
+		jar=$(echo ${jarArray[0]} | awk -v var="$i" '{print $var}' );
+		test $jar;		
+	done	
 	IFS=$oldIFS;
 	exit;
 }
@@ -74,6 +63,7 @@ function apply
 function install
 {
 	ls $workingDirectory > $logFile;
+	
 	# Lists the directories in a file, filters the patch files among them-
 	# -and keeps the filtered list in a file named 'patches.txt'.
 	readFile $logFile;	

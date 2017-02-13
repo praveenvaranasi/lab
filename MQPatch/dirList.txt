@@ -1,10 +1,9 @@
-dir
 Dir1
-dir2
 dirList.txt
 Patch.bat
-patch.sh
 patches.txt
-textFile.txt
+patch.sh
+patch.sh~
 textFiles.txt
+textFile.txt
 try.txt
