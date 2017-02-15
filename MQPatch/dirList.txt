@@ -1,7 +1,7 @@
 Dir1
 dirList.txt
+MQFixes_10.3.1
 Patch.bat
-patches.txt
 patch.sh
 patch.sh~
 textFiles.txt

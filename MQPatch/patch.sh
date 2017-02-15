@@ -14,10 +14,23 @@ logFile=dirList.txt;
 patchFile=patches.txt;
 jarList=jars.txt
 workingDirectory=$(pwd);
+#env "module1.jar=hi" bash
 
-function test
+function tests
 {
-	echo "$1";
+	hi=hello;
+	hello=hey;
+	echo $hi;
+	echo $hello;
+}
+
+function backupAndCopy
+{
+	#echo "$1";
+	#jarPath=$($1);
+	#echo $jarPath;
+	#echo $module1.jar;
+	pwd;
 }
 
 #Checks whether the parameter passed is Directory or Not 
@@ -53,7 +66,7 @@ function apply
 	for (( i=1; i <= $num; i++ ))
 	do		
 		jar=$(echo ${jarArray[0]} | awk -v var="$i" '{print $var}' );
-		test $jar;		
+		backupAndCopy $jar;		
 	done	
 	IFS=$oldIFS;
 	exit;
