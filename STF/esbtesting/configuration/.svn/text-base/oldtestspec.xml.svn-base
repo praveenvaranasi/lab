@@ -1,0 +1,1373 @@
+<!-- Specify the test cases here.-->
+<TestSpecification>
+
+    <!-- TestSuite is a collection of test cases that will run on the speified FES server. -->
+    <!-- name: Name of the test case: Mandatory  -->
+    <!-- enterpriseserver: FES server which will run thies test cases.
+          Note: This name must be defined in the TestEnvironment as Server element.
+     -->
+    <!-- shutdown tps test creates some problems.. -->
+    <TestSuite name="RMITests">
+
+        <Servers>
+            <Server ref="enterpriseserver" autoStart="true" mode="fes"/>
+            <Server ref="peerserver1" autoStart="true" mode="fps"/>
+        </Servers>
+
+        <TestCases>
+
+
+            <RMITestCase name="SerialVersionUIDTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.SerialVersionUIDTest">
+            </RMITestCase>
+            <RMITestCase name="EventProcessManagerTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.epm.EventProcessManagerTest">
+                <property file="rmi/EventProcessManager/tests.properties"/>
+            </RMITestCase>
+
+            <RMITestCase name="ServiceManagerTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.sm.ServiceManagerTest">
+                <property file="rmi/ServiceManager/tests.properties"/>
+            </RMITestCase>
+
+            <RMITestCase name="EventDetailerTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.other.EventDetailerTest">
+                <property file="rmi/ApplicationController/tests.properties"/>
+            </RMITestCase>
+
+            <RMITestCase name="SBWDetailerTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.other.SBWDetailerTest">
+                <property file="rmi/SBWDetailer/tests.properties"/>
+            </RMITestCase>
+
+            <RMITestCase name="ServerDetailerTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.other.ServerDetailerTest">
+                <property file="rmi/ApplicationController/tests.properties"/>
+            </RMITestCase>
+
+            <RMITestCase name="WSGatewayServiceTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.other.WSGatewayServiceTest">
+                <property file="rmi/WSGatewayService/tests.properties"/>
+            </RMITestCase>
+
+            <RMITestCase name="FPSControllerMBeanTest"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.rmi.other.FPSControllerMBeanTest">
+                <property file="rmi/FPSControllerMBean/tests.properties"/>
+            </RMITestCase>
+
+
+        </TestCases>
+    </TestSuite>
+
+    <TestSuite name="AddResourcesTest">
+
+        <Servers>
+            <Server ref="enterpriseserver" autoStart="true" mode="fes"/>
+            <Server ref="peerserver1" autoStart="true" mode="fps"/>
+        </Servers>
+ 
+        <TestCases>
+            <DRTTestCase name="AddResources" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.AddResourcesTest">
+                <property file="scenario/AddResources/tests.properties"/>
+            </DRTTestCase>
+        </TestCases>
+
+    </TestSuite>
+
+    <TestSuite name="FlowTests">
+
+        <Servers>
+            <Server ref="enterpriseserver" autoStart="true" mode="fes"/>
+            <Server ref="peerserver1" autoStart="true" mode="fps"/>
+        </Servers>
+
+        <TestCases>
+            <!--    // <FlowTestCase name="Flow21" validationRequired='no'
+           baseDir="${TESTING_HOME}/esb/FlowTesting/tests/SIMPLECHATFlow">
+           <Application guid="SIMPLECHATFLOW" version="1.0" overwrite='true' startupTime='0'
+                   applicationFilePath="../../applications/SIMPLECHATFlow/1.0.xml"/>
+           <scenario id='1'>
+                 <inputs>
+                 <input componentName="chat1" port="IN_PORT">
+                    <message type="xml" messageFile="Input/input1.xml"/>
+                 </input>
+                 </inputs>
+           <expectedOutputs>
+            <output componentName="chat1" port="OUT_PORT">
+               <message type="xml" messageFile="Expected_Output/input1_expected.xml"/>
+            </output>
+          </expectedOutputs>
+          </scenario>
+          </FlowTestCase> // -->
+
+            <FlowTestCase name="Flow22" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/CBRTEST">
+                <Application guid="CBRTEST" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/CBRTEST/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="CBR1" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input1.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="CBR1" port="OUT_FALSE" timeout="60000">
+                            <message type="xml" messageFile="Expected_Output/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+
+            </FlowTestCase>
+            <FlowTestCase name="Flow23" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/DISTRIBUTIONSERVICE">
+                <Application guid="DISTRIBUTIONSERVICE" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/DISTRIBUTIONSERVICE/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="DistributionService1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="DistributionService1" port="OUT_PORT_0" timeout="60000">
+                            <message type="txt" messageFile="ExpectedOutput/expectedoutput.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <!--    //  <FlowTestCase name="Flow24" validationRequired='no'
+         baseDir="${TESTING_HOME}/esb/FlowTesting/tests/ENCRYPT_DECRYPT">
+      <Application guid="ENCRYPT_DECRYPT" version="1.0" overwrite='true' startupTime='0'
+             applicationFilePath="../../applications/ENCRYPT_DECRYPT/1.0.xml"/>
+      <scenario id='1'>
+        <inputs>
+        <input componentName="FileReader1" port="IN_PORT">
+           <message type="txt" messageFile="Input/Test.txt"/>
+        </input>
+       </inputs>
+      <expectedOutputs>
+       <output componentName="FileWriter2" port="OUT_PORT">
+            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+        </output>
+      </expectedOutputs>
+     </scenario>
+  </FlowTestCase>
+
+
+           <FlowTestCase name="Flow25" validationRequired='no'
+             baseDir="${TESTING_HOME}/esb/FlowTesting/tests/ENCRYPT_DECRYPT_KEY_CHANGE">
+          <Application guid="ENCRYPT_DECRYPT_KEY_CHANGE"  version="1.0" overwrite='true' startupTime='0'
+               applicationFilePath="../../applications/ENCRYPT_DECRYPT_KEY_CHANGE/1.0.xml"/>
+          <scenario id='1'>
+          <inputs>
+          <input componentName="FileReader1" port="IN_PORT">
+            <message type="txt" messageFile="Input/Test.txt"/>
+          </input>
+          </inputs>
+          <expectedOutputs>
+          <output componentName="Display1" port="OUT_PORT">
+            <message type="txt" messageFile="ExpectedOutput/expectedoutput.txt"/>
+           </output>
+         </expectedOutputs>
+         </scenario>
+         </FlowTestCase>
+
+          <FlowTestCase name="Flow26" validationRequired='no'
+        baseDir="${TESTING_HOME}/esb/FlowTesting/tests/ENCRYPT_DECRYPT_BINARY">
+       <Application guid="ENCRYPT_DECRYPT_BINARY" version="1.0" overwrite='true' startupTime='0'
+             applicationFilePath="../../applications/ENCRYPT_DECRYPT_BINARY/1.0.xml"/>
+       <scenario id='1'>
+        <inputs>
+       <input componentName="FileReader1" port="IN_PORT">
+          <message type="bin" messageFile="Input/Test.bin"/>
+       </input>
+       </inputs>
+      <expectedOutputs>
+      <output componentName="FileWriter2" port="OUT_PORT">
+         <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+      </output>
+      </expectedOutputs>
+      </scenario>
+      </FlowTestCase>
+
+                <FlowTestCase name="Flow27" validationRequired='no'
+               baseDir="${TESTING_HOME}/esb/FlowTesting/tests/FILE_BINARY">
+
+      <Application guid="FILE_BINARY" version="1.0" overwrite='true' startupTime='0'
+           applicationFilePath="FILE_BINARYAPP/1.0.xml"/>
+            <scenario id='1'>
+            <inputs>
+            <input componentName="FileReader1" port="IN_PORT">
+                 <message type="bin" messageFile="Test.bin"/>
+             </input>
+            </inputs>
+            <expectedOutputs>
+           <output componentName="FileWriter2" port="OUT_PORT">
+                <message type="xml" messageFile=" FILE_BINARY/ExpectedOutput/expectedoutput.xml"/>
+           </output>
+          </expectedOutputs>
+          </scenario>
+          </FlowTestCase> // -->
+            <FlowTestCase name="Flow28" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/FILEWRITER">
+                <Application guid="FILEWRITER" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/FILEWRITER/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="FileWriter1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <FlowTestCase name="Flow29" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/FILEWRITERTEST">
+                <Application guid="FILEWRITERTEST" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/FILEWRITERTEST/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="FileWriter1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <!-- // <FlowTestCase name="Flow30" validationRequired='no'
+           baseDir="${TESTING_HOME}/esb/FlowTesting/tests/JAVASCRIPT_FILE">
+           <Application guid="JAVASCRIPT_FILE" version="1.0" overwrite='true' startupTime='0'
+           applicationFilePath="../../applications/JAVASCRIPT_FILE/1.0.xml"/>
+           <scenario id='1'>
+           <inputs>
+           <input componentName="FileReader1" port="IN_PORT">
+              <message type="js" messageFile="Input/input.js"/>
+           </input>
+           </inputs>
+           <expectedOutputs>
+           <output componentName="Display1" port="OUT_PORT">
+               <message type="txt" messageFile="ExpectedOutput/expectedoutput.txt"/>
+           </output>
+           </expectedOutputs>
+          </scenario>
+          </FlowTestCase> // -->
+            <FlowTestCase name="JavascriptDate" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/JSDATE">
+                <Application guid="JSDATE" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/JSDATE/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Display1" port="OUT_PORT" timeout="60000">
+                            <message type="txt" messageFile="ExpectedOutput/expectedoutput.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <FlowTestCase name="Flow32" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XML2EDI1">
+                <Application guid="XML2EDI1" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XML2EDI1/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="XML2EDI1" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow33" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XML2EDI2XML">
+                <Application guid="XML2EDI2XML" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XML2EDI2XML/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="XML2EDI1" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                        <output componentName="EDI2XML1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput2.xml"/>
+                        </output>
+
+                    </expectedOutputs>
+
+
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow34" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XMLVERFICATION">
+                <Application guid="XMLVERFICATION" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XMLVERFICATION/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="XMLVerfication1" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input1.xml"/>
+                        </input>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Display1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+
+                    </expectedOutputs>
+                </scenario>
+
+                <scenario id='2'>
+                    <inputs>
+                        <input componentName="XMLVerfication1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Display2" port="OUT_PORT" timeout="60000">
+                            <message type="txt" messageFile="ExpectedOutput/expectedoutput.txt"/>
+                        </output>
+                    </expectedOutputs>
+
+
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow35" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XSLT_BUG_7353">
+                <Application guid="XSLT_BUG_7353" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XSLT_BUG_7353/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Xslt1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow36" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XSLT_TEXT2XML_BUG_8006">
+                <Application guid="XSLT_TEXT2XML_BUG_8006" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XSLT_TEXT2XML_BUG_8006/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Text2XML1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Display1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <FlowTestCase name="Flow37" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XSLT_BUG_8014">
+                <Application guid="XSLT_BUG_8014" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XSLT_BUG_8014/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Xslt1" port="IN_PORT">
+                            <message type="txt" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+                            <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <!--  // <FlowTestCase name="Flow38" validationRequired='no'
+           baseDir="${TESTING_HOME}/esb/FlowTesting/tests/TEXT2XML">
+           <Application guid="TEXT2XML" version="1.0" overwrite='true' startupTime='0'
+            applicationFilePath="../../applications/TEXT2XML/1.0.xml"/>
+           <scenario id='1'>
+           <inputs>
+           <input componentName="FileReader1" port="IN_PORT">
+                  <message type="txt" messageFile="Input/input.txt"/>
+           </input>
+           </inputs>
+           <expectedOutputs>
+           <output componentName="FileWriter1" port="OUT_PORT">
+           <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+           </output>
+           </expectedOutputs>
+           </scenario>
+           </FlowTestCase>
+
+                <FlowTestCase name="Flow39" validationRequired='no'
+           baseDir="${TESTING_HOME}/esb/FlowTesting/tests/SLEEP">
+           <Application guid="SLEEP" version="1.0" overwrite='true' startupTime='0'
+            applicationFilePath="../../applications/SLEEP/1.0.xml"/>
+           <scenario id='1'>
+           <inputs>
+           <input componentName="Sleep1" port="IN_PORT">
+            <message type="txt" messageFile="Input/input.txt"/>
+           </input>
+          </inputs>
+          <expectedOutputs>
+          <output componentName="Sleep1" port="OUT_PORT">
+           <message type="txt" messageFile="ExpectedOutput/expectedoutput.txt"/>
+         </output>
+         </expectedOutputs>
+          </scenario>
+          </FlowTestCase> // -->
+
+            <FlowTestCase name="Flow40" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/TIMER">
+                <Application guid="TIMEREX" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/TIMER/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Timer1" port="MESSAGE_PORT" timeout="60000">
+                            <message type="txt" messageFile="ExpectedOutput/expectedoutput1.txt"/>
+                        </output>
+                        <!--   //<output componentName="Timer1" port="TIMER_PORT">
+                       <message type="xml" messageFile="ExpectedOutput/expectedoutput.xml"/>
+                      </output> // -->
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+
+            <FlowTestCase name="Flow1" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/SMTPFlow">
+                <Application guid="SMTPFLOW" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/SMTPFlow/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="EPFlowEntry" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Display1" port="OUT_PORT" timeout="80000">
+                            <!--    // either of content or messageFile is mandatory -->
+                            <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow2" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/COMPRESS_DECOMPRESS">
+                <Application guid="COMPRESS_DECOMPRESS" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/COMPRESS_DECOMPRESS/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="EPFlowEntry" port="IN_PORT">
+                            <message type="xml" messageFile="Input/Input.xml"/>
+                        </input>
+                        <input componentName="ResultWriter" port="IN_PORT">
+                            <message type="txt" messageFile="Input/message.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input__expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+
+            <FlowTestCase name="Flow4" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/JOIN">
+                <Application guid="JOIN" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/JOIN/1.0"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Join1" port="IN_PORT1">
+                            <message type="xml" messageFile="Input/input1.xml"/>
+                        </input>
+                        <input componentName="Join1" port="IN_PORT2">
+                            <message type="xml" messageFile="Input/input2.xml"/>
+                        </input>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="XML2Text1" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/input_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow5" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/XSLT_BUG_8006">
+                <Application guid="XSLT_BUG_8006" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/XSLT_BUG_8006/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Xslt1" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <FlowTestCase name="Flow6" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/SMSBRIDGE">
+                <Application guid="SMSBRIDGE" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/SMSBRIDGE/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="SMSBridge1" port="IN_PORT">
+                            <message type="text" messageFile="Input/input.txt"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="SMSBridge1" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/input_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+
+            <FlowTestCase name="Flow7" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/TESTJMSADAPTERS">
+                <Application guid="TESTJMSADAPTERS" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/TESTJMSADAPTERS/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="JMSIn1" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/output1_expected.xml"/>
+                        </output>
+                        <output componentName="JMSOut1" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/output2_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow8" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/JMS_DUR_SUBSCRIBER_FES">
+                <Application guid="JMS_DUR_SUBSCRIBER_FES" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/JMS_DUR_SUBSCRIBER_FES/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+
+                        <output componentName="JMSOut1" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/output_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow9" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/JMS_DUR_SUBSCRIBER_FPS">
+                <Application guid="JMS_DUR_SUBSCRIBER_FPS" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/JMS_DUR_SUBSCRIBER_FPS/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+
+                        <output componentName="JMSOut1" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/output_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <FlowTestCase name="Flow10" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/JMSTEST">
+
+                <Application guid="JMSTEST" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/JMSTEST/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+
+                        <output componentName="JMSOut1" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/output_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow11" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/PORTAL_INTEGRATION">
+                <Application guid="PORTAL_INTEGRATION" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/PORTAL_INTEGRATION/1.0.xml"/>
+                <Startup instanceName="PO_Database"
+                         StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/PORTAL_INTEGRATION" cmd="start"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="PO_Database" port="IN_PORT">
+                            <message type="xml" messageFile="Input/Input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="PO_Database" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+                <Cleanup instanceName="PO_Database"
+                         CleanUpDir="${TESTING_HOME}/esb/FlowTesting/tests/PORTAL_INTEGRATION" cmd="stop"/>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow12" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/MORTGAGE_PROPERTY_REQUEST_AUTOMATION">
+                <Application guid="MORTGAGE_PROPERTY_REQUEST_AUTOMATION" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/MORTGAGE_PROPERTY_REQUEST_AUTOMATION/1.0.xml"/>
+                <Startup instanceName="SetMortageData_InDb"
+                         StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/MORTGAGE_PROPERTY_REQUEST_AUTOMATION"
+                         cmd="start"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Request_AppContext" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="View_Info" port="OUT_PORT" timeout="60000">
+
+                            <message type="text" messageFile="Expected_Output/input_expected.txt"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+                <Cleanup instanceName="SetMortageData_InDb"
+                         CleanUpDir="${TESTING_HOME}/esb/FlowTesting/tests/MORTGAGE_PROPERTY_REQUEST_AUTOMATION"
+                         cmd="stop"/>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow13" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/COMPOSITEBC_DEMO">
+                <Application guid="COMPOSITEBC_DEMO" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/COMPOSITEBC_DEMO/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Execute_BC_Components" port="IN_PORT_1">
+                            <message type="xml" messageFile="Input/input1.xml"/>
+                        </input>
+                        <input componentName="Transform_To_HTML" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input2.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Execute_BC_Components" port="OUT_PORT_1" timeout="80000">
+
+                            <message type="xml" messageFile="Expected_Output/input_expected1.xml"/>
+                        </output>
+
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow14" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/RETAILAUTOMATION_SPORTINGGOODS">
+
+                <Application guid="RETAILAUTOMATION_SPORTINGGOODS" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/RETAILAUTOMATION_SPORTINGGOODS/1.0.xml"/>
+                <Startup instanceName="InsertInAS400DB"
+                         StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/RETAILAUTOMATION_SPORTINGGOODS"
+                         cmd="start"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="InsertInAS400DB" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input1.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Update843" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input1_expected1.xml"/>
+                        </output>
+                        <output componentName="InsertInAS400DB" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input1_expected2.xml"/>
+                        </output>
+
+                    </expectedOutputs>
+                </scenario>
+                <scenario id='2'>
+                    <inputs>
+                        <input componentName="InsertInAS400DB" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input2.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="update841" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input2_expected1.xml"/>
+                        </output>
+                        <output componentName="InsertInAS400DB" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input2_expected2.xml"/>
+                        </output>
+
+                    </expectedOutputs>
+                </scenario>
+                <scenario id='3'>
+                    <inputs>
+                        <input componentName="InsertInAS400DB" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input3.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+
+                        <output componentName="RouteToWarehouse" port="OUT_FALSE" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input3_expected1.xml"/>
+                        </output>
+
+                    </expectedOutputs>
+                </scenario>
+                <Cleanup instanceName="InsertInAS400DB"
+                         CleanUpDir="${TESTING_HOME}/esb/FlowTesting/tests/RETAILAUTOMATION_SPORTINGGOODS"
+                         cmd="stop"/>
+            </FlowTestCase>
+
+            <!--  //   <FlowTestCase name="Flow15" validationRequired='no' baseDir="${TESTING_HOME}/esb/FlowTesting/tests/SALESFORCE_INTEGRATION">
+<Application guid="SALESFORCE_INTEGRATION" version="1.0" overwrite='true' startupTime='0' applicationFilePath="../../applications/SALESFORCE_INTEGRATION/1.0.xml"/>
+<Startup instanceName="InsertDetails" StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/SALESFORCE_INTEGRATION" cmd="start"/>
+<scenario id='1'>
+ <inputs>
+         <input componentName="InsertDetails" port="IN_PORT">
+                 <message type="xml" messageFile="Input/input.xml"/>
+         </input>
+ </inputs>
+ <expectedOutputs>
+         <output componentName="ConvertLeadToAccountInSF1" port="OUT_PORT">
+           // either of content or messageFile is mandatory
+           <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                                          </output>
+                                  </expectedOutputs>
+                          </scenario>
+                      <Cleanup instanceName="InsertDetails" CleanUpDir="${TESTING_HOME}/esb/FlowTesting/tests/SALESFORCE_INTEGRATION" cmd="stop"/>
+          </FlowTestCase>
+
+           <FlowTestCase name="Flow16" validationRequired='no' baseDir="${TESTING_HOME}/esb/FlowTesting/tests/SUPER_KILLER">
+                   <Application guid="SUPER_KILLER" version="1.0" overwrite='true' startupTime='0' applicationFilePath="../../applications/SUPER_KILLER/1.0.xml"/>
+                   <scenario id='1'>
+                           <inputs>
+                                   <input componentName="Receiver" port="IN_PORT">
+                                           <message type="xml" messageFile="Input/input.xml"/>
+                                   </input>
+                           </inputs>
+                           <expectedOutputs>
+                                   <output componentName="VerifyNext" port="OUT_PORT">
+
+                                           <message type="text" messageFile="Expected_Output/input_expected.txt"/>
+                                   </output>
+                           </expectedOutputs>
+                   </scenario>
+           </FlowTestCase>// -->
+
+            <FlowTestCase name="Flow17" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/EAI_DEMO">
+                <Application guid="EAI_DEMO" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/EAI_DEMO/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+                        <input componentName="Xslt_Tranform" port="IN_PORT">
+                            <message type="xml" messageFile="Input/input.xml"/>
+                        </input>
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="SMTP_Bridge" port="OUT_PORT" timeout="80000">
+
+                            <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="Flow18" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/REVENUE_CONTROL_PACKET">
+                <Application guid="REVENUE_CONTROL_PACKET" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/REVENUE_CONTROL_PACKET/1.0.xml"/>
+                <Startup instanceName="Update_To_DB"
+                         StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/REVENUE_CONTROL_PACKET" cmd="start"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="Result_Display" port="OUT_PORT" timeout="60000">
+
+                            <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+                <Cleanup instanceName="Update_To_DB"
+                         CleanUpDir="${TESTING_HOME}/esb/FlowTesting/tests/REVENUE_CONTROL_PACKET" cmd="stop"/>
+            </FlowTestCase>
+
+
+            <FlowTestCase name="DHLTEST3" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/DHL_FLOW3">
+                <Application guid="DHL_FLOW3" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/DHL_FLOW3/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="NMIV_MQSeriesIn" port="OUT_PORT" timeout="80000">
+                            <message type="xml" messageFile="Expected_Output/output_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <!--			<FlowTestCase name="DHLTEST4" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/DHL_FLOW4">
+                <Application guid="DHL_FLOW4" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/DHL_FLOW4/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="NMIV_MQSeriesIn" port="OUT_PORT" timeout="80000">
+                            <message type="xml" messageFile="Expected_Output/output_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>-->
+
+            <FlowTestCase name="DHLTEST5" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/DHL_FLOW5">
+                <Application guid="DHL_FLOW5" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/DHL_FLOW5/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="NMIV_MQSeriesIn" port="OUT_PORT" timeout="100000">
+                            <message type="xml" messageFile="Expected_Output/output_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+            <FlowTestCase name="DHLTEST6" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/DHL_FLOW6">
+                <Application guid="DHL_FLOW6" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/DHL_FLOW6/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="NMIV_MQSeriesIn" port="OUT_PORT" timeout="100000">
+                            <message type="xml" messageFile="Expected_Output/output_expected.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+            <FlowTestCase name="DHLTEST1" validationRequired='no'
+                          baseDir="${TESTING_HOME}/esb/FlowTesting/tests/DHL_FLOW1">
+                <Application guid="DHL_FLOW1" version="1.0" overwrite='true' startupTime='0'
+                             applicationFilePath="../../applications/DHL_FLOW1/1.0.xml"/>
+                <scenario id='1'>
+                    <inputs>
+
+                    </inputs>
+                    <expectedOutputs>
+                        <output componentName="MQSeriesIn" port="OUT_PORT" timeout="80000">
+                            <message type="xml" messageFile="Expected_Output/output_expected1.xml"/>
+                        </output>
+                        <output componentName="Xslt1" port="OUT_PORT" timeout="80000">
+                            <message type="xml" messageFile="Expected_Output/output_expected2.xml"/>
+                        </output>
+                    </expectedOutputs>
+                </scenario>
+            </FlowTestCase>
+
+
+            <!--    // <FlowTestCase name="Flow19" validationRequired='no'
+                        baseDir="${TESTING_HOME}/esb/FlowTesting/tests/HOSPITALITY_SERVICE">
+              <Application guid="HOSPITALITY_SERVICE" version="1.0" overwrite='true' startupTime='0'
+                           applicationFilePath="../../applications/HOSPITALITY_SERVICE/1.0.xml"/>
+              <Startup instanceName="OperationType"
+                       StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/HOSPITALITY_SERVICE"
+                       cmd="deploy_suppliers"/>
+              <scenario id='1'>
+                  <inputs>
+                      <input componentName="OperationType" port="IN_PORT">
+                          <message type="xml" messageFile="Input/input.xml"/>
+                      </input>
+                  </inputs>
+                  <expectedOutputs>
+                      <output componentName="Suppliers_Response" port="OUT_PORT">
+
+                          <message type="xml" messageFile="Expected_Output/input_expected.xml"/>
+                      </output>
+                  </expectedOutputs>
+              </scenario>
+
+          </FlowTestCase>
+
+          <FlowTestCase name="Flow20" validationRequired='no'
+                        baseDir="${TESTING_HOME}/esb/FlowTesting/tests/RETAIL_TELEVISION">
+              <Application guid="RETAIL_TELEVISION" version="1.0" overwrite='true' startupTime='0'
+                           applicationFilePath="../../applications/RETAIL_TELEVISION/1.0.xml"/>
+              <Startup instanceName="insertMediaProdDB"
+                       StartUpDir="${TESTING_HOME}/esb/FlowTesting/tests/RETAIL_TELEVISION" cmd="start"/>
+              <scenario id='1'>
+                  <inputs>
+
+                  </inputs>
+                  <expectedOutputs>
+
+                      <output componentName="StatusCheck" port="OUT_PORT">
+
+                          <message type="xml" messageFile="Expected_Output/expected1.xml"/>
+                      </output>
+                      <output componentName="CreatePreviewWS" port="OUT_PORT">
+
+                          <message type="xml" messageFile="Expected_Output/expected2.xml"/>
+                      </output>
+
+                  </expectedOutputs>
+              </scenario>
+              <scenario id='2'>
+                  <inputs>
+                      <input componentName="Text2XML1" port="IN_PORT">
+                          <message type="text" messageFile="Input/input.txt"/>
+                      </input>
+                  </inputs>
+                  <expectedOutputs>
+                      <output componentName="StatusCheck" port="OUT_PORT">
+
+                          <message type="xml" messageFile="Expected_Output/input_expected1.xml"/>
+                      </output>
+                      <output componentName="WarningMail" port="OUT_PORT">
+
+                          <message type="xml" messageFile="Expected_Output/input_expected2.xml"/>
+                      </output>
+
+                  </expectedOutputs>
+              </scenario>
+              <Cleanup instanceName="insertMediaProdDB"
+                       CleanUpDir="${TESTING_HOME}/esb/FlowTesting/tests/RETAIL_TELEVISION" cmd="stop"/>
+          </FlowTestCase> // -->
+
+        </TestCases>
+
+    </TestSuite>
+
+
+    <TestSuite name="DRTTests1">
+
+        <Servers>
+            <Server ref="enterpriseserver" autoStart="true" mode="fes"/>
+            <Server ref="peerserver1" autoStart="true" mode="fps"/>
+        </Servers>
+
+        <TestCases>
+            <DRTTestCase name="Log" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.LogTest">
+                <property file="scenario/Log/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="MessageSelector" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.MessageSelectorTest">
+                <property file="scenario/MessageSelector/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="ApplicationController" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.ApplicationControllerTest">
+                <property file="scenario/ApplicationController/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT21" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.ApplicationScenarioTest">
+                <property file="scenario/ApplicationScenario/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT31" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.DeploymentManagerTest">
+                <property file="scenario/DeploymentManager/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT41" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.EventInterceptorTest">
+                <property file="scenario/EventInterceptor/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT51" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.EventsManagerTest">
+                <property file="scenario/EventsManager/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT61" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.ExceptionUtilTest">
+                <property file="scenario/ExceptionUtil/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT71" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.SBWScenarioTest">
+                <property file="scenario/SBWScenario/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT81" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.ScenarioTest">
+                <property file="scenario/Scenario/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT91" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.SecurityTest">
+                <property file="scenario/Security/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT11" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.ServiceProviderTest">
+                <property file="scenario/ServiceProvider/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="DRT12" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.ServiceScenarioTest">
+                <property file="scenario/ServiceScenario/tests.properties"/>
+            </DRTTestCase>
+
+            <!--   //<DRTTestCase name="DRT13" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                       testCaseClass="com.fiorano.esb.junit.scenario.TransformationTest">
+              <property file="scenario/Transformation/tests.properties"/>
+          </DRTTestCase> // -->
+
+
+        </TestCases>
+    </TestSuite>
+
+    <TestSuite name="DRTTests2">
+
+        <Servers>
+            <Server ref="enterpriseserver" autoStart="true" mode="fes"/>
+            <Server ref="peerserver1" autoStart="true" mode="fps"/>
+        </Servers>
+
+        <TestCases>
+
+            <DRTTestCase name="Sanity1" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.FpsLogsTest">
+                <property file="scenario/Sanity/FpsLogs/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity2" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.LaunchTypeNoneTest">
+                <property file="scenario/Sanity/LaunchTypeNone/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity3" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.ChangeLaunchTest">
+                <property file="scenario/Sanity/ChangeLaunch/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity4" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.AddBreakPointsTest">
+                <property file="scenario/Sanity/AddBreakPoints/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity5" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.OutOfMemoryTest">
+                <property file="scenario/Sanity/OutOfMemory/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity6" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.ChangeLogModuleTest">
+                <property file="scenario/Sanity/ChangeLogModule/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity7" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.BackwardCompatabilityTest">
+                <property file="scenario/Sanity/BackwardCompatability/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity8" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.SynchronizationTest">
+                <property file="scenario/Sanity/Synchronization/tests.properties"/>
+            </DRTTestCase>
+
+
+            <!--  <DRTTestCase name="Sanity12" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                        testCaseClass="com.fiorano.esb.junit.scenario.sanity.RestartServersTest">
+               <property file="scenario/Sanity/RestartServers/tests.properties"/>
+           </DRTTestCase> -->
+
+            <DRTTestCase name="Sanity14" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.SchemaTest">
+                <property file="scenario/Sanity/Schema/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Sanity16" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.JoinTest">
+                <property file="scenario/Sanity/Join/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="sanity19" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.JMSTest">
+                <property file="scenario/Sanity/JMS/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="sanity20" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.LogsInfoTest">
+                <property file="scenario/Sanity/LogsInfo/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Sanity23" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.DeleteRouteTest">
+                <property file="scenario/Sanity/DeleteRoute/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="sanity28" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.FileTransmitterTest">
+                <property file="scenario/Sanity/FileTransmitter/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Sanity33" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.CompositeBCTest">
+                <property file="scenario/Sanity/CompositeBC/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Sanity39" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.SenderTest">
+                <property file="scenario/Sanity/Sender/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="sanity50" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.TargetPortDisableTest">
+                <property file="scenario/Sanity/FileReader/tests.properties"/>
+            </DRTTestCase>
+
+            <!-- <DRTTestCase name="Multiplepeers" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests" testCaseClass="com.fiorano.esb.junit.scenario.sanity.MultiplePeerTest">
+               <property file="scenario/Sanity/MultiplePeers/tests.properties" />
+           </DRTTestCase> -->
+
+
+            <DRTTestCase name="Application1" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.application.SimpleChatTest">
+                <property file="scenario/Application/SimpleChat/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Application3" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.application.CRCTest">
+                <property file="scenario/Application/CRC/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="Application9" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.application.ComponentCacheTest">
+                <property file="scenario/Application/ComponentCache/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="Application13" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.application.WorkflowTest">
+                <property file="scenario/Application/Workflow/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Application17" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.application.SameApplicationTest">
+                <property file="scenario/Application/SameApplication/tests.properties"/>
+            </DRTTestCase>
+            <DRTTestCase name="Application18" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.application.ApplicationCacheTest">
+                <property file="scenario/Application/ApplicationCache/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="Component1" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.component.UpgradeTest">
+                <property file="scenario/Component/Upgrade/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Component2" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.component.ServiceDependancyTest">
+                <property file="scenario/Component/ServiceDependancy/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="Component4" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.component.OsCompatabilityTest">
+                <property file="scenario/Component/OsCompatability/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Component5" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.FPSControllerTest">
+                <property file="scenario/FPSController/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="Port1" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.port.PortDestinationTest">
+                <property file="scenario/Port/PortDestination/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Port2" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.port.EnableDisablePortTest">
+                <property file="scenario/Port/EnableDisablePort/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Server2" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.server.FPSRestartTest">
+                <property file="scenario/Server/FPSRestart/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Server3" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.server.FESRestartTest">
+                <property file="scenario/Server/FESRestart/tests.properties"/>
+            </DRTTestCase>
+
+
+            <DRTTestCase name="Server6" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.server.FPSLogsTest">
+                <property file="scenario/Server/FESRestart/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Route2" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.route.SenderSelectorTest">
+                <property file="scenario/Route/SenderSelector/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Route4" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.route.MessageBodyXpathTest">
+                <property file="scenario/Route/MessageBodyXpath/tests.properties"/>
+            </DRTTestCase>
+            <DRTTestCase name="Route5" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.route.DebuggerTest">
+                <property file="scenario/Route/Debugger/tests.properties"/>
+            </DRTTestCase>
+            <DRTTestCase name="Route7" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.route.TransformationTest">
+                <property file="scenario/Route/Transformation/tests.properties"/>
+            </DRTTestCase>
+
+            <DRTTestCase name="Sanity26" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.sanity.ApplicationContextTest">
+                <property file="scenario/Sanity/ApplicationContext/tests.properties"/>
+            </DRTTestCase>
+
+        </TestCases>
+    </TestSuite>
+
+    <TestSuite name="DHLHATests">
+
+        <Servers>
+            <Server ref="FESHAServer" autoStart="true"/>
+            <Server ref="peerserver2" autoStart="true"/>
+        </Servers>
+        <TestCases>
+            <DRTTestCase name="DHLHA"
+                         baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.ha.DHLHATest">
+                <property file="scenario/DHLHA/tests.properties"/>
+            </DRTTestCase>
+        </TestCases>
+    </TestSuite>
+
+
+    <TestSuite name="FPSManager">
+
+        <Servers>
+            <Server ref="enterpriseserver" autoStart="true" mode="fes"/>
+            <Server ref="peerserver1" autoStart="true" mode="fps"/>
+        </Servers>
+
+        <TestCases>
+            <DRTTestCase name="FPSManager" baseDir="${TESTING_HOME}/esb/ScenarioTests/tests"
+                         testCaseClass="com.fiorano.esb.junit.scenario.FPSManagerTest">
+                <property file="scenario/FPSManager/tests.properties"/>
+            </DRTTestCase>
+        </TestCases>
+    </TestSuite>
+
+
+    <!--<HATestSuite name ="HADRTTests">
+
+           <Servers>
+               <Server ref ="FESHAServer" autoStart="true"/>
+               <Server ref ="peerserver2" autoStart="true"/>
+           </Servers>
+
+       <TestSuites>
+           <TestSuite ref = "DRTTests1"/>
+       </TestSuites>
+
+   </HATestSuite> -->
+    <!--<HATestSuite name ="HAFlowTests">
+
+           <Servers>
+               <Server ref ="FESHAServer" autoStart="true"/>
+               <Server ref ="peerserver2" autoStart="true"/>
+           </Servers>
+   
+       <TestSuites>
+           <TestSuite ref = "FlowTests"/>
+       </TestSuites>
+   </HATestSuite> -->
+
+
+</TestSpecification>
+
+
+

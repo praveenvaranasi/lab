@@ -1,0 +1,7 @@
+<ChatMessage>
+   <Sender>
+      <Name>Name</Name>
+      <Email>Email</Email>
+   </Sender>
+   <Message>123456</Message>
+</ChatMessage>

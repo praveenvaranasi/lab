@@ -1,0 +1,7 @@
+ApplicationGUID=EVENTSMANAGERTEST
+ApplicationVersion=1.0
+ApplicationFile=EVENTSMANAGERTEST_1.0.xml
+WorkFlowStartInstance=Component1
+WorkFlowEndInstance=Component3
+RouteGUID=route1
+fpsName=fps_test

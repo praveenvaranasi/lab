@@ -1,0 +1,42 @@
+<service guid="ccp" version="1.0">
+    <display name="ccp" categories="Collaboration"/>
+    <icon small="icon.png" large="icon32.png"/>
+    <creation date="24-02-2011 03:20:07" last-modified="24-02-2011 03:19:41" authors="admin"/>
+    <short-description>test ccp</short-description>
+    <deployment label="Development">
+        <servicerefs>
+            <serviceref guid="TifosiJavaRTL" version="4.0"/>
+            <serviceref guid="EDBCEngine" version="4.0"/>
+            <serviceref guid="jms" version="4.0"/>
+            <serviceref guid="cps" version="4.0"/>
+        </servicerefs>
+    </deployment>
+    <execution subtype="edbc">
+        <ccp min-version-supported="1.0" max-version-supported="1.0"/>
+        <launchtype supported="7"/>
+        <separate-process executable="$executable"/>
+        <inmemory executable="com.fiorano.edbc.ccp.Ccp"/>
+        <cps>
+            <launcher>com.fiorano.edbc.ccp.model.ccpPM</launcher>
+        </cps>
+        <input-ports>
+            <port name="IN_PORT_1">
+                <description>Default event port added by Business Component Creation Wizard.</description>
+            </port>
+        </input-ports>
+        <output-ports>
+            <port name="OUT_PORT_1">
+                <description>Default event port added by Business Component Creation Wizard.</description>
+            </port>
+        </output-ports>
+        <logmodules>
+            <logmodule name="ERR_HANDLER" level="WARNING"/>
+            <logmodule name="OUT_HANDLER" level="INFO"/>
+        </logmodules>
+        <runtime-arguments>
+            <runtime-argument name="JVM_PARAMS" mandatory="false">
+                <value>-DLOG_TO_STREAM=true</value>
+            </runtime-argument>
+        </runtime-arguments>
+    </execution>
+</service>

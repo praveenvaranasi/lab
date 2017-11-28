@@ -1,0 +1,74 @@
+<project name="flow-sed" default="run" basedir="." xmlns:fiorano="antlib:com.fiorano.ant">
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <property file="${ant.file.flow-sed}/../../../configuration/test.properties"/>
+
+    <target name="run"/>
+
+    <target name="replace">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <replace file="${expectedOuputFile}">
+                    <replacefilter
+                            token="/home/lokesh2/Desktop/Dev/installer/trgtDir/"
+                            value="${FIORANO_HOME}\trgtDir\"/>
+                    <replacefilter
+                            token="/home/lokesh2/Desktop/Dev/installer/trgtDir"
+                            value="${FIORANO_HOME}\trgtDir"/>
+                </replace>
+            </fiorano:then>
+            <fiorano:else>
+                <replace file="${expectedOuputFile}">
+                    <replacefilter
+                            token="/home/lokesh2/Desktop/Dev/installer"
+                            value="${FIORANO_HOME}"/>
+                </replace>
+            </fiorano:else>
+        </fiorano:if>
+
+    </target>
+
+    <target name="revert">
+        <echo message="inside revert"/>
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <replace file="${expectedOuputFile}">
+                    <replacefilter
+                            token="${FIORANO_HOME}\trgtDir\"
+                            value="/home/lokesh2/Desktop/Dev/installer/trgtDir/"/>
+                    <replacefilter
+                            token="${FIORANO_HOME}\trgtDir"
+                            value="/home/lokesh2/Desktop/Dev/installer/trgtDir"/>
+                </replace>
+            </fiorano:then>
+            <fiorano:else>
+                <replace file="${expectedOuputFile}">
+                    <replacefilter
+                            token="${FIORANO_HOME}"
+                            value="/home/lokesh2/Desktop/Dev/installer"/>
+                </replace>
+            </fiorano:else>
+        </fiorano:if>
+
+    </target>
+
+    <target name="copy">
+        <copy todir="${trgt}" overwrite="true">
+            <fileset dir="${src}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="delTempDirs">
+        <echo message="inside del"/>
+        <delete dir="${FIORANO_HOME}/srcDir"/>
+        <delete dir="${FIORANO_HOME}/errDir"/>
+        <delete dir="${FIORANO_HOME}/trgtDir"/>
+        <delete dir="${FIORANO_HOME}/wrkingDir"/>
+        <delete dir="${FIORANO_HOME}/output"/>
+    </target>
+
+</project>

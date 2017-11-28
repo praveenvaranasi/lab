@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:BookStore xmlns:ns1="http://www.books.org" xmlns:ns2="http://www.w3.org/2001/XMLSchema">
+  <ns1:Book>
+    <ns1:Title>Titl</ns1:Title>
+    <ns1:Author>Author</ns1:Author>
+    <ns1:Date>Date</ns1:Date>
+    <ns1:ISBN>ISBN</ns1:ISBN>
+    <ns1:Publisher>Publisher</ns1:Publisher>
+  </ns1:Book>
+</ns1:BookStore>

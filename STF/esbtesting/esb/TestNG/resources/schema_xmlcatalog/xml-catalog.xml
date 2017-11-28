@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE ns1:catalog
+  PUBLIC "-//OASIS//DTD XML Catalogs V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<ns1:catalog xmlns:ns1="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
+   <ns1:uri name="http://samples.abhi.rest.db/emp" uri="db_emp_detail.xsd"/>
+</ns1:catalog>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mbean PUBLIC "-//JBoss//DTD JBOSS XMBEAN 1.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_xmbean_1_0.dtd">
+
+<mbean>
+  <descriptors>
+    <persistence/>
+  </descriptors>
+  <class>com.fiorano.edbc.test.model.TestPM</class>
+
+  <!--attributes-->
+  <attribute access="read-write" getMethod="getMyProperty" setMethod="setMyProperty">
+
+    <description>this is a sample property</description>
+    <name>MyProperty</name>
+    <type>java.lang.String</type>
+    <descriptors>
+      <persistence/>
+
+      <descriptor name="displayName" value="My Property"/>
+      <descriptor name="defaultValue" value="sample property"/>
+      <descriptor name="index" value="0"/>
+    </descriptors>
+  </attribute>
+  <attribute access="read-write" getMethod="isInputValidationEnabled" setMethod="setInputValidationEnabled">
+
+    <description>The service tries to validate the input received if set to true. If this is set to false, service will not validate the input and hence the performance increases. CAUTION: Setting this to false may cause undesired results if the input xml is not valid</description>
+    <name>InputValidationEnabled</name>
+    <type>boolean</type>
+    <descriptors>
+      <persistence/>
+
+      <descriptor name="displayName" value="Validate input"/>
+      <descriptor name="defaultValue" value="true"/>
+      <descriptor name="index" value="-1"/>
+      <descriptor name="hidden" value="true"/>
+      <descriptor name="displayName" value="Validate input"/>
+      <descriptor name="defaultValue" value="true"/>
+      <descriptor name="index" value="-1"/>
+      <descriptor name="hidden" value="true"/>
+    </descriptors>
+  </attribute>
+  <attribute access="read-write" getMethod="isSingleBatchMode" setMethod="setSingleBatchMode">
+
+    <description>Determines whether output should be split into smaller responses or not. NOTE: this should be used only in case where a response contains multiple results</description>
+    <name>SingleBatchMode</name>
+    <type>boolean</type>
+    <descriptors>
+      <persistence/>
+
+      <descriptor name="displayName" value="Send response in one message?"/>
+      <descriptor name="defaultValue" value="true"/>
+      <descriptor name="index" value="-1"/>
+      <descriptor name="hidden" value="true"/>
+    </descriptors>
+  </attribute>
+  <attribute access="read-write" getMethod="getBatchSize" setMethod="setBatchSize">
+
+    <description>Number of results each message.</description>
+    <name>BatchSize</name>
+    <type>int</type>
+    <descriptors>
+      <persistence/>
+
+      <descriptor name="displayName" value="Send response in one message?"/>
+      <descriptor name="index" value="-1"/>
+      <descriptor name="hidden" value="true"/>
+    </descriptors>
+  </attribute>
+  <attribute access="read-write" getMethod="getErrorHandlingConfiguration" setMethod="setErrorHandlingConfiguration">
+
+    <description>error_handling_configuration_desc</description>
+    <name>ErrorHandlingConfiguration</name>
+    <type>com.fiorano.edbc.framework.service.configuration.AbstractErrorHandlingConfiguration</type>
+    <descriptors>
+      <persistence/>
+
+      <descriptor name="displayName" value="error_handling_configuration_name"/>
+      <descriptor name="index" value="-1"/>
+      <descriptor name="hidden" value="false"/>
+      <descriptor name="PropertyEditor" value="com.fiorano.edbc.framework.service.cps.ErrorHandlingActionsEditor"/>
+      <descriptor name="Editor" value="com.fiorano.services.cps.editors.ErrorActionsEditor"/>
+      <descriptor name="bundleName" value="com.fiorano.edbc.framework.service.configuration.Bundle"/>
+    </descriptors>
+  </attribute>
+
+<!--artificial attributes-->
+
+<!--operations -->
+  <operation impact="ACTION_INFO">
+    <description>Help set URL</description>
+    <name>fetchHelpSetURL</name>
+    <return-type>java.net.URL</return-type>
+    <descriptors>
+    </descriptors>
+  </operation>
+  <operation impact="ACTION_INFO">
+    <description>Help set URL</description>
+    <name>fetchHelpSetURL</name>
+    <return-type>com.fiorano.edbc.framework.service.configuration.URL</return-type>
+    <descriptors>
+    </descriptors>
+  </operation>
+  <operation impact="ACTION_INFO">
+    <description>(no description)</description>
+    <name>fetchHiddenProperties</name>
+    <return-type>com.fiorano.edbc.framework.service.configuration.List</return-type>
+    <descriptors>
+    </descriptors>
+  </operation>
+  <operation impact="ACTION_INFO">
+    <description>Validates Configuration Properties</description>
+    <name>validate</name>
+    <parameter>
+      <description>Listens for errors occured during validation</description>
+      <name>listener</name>
+      <type>com.fiorano.util.ErrorListener</type>
+    </parameter>
+    <return-type>void</return-type>
+    <descriptors>
+    </descriptors>
+  </operation>
+
+<!--artificial operations-->
+
+<!--notifications -->
+
+</mbean>

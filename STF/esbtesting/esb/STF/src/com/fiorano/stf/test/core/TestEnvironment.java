@@ -1,0 +1,157 @@
+/**
+ * Copyright (c) 1999-2017, Fiorano Software Inc. and affiliates.
+ *
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information
+ * of Fiorano Software ("Confidential Information").  You
+ * shall not disclose such Confidential Information and shall use
+ * it only in accordance with the terms of the license agreement
+ * enclosed with this product or entered into with Fiorano.
+ */
+package com.fiorano.stf.test.core;
+
+import com.fiorano.stf.consts.TestEnvironmentConstants;
+import com.fiorano.stf.framework.STFException;
+import com.fiorano.stf.util.StaxParser;
+import com.fiorano.stf.util.StringHashtable;
+
+import javax.xml.stream.XMLStreamException;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: Ibrahim Shaik
+ * Date: May 7, 2007
+ * Time: 3:43:35 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+/**
+ * This class represents the top level element of TestEnvironment configuration file.
+ * This will parse the given
+ */
+public class TestEnvironment extends TestElement {
+
+
+    private StringHashtable serversList = new StringHashtable();
+    private StringHashtable machinesList = new StringHashtable();
+    private StringHashtable profilesList = new StringHashtable();
+
+    /**
+     * This method will invoke the test environment initialization.
+     *
+     * @param xmlFile
+     * @throws STFException
+     */
+    public void initializeTestEnvironment(String xmlFile) throws STFException {
+        parse(xmlFile);
+        validateTestEnvironment();
+    }
+
+    public StringHashtable getServersList() {
+        return serversList;
+    }
+
+    public StringHashtable getMachinesList() {
+        return machinesList;
+    }
+
+    public StringHashtable getProfilesList() {
+        return profilesList;
+    }
+
+    public ProfileElement getProfile(String profileName) {
+        return (ProfileElement) profilesList.get(profileName);
+    }
+
+    public MachineElement getMachine(String machineName) {
+        return (MachineElement) machinesList.get(machineName);
+    }
+
+    public ServerElement getServer(String serverName) {
+        return (ServerElement) serversList.get(serverName);
+    }
+
+    /**
+     * This method will validate the test environment.
+     *
+     * @throws STFException
+     */
+    private void validateTestEnvironment() throws STFException {
+
+        // 1. Check all the profiles used in the server configuraation are defined
+        for (Enumeration servers = serversList.elements(); servers.hasMoreElements();) {
+            ServerElement server = (ServerElement) servers.nextElement();
+            for (String profile : server.getProfileElements().keySet()) {
+                String machine = server.getProfileElements().get(profile).getMachineName();
+                if (!machinesList.containsKey(machine))
+                    throw new STFException("Invalid Test Environment Configuration: Machine element " + machine + " not found in list of machines");
+
+            }
+        }
+    }
+
+
+    protected void populate(StaxParser cursor) throws STFException {
+        try {
+            if (cursor.markCursor(TestEnvironmentConstants.TEST_ENVIRONMENT)) {
+                while (cursor.nextElement()) {
+                    String elemName = cursor.getLocalName();
+                    //Parse Servers Configuration
+                    if (elemName.equalsIgnoreCase(TestEnvironmentConstants.SERVERS)) {
+                        if (cursor.markCursor(TestEnvironmentConstants.SERVERS)) {
+                            while (cursor.nextElement()) {
+                                elemName = cursor.getLocalName();
+                                if (elemName.equalsIgnoreCase(TestEnvironmentConstants.SERVER)) {
+                                    ServerElement serverElement = new ServerElement();
+                                    serverElement.parse(cursor);
+                                    serversList.addEntry(serverElement.getServerName(), serverElement);
+                                } else
+                                    throw new STFException("Invalid Test Environment Configuration file. Found unsupported element " + elemName + " in Servers element.");
+                            }
+                            cursor.resetCursor();
+                        }
+                    }
+
+                    //Parse Machines Configuration
+                    else if (elemName.equalsIgnoreCase(TestEnvironmentConstants.MACHINES)) {
+                        if (cursor.markCursor(TestEnvironmentConstants.MACHINES)) {
+                            while (cursor.nextElement()) {
+                                elemName = cursor.getLocalName();
+                                if (elemName.equalsIgnoreCase(TestEnvironmentConstants.MACHINE)) {
+                                    MachineElement machineElement = new MachineElement();
+                                    machineElement.parse(cursor);
+                                    machinesList.addEntry(machineElement.getMachineName(), machineElement);
+                                } else
+                                    throw new STFException("Invalid Test Environment Configuration file. Found unsupported element " + elemName + " in Servers element.");
+                            }
+                        }
+                        cursor.resetCursor();
+                    } else
+                        throw new STFException("Invalid Test Environment Configuration file. Found unsupported element " + elemName + " in the configuration file");
+                }
+                cursor.resetCursor();
+            } else {
+                throw new STFException("Invalid Test Environment Configuration file.");
+            }
+        } catch (XMLStreamException e) {
+            throw new STFException("Failed to parse TestEnvironment Configuration file", e);
+        }
+        /*System.out.println("\n"+"\n");
+        Set<String> checkServers = serversList.keySet();
+        Set<String> checkMachines = machinesList.keySet();
+        for (String key : checkServers)
+        {
+            System.out.println("Server name is: "+key+ " and its value is: "+serversList.get(key));
+        }
+        System.out.println("\n"+"\n");
+        for (String mkey : checkMachines)
+        {
+            System.out.println("Machine name is: "+mkey+" and its value is: "+machinesList.get(mkey));
+        }*/
+    }
+
+}

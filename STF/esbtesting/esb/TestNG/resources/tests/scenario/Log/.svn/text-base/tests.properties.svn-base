@@ -1,0 +1,12 @@
+ApplicationGUID=LOGTEST
+ApplicationVersion=1.0
+ApplicationXML=SIMPLECHAT_1.0.xml
+ServiceInstance1=chat1
+ServiceInstance2=chat2
+NoOfLines=100
+ModuleName1=ERR_HANDLER
+ModuleName2=OUT_HANDLER
+LogLevel1=SEVERE
+LogLevel2=SEVERE
+
+

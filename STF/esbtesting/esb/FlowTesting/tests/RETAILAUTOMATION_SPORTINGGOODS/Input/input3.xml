@@ -1,0 +1,11 @@
+<ns1:SQL_CFG_1 xmlns:ns1="http://www.fiorano.com/fesb/activity/DB2/Request" id="-9223372036854775808">
+   <ns1:simulate>
+      <ns1:CNSVID>123</ns1:CNSVID>
+      <ns1:CNMSG_>123</ns1:CNMSG_>
+      <ns1:CNSRCA>123</ns1:CNSRCA>
+      <ns1:CNFLOC>842</ns1:CNFLOC>
+      <ns1:CNCTID>123</ns1:CNCTID>
+      <ns1:CNTLC_>1</ns1:CNTLC_>
+      <ns1:TIF_RECORDID>255</ns1:TIF_RECORDID>
+   </ns1:simulate>
+</ns1:SQL_CFG_1>

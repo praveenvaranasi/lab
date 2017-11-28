@@ -1,0 +1,5 @@
+<ns1:Employee_Schema xmlns:ns1="http://www.fiorano.com/fesb/activity/Text2XML1">
+   <ns1:Employee>
+      <ns1:EX>laxman</ns1:EX>
+   </ns1:Employee>
+</ns1:Employee_Schema>

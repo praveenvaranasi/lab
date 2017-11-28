@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><impl:Envelope xmlns:impl="http://localhost:1880/bcwsgateway/services/MediaProgramming/createPreview/Output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <impl:Header/><impl:Body>
+   <impl:createPreview><ns1:createPreviewResponse xmlns:ns1="http://DefaultNamespace" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><createPreviewReturn href="#id0"/></ns1:createPreviewResponse><multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="soapenc:int">1009</multiRef></impl:createPreview></impl:Body>
+</impl:Envelope>

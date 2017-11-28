@@ -1,0 +1,4 @@
+ApplicationGUID=CACHE
+ApplicationVersion=1.0
+#ApplicationFile=CACHE_1.0.xml
+ApplicationFile=cache-1.0@EnterpriseServer.zip

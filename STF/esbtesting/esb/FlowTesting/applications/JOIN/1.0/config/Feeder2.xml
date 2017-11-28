@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_15" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.feeder.model.FeederPM"> 
+  <void property="attachment"> 
+   <object class="java.util.LinkedHashMap"/> 
+  </void> 
+  <void property="defaultMessage"> 
+   <string>&lt;ns1:Employee_Schema xmlns:ns1=&quot;http://www.fiorano.com/fesb/activity/Text2XML1&quot;&gt;
+   &lt;ns1:Employee&gt;
+      &lt;ns1:EX&gt;EX&lt;/ns1:EX&gt;
+   &lt;/ns1:Employee&gt;
+&lt;/ns1:Employee_Schema&gt;</string> 
+  </void> 
+  <void property="header"> 
+   <object class="java.util.LinkedHashMap"/> 
+  </void> 
+ </object> 
+</java> 

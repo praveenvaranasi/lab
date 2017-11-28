@@ -1,0 +1,636 @@
+<application guid="XSLT_BUG_7353" version="1.0"><display name="XSLT_Bug_7353" categories="User Processes" /><creation date="04-04-2008 01:02:34" authors="Admin" /><deployment label="Development" /><service-instances><inst name="chat1"><service guid="chat" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            
+           ]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="ChatMessage"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="ChatUI" /><logmodule name="ChatService" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="chat2"><service guid="chat" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="ChatMessage"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="ChatUI" /><logmodule name="ChatService" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Xslt1"><service guid="Xslt" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;true&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;true&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;false&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_08&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;Xslt1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;XsltInteractionSpec&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;XsltInteractionSpec&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;XsltInteractionSpec&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;XsltInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;XsltInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;XsltInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;XsltManagedConnectionFactory&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;XsltManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;XsltManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_08&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Xslt Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;cf.gif&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;Xslt Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_08&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;XSL&quot;&gt; 
+    &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;xsl:stylesheet version=&amp;quot;1.0&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot; xmlns:java=&amp;quot;http://xml.apache.org/xslt/java&amp;quot; xmlns:datetime=&amp;quot;http://exslt.org/dates-and-times&amp;quot; xmlns:set=&amp;quot;http://exslt.org/sets&amp;quot; xmlns:math=&amp;quot;http://exslt.org/math&amp;quot; exclude-result-prefixes=&amp;quot;xalan java lxslt&amp;quot; xmlns:lxslt=&amp;quot;http://xml.apache.org/xslt&amp;quot; xmlns:xalan=&amp;quot;http://xml.apache.org/xslt&amp;quot; xmlns:ns1=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:dateConversion=&amp;quot;ext1&amp;quot; xmlns:myext=&amp;quot;ext2&amp;quot; xmlns:strings=&amp;quot;ext3&amp;quot; extension-element-prefixes=&amp;quot;datetime set math dateConversion myext strings&amp;quot;&amp;gt;
+  &amp;lt;xsl:output method=&amp;quot;xml&amp;quot; indent=&amp;quot;yes&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; xalan:indent-amount=&amp;quot;2&amp;quot; omit-xml-declaration=&amp;quot;no&amp;quot;&amp;gt;&amp;lt;/xsl:output&amp;gt;
+  &amp;lt;xsl:variable name=&amp;quot;document&amp;quot; select=&amp;quot;/&amp;quot;&amp;gt;&amp;lt;/xsl:variable&amp;gt;
+  &amp;lt;xsl:variable name=&amp;quot;document_IN_PORT&amp;quot; select=&amp;quot;document(&amp;apos;IN_PORT&amp;apos;)&amp;quot;&amp;gt;&amp;lt;/xsl:variable&amp;gt;
+  &amp;lt;xsl:template match=&amp;quot;/&amp;quot;&amp;gt;
+    &amp;lt;ChatMessage&amp;gt;
+      &amp;lt;Sender&amp;gt;
+        &amp;lt;Name&amp;gt;
+          &amp;lt;xsl:value-of select=&amp;quot;$document_IN_PORT/ChatMessage/Sender/Name&amp;quot;&amp;gt;&amp;lt;/xsl:value-of&amp;gt;
+        &amp;lt;/Name&amp;gt;
+        &amp;lt;Email&amp;gt;
+          &amp;lt;xsl:value-of select=&amp;quot;$document_IN_PORT/ChatMessage/Sender/Email&amp;quot;&amp;gt;&amp;lt;/xsl:value-of&amp;gt;
+        &amp;lt;/Email&amp;gt;
+      &amp;lt;/Sender&amp;gt;
+      &amp;lt;Message&amp;gt;
+        &amp;lt;xsl:value-of select=&amp;quot;java:getText($_TIF_MESSAGE_)&amp;quot;&amp;gt;&amp;lt;/xsl:value-of&amp;gt;
+      &amp;lt;/Message&amp;gt;
+    &amp;lt;/ChatMessage&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+&amp;lt;!--The list of parameters defined by user--&amp;gt;
+  &amp;lt;xsl:param name=&amp;quot;_TIF_MESSAGE_&amp;quot;&amp;gt;&amp;lt;/xsl:param&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;esbDefInPort&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.record.ESBRecordDefinition&quot;&gt; 
+     &lt;void property=&quot;importedStructures&quot;&gt; 
+      &lt;object class=&quot;java.util.Hashtable&quot;/&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;rootElementName&quot;&gt; 
+      &lt;string&gt;ChatMessage&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;structure&quot;&gt; 
+      &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  		&amp;lt;xs:schema xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&amp;gt;
+  		  &amp;lt;xs:element name=&amp;quot;ChatMessage&amp;quot;&amp;gt;
+  		     &amp;lt;xs:complexType&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Sender&amp;quot; type=&amp;quot;SenderType&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  			    &amp;lt;xs:element name=&amp;quot;Message&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+  		  &amp;lt;/xs:element&amp;gt;
+    
+  		  &amp;lt;xs:complexType name=&amp;quot;SenderType&amp;quot;&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Name&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Email&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+ 		&amp;lt;/xs:schema&amp;gt;            
+           &lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;esbDefOutPort&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.record.ESBRecordDefinition&quot;&gt; 
+     &lt;void property=&quot;importedStructures&quot;&gt; 
+      &lt;object class=&quot;java.util.Hashtable&quot;/&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;rootElementName&quot;&gt; 
+      &lt;string&gt;ChatMessage&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;structure&quot;&gt; 
+      &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  		&amp;lt;xs:schema xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&amp;gt;
+  		  &amp;lt;xs:element name=&amp;quot;ChatMessage&amp;quot;&amp;gt;
+  		     &amp;lt;xs:complexType&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Sender&amp;quot; type=&amp;quot;SenderType&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  			    &amp;lt;xs:element name=&amp;quot;Message&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+  		  &amp;lt;/xs:element&amp;gt;
+    
+  		  &amp;lt;xs:complexType name=&amp;quot;SenderType&amp;quot;&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Name&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Email&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+ 		&amp;lt;/xs:schema&amp;gt;            
+           &lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;Xslt1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;project&quot;&gt; 
+    &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;MapperProject version=&amp;quot;3.0.1&amp;quot; suppressEmptyItems=&amp;quot;false&amp;quot; convertor=&amp;quot;nameIndexed&amp;quot; separator=&amp;quot;,&amp;quot; suppressPattern=&amp;quot;&amp;quot;&amp;gt;
+  &amp;lt;XSLTEngine&amp;gt;Xalan&amp;lt;/XSLTEngine&amp;gt;
+  &amp;lt;XSLTEncoding&amp;gt;UTF-8&amp;lt;/XSLTEncoding&amp;gt;
+  &amp;lt;OutputEncoding&amp;gt;UTF-8&amp;lt;/OutputEncoding&amp;gt;
+  &amp;lt;indent&amp;gt;true&amp;lt;/indent&amp;gt;
+  &amp;lt;setDTD&amp;gt;false&amp;lt;/setDTD&amp;gt;
+  &amp;lt;omit-xml-declaration&amp;gt;false&amp;lt;/omit-xml-declaration&amp;gt;
+  &amp;lt;Comments&amp;gt;&amp;lt;![CDATA[]]&amp;gt;&amp;lt;/Comments&amp;gt;
+  &amp;lt;InputStructure name=&amp;quot;Application-Context&amp;quot; mime=&amp;quot;dtd&amp;quot; rootName=&amp;quot;Context&amp;quot; duplicates=&amp;quot;&amp;quot;&amp;gt;&amp;lt;![CDATA[&amp;lt;!ELEMENT Context (#PCDATA)&amp;gt;]]&amp;gt;&amp;lt;/InputStructure&amp;gt;
+  &amp;lt;InputStructure name=&amp;quot;IN_PORT&amp;quot; mime=&amp;quot;xsd&amp;quot; rootName=&amp;quot;ChatMessage&amp;quot; parser=&amp;quot;Xerces&amp;quot; duplicates=&amp;quot;&amp;quot;&amp;gt;&amp;lt;![CDATA[&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  		&amp;lt;xs:schema xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&amp;gt;
+  		  &amp;lt;xs:element name=&amp;quot;ChatMessage&amp;quot;&amp;gt;
+  		     &amp;lt;xs:complexType&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Sender&amp;quot; type=&amp;quot;SenderType&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  			    &amp;lt;xs:element name=&amp;quot;Message&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+  		  &amp;lt;/xs:element&amp;gt;
+    
+  		  &amp;lt;xs:complexType name=&amp;quot;SenderType&amp;quot;&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Name&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Email&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+ 		&amp;lt;/xs:schema&amp;gt;            
+           ]]&amp;gt;&amp;lt;/InputStructure&amp;gt;
+  &amp;lt;OutputStructure name=&amp;quot;OUT_PORT&amp;quot; mime=&amp;quot;xsd&amp;quot; rootName=&amp;quot;ChatMessage&amp;quot; parser=&amp;quot;Xerces&amp;quot; duplicates=&amp;quot;&amp;quot;&amp;gt;&amp;lt;![CDATA[&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  		&amp;lt;xs:schema xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&amp;gt;
+  		  &amp;lt;xs:element name=&amp;quot;ChatMessage&amp;quot;&amp;gt;
+  		     &amp;lt;xs:complexType&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Sender&amp;quot; type=&amp;quot;SenderType&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  			    &amp;lt;xs:element name=&amp;quot;Message&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+  		  &amp;lt;/xs:element&amp;gt;
+    
+  		  &amp;lt;xs:complexType name=&amp;quot;SenderType&amp;quot;&amp;gt;
+  		        &amp;lt;xs:sequence&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Name&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		            &amp;lt;xs:element name=&amp;quot;Email&amp;quot; type=&amp;quot;xs:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;/&amp;gt;
+  		        &amp;lt;/xs:sequence&amp;gt;
+  		     &amp;lt;/xs:complexType&amp;gt;
+ 		&amp;lt;/xs:schema&amp;gt;            
+           ]]&amp;gt;&amp;lt;/OutputStructure&amp;gt;
+  &amp;lt;Namespaces&amp;gt;&amp;lt;/Namespaces&amp;gt;
+  &amp;lt;Mappings&amp;gt;
+    &amp;lt;GraphModel outputNode=&amp;quot;OUT_PORT:0,ChatMessage:0,Sender:0,Name:0&amp;quot; x=&amp;quot;-1&amp;quot; y=&amp;quot;-1&amp;quot; inputPins=&amp;quot;1&amp;quot;&amp;gt;
+      &amp;lt;TreeGraphNode inputNode=&amp;quot;IN_PORT:0,ChatMessage:0,Sender:0,Name:0&amp;quot; x=&amp;quot;-1&amp;quot; y=&amp;quot;-1&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1st&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;1st&amp;lt;/OutputPins&amp;gt;
+      &amp;lt;/TreeGraphNode&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;0&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;1&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+    &amp;lt;/GraphModel&amp;gt;
+    &amp;lt;GraphModel outputNode=&amp;quot;OUT_PORT:0,ChatMessage:0,Sender:0,Email:0&amp;quot; x=&amp;quot;-1&amp;quot; y=&amp;quot;-1&amp;quot; inputPins=&amp;quot;1&amp;quot;&amp;gt;
+      &amp;lt;TreeGraphNode inputNode=&amp;quot;IN_PORT:0,ChatMessage:0,Sender:0,Email:0&amp;quot; x=&amp;quot;-1&amp;quot; y=&amp;quot;-1&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1st&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;1st&amp;lt;/OutputPins&amp;gt;
+      &amp;lt;/TreeGraphNode&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;0&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;1&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+    &amp;lt;/GraphModel&amp;gt;
+    &amp;lt;GraphModel outputNode=&amp;quot;OUT_PORT:0,ChatMessage:0,Message:0&amp;quot; x=&amp;quot;238&amp;quot; y=&amp;quot;27&amp;quot; inputPins=&amp;quot;1,2&amp;quot;&amp;gt;
+      &amp;lt;FunctionGraphNode label=&amp;quot;getText&amp;quot; type=&amp;quot;154&amp;quot; x=&amp;quot;88&amp;quot; y=&amp;quot;27&amp;quot;&amp;gt;
+        &amp;lt;OutputPins&amp;gt;R&amp;lt;/OutputPins&amp;gt;
+        &amp;lt;Properties&amp;gt;&amp;lt;/Properties&amp;gt;
+      &amp;lt;/FunctionGraphNode&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;0&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;1&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+    &amp;lt;/GraphModel&amp;gt;
+  &amp;lt;/Mappings&amp;gt;
+  &amp;lt;Extensions&amp;gt;&amp;lt;/Extensions&amp;gt;
+&amp;lt;/MapperProject&amp;gt;&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/Xslt1&lt;/string&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;Transformation&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;outPort&lt;/string&gt; 
+    &lt;string&gt;OUT_PORT&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;inPort&lt;/string&gt; 
+    &lt;string&gt;IN_PORT&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Transforms input XML based on Mappings defined and generates an output XML&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;xslt.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;XSLT&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"> 
+  <void property="launchMode"> 
+   <string>FEPO</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1207295678000</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="ChatMessage"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="com.fiorano.bc.trgateway" /><logmodule name="com.fiorano.adapter.jca.xslt.cci.XsltInteraction" /><logmodule name="com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory" /><logmodule name="com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="Event_Route1"><source inst="chat1" port="OUT_PORT" /><target inst="Xslt1" port="IN_PORT" /><messages /></route><route name="Event_Route2"><source inst="Xslt1" port="OUT_PORT" /><target inst="chat2" port="IN_PORT" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="chat1" position="40,40"/>
+   <service-instance name="chat2" position="413,134"/>
+   <service-instance name="Xslt1" position="230,100"/>
+   <route name="Event_Route1" shape="0"/>
+   <route name="Event_Route2" shape="0"/>
+</layout>]]></layout></application>

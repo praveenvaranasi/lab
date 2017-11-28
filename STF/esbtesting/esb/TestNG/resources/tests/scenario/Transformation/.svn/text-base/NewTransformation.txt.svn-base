@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:java="http://xml.apache.org/xslt/java" xmlns:datetime="http://exslt.org/dates-and-times" xmlns:set="http://exslt.org/sets" xmlns:math="http://exslt.org/math" exclude-result-prefixes="xalan java lxslt" xmlns:lxslt="http://xml.apache.org/xslt" xmlns:xalan="http://xml.apache.org/xslt" xmlns:ns1="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in" xmlns:dateConversion="ext1" xmlns:myext="ext2" xmlns:strings="ext3" extension-element-prefixes="datetime set math dateConversion myext strings">
+  <xsl:output method="xml" indent="yes" encoding="UTF-8" xalan:indent-amount="2" omit-xml-declaration="no"></xsl:output>
+  <xsl:variable name="document" select="/"></xsl:variable>
+  <xsl:variable name="document_OUT_PORT" select="document('OUT_PORT')"></xsl:variable>
+  <xsl:template match="/">
+    <ns2:Email>
+      <To>
+        <xsl:value-of select="$document_OUT_PORT/ChatMessage/Sender/Email"></xsl:value-of>
+      </To>
+      <From>
+        <xsl:value-of select="'sandeep.murusupalli@fiorano.com'"></xsl:value-of>
+      </From>
+      <Subject>
+        <xsl:value-of select="'Message from ESB Scenario TestCases Changed (Transformation Tests). '"></xsl:value-of>
+      </Subject>
+      <Body>
+        <TextBody>
+          <xsl:value-of select="concat('Hi ',$document_OUT_PORT/ChatMessage/Message)"></xsl:value-of>
+        </TextBody>
+      </Body>
+    </ns2:Email>
+  </xsl:template>
+</xsl:stylesheet>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+							<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:element name="Order">	
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="OrderID" type="xs:string"/>
+											<xs:element name="CustomerID" type="xs:string"/>
+											<xs:element name="Email" type="xs:string"/>
+											<xs:element name="shipDetails">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="Mode" type="xs:string"/>
+														<xs:element name="Address" type="xs:string"/>
+														<xs:element name="Country" type="xs:string"/>
+														<xs:element name="PostalCode" type="xs:string"/>
+														<xs:element name="PhoneNumber" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Product" type="xs:string"/>
+											<xs:element name="Quantity" type="xs:string"/>
+											<xs:element name="Price" type="xs:string"/>
+											<xs:element name="BillAmount" type="xs:string"/>
+											<xs:element name="OrderDate" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:schema>

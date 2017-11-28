@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+
+<suite name="ESB Rmi Sanity Test Suite">
+    <test name="Test" preserve-order="true">
+        <classes>
+           <!-- <class name="com.fiorano.esb.testng.rmi.sanity.TestIRmiManager"/>
+            <class name="com.fiorano.esb.testng.rmi.sanity.TestIEventProcessManager"/>-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.sanity.TestIServiceManager"/>
+            <class name="com.fiorano.esb.testng.rmi.sanity.TestIDebugger"/>
+            <class name="com.fiorano.esb.testng.rmi.sanity.TestIFPSManager"/>
+            <class name="com.fiorano.esb.testng.rmi.sanity.TestIServiceProviderManager"/>-->
+        </classes>
+    </test>
+
+    <test name="Logout" preserve-order="true">
+        <classes>
+            <class name="com.fiorano.esb.testng.rmi.sanity.TestIRmiLogout"/>
+        </classes>
+    </test>
+</suite>

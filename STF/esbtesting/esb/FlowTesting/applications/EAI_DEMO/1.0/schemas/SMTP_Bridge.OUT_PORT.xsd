@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/SMTP1/smtp/out" xmlns="http://www.fiorano.com/fesb/activity/SMTP1/smtp/out">
+	<xsd:element name="Result" type="xsd:string"/>
+	<xsd:element name="SMTP">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Result"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

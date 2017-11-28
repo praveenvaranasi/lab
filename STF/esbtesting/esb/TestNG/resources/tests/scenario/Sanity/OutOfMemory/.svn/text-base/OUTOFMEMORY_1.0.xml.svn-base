@@ -1,0 +1,300 @@
+<application guid="OUTOFMEMORY" version="1.0"><display name="OUTOFMEMORY" categories="User Processes" /><creation date="27-02-2008 11:28:27" /><deployment label="Development" /><service-instances><inst name="Decryption1"><service guid="Decryption" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_12" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;true&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;false&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;false&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_12&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;GUID&quot;&gt; 
+   &lt;string&gt;Decryption&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;appName&quot;&gt; 
+   &lt;string&gt;OUTOFMEMORY&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;Decryption1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;EncryptDecryptManagedConnectionFactory&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;EncryptDecryptManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;EncryptDecryptManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.encryptdecrypt.spi.outbound.EncryptDecryptManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;EncryptDecryptInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;EncryptDecryptInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;EncryptDecryptInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.encryptdecrypt.cci.EncryptDecryptInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_12&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.encryptdecrypt.spi.outbound.EncryptDecryptManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Cryption Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;cf.gif&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.encryptdecrypt.spi.outbound.EncryptDecryptManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;Cryption Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_12&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.encryptdecrypt.cci.DecryptionInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;guid&quot;&gt; 
+    &lt;string&gt;Decryption&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;OUTOFMEMORY__Decryption1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/Decryption1&lt;/string&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;Util&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;The Decryption Business Service is used for decrypting the encrypted data&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;decryptioncomponent.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.encryptdecrypt.cci.DecryptionInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;Decryption&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_12" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"> 
+  <void property="launchMode"> 
+   <string>FEPO</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_12" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_12" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1204092003000</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${ERROR_XSD}]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler" /><logmodules><logmodule name="com.fiorano.adapter.jca.encryptdecrypt.cci.EncryptDecryptInteraction" /><logmodule name="com.fiorano.adapter.jca.encryptdecrypt.spi.outbound.EncryptDecryptManagedConnectionFactory" /><logmodule name="OUT_HANDLER" level="INFO" /><logmodule name="com.fiorano.bc.trgateway" /><logmodule name="ERR_HANDLER" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument><runtime-argument name="javax.resource.cci.InteractionSpec"><value>com.fiorano.adapter.jca.encryptdecrypt.cci.DecryptionInteractionSpec</value></runtime-argument></runtime-arguments></inst><inst name="Feeder1"><service guid="Feeder" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><outputport-instances><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${ERROR_XSD}]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler" /><logmodules><logmodule name="com.fiorano.edbc.feeder" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Display1"><service guid="Display" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${ERROR_XSD}]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler" /><logmodules><logmodule name="com.fiorano.edbc.display" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="route1"><source inst="Feeder1" port="OUT_PORT" /><target inst="Decryption1" port="IN_PORT" /><messages /></route><route name="route2"><source inst="Decryption1" port="OUT_PORT" /><target inst="Display1" port="IN_PORT" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="Decryption1" position="290,239"/>
+   <service-instance name="Feeder1" position="124,219"/>
+   <service-instance name="Display1" position="440,200"/>
+   <route name="route1" shape="2"/>
+   <route name="route2" shape="2"/>
+</layout>]]></layout></application>

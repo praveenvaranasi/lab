@@ -1,0 +1,164 @@
+<application guid="SLEEP" version="1.0"><display name="Sleep" categories="User Processes" /><creation date="03-04-2008 10:54:13" authors="Admin" /><deployment label="Development" /><service-instances><inst name="chat1"><service guid="chat" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.chat.model.ChatPM"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            
+           ]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="false" size="1" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="ChatMessage"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:element name="Error"><xsd:complexType><xsd:sequence><xsd:element name="errorCode" type="xsd:string"/><xsd:element name="errorMessage" type="xsd:string"/><xsd:element name="errorTrace" type="xsd:string" minOccurs="0"/><xsd:element name="data" minOccurs="0"><xsd:complexType><xsd:sequence><xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/></xsd:sequence></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element></xsd:schema>]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="ChatUI" /><logmodule name="OUT_HANDLER" level="INFO" /><logmodule name="ChatService" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="chat2"><service guid="chat" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.chat.model.ChatPM"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="false" size="1" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="ChatMessage"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            ]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="ChatUI" /><logmodule name="OUT_HANDLER" level="INFO" /><logmodule name="ChatService" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Sleep1"><service guid="Sleep" version="4.0" /><short-description>Sleep Component</short-description><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.adapter.jms.sleepservice.model.SleepPM"> 
+  <void property="sleep_interval"> 
+   <long>10</long> 
+  </void> 
+  <void property="sleep_interval_units"> 
+   <string>Seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="false" size="1" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="Sleep" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Sleep2"><service guid="Sleep" version="4.0" /><short-description>Sleep Component</short-description><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.adapter.jms.sleepservice.model.SleepPM"> 
+  <void property="sleep_interval"> 
+   <long>10</long> 
+  </void> 
+  <void property="sleep_interval_units"> 
+   <string>Seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="false" size="1" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="Sleep" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="Event_Route1"><source inst="chat1" port="OUT_PORT" /><target inst="Sleep1" port="IN_PORT" /><messages /></route><route name="Event_Route2"><source inst="Sleep1" port="OUT_PORT" /><target inst="chat2" port="IN_PORT" /><messages /></route><route name="Event_Route3"><source inst="chat2" port="OUT_PORT" /><target inst="Sleep2" port="IN_PORT" /><messages /></route><route name="Event_Route4"><source inst="Sleep2" port="OUT_PORT" /><target inst="chat1" port="IN_PORT" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="chat1" position="61,230"/>
+   <service-instance name="chat2" position="333,146"/>
+   <service-instance name="Sleep1" position="162,146"/>
+   <service-instance name="Sleep2" position="430,214"/>
+   <route name="Event_Route1" shape="0"/>
+   <route name="Event_Route2" shape="0"/>
+   <route name="Event_Route3" shape="0"/>
+   <route name="Event_Route4" shape="0"/>
+</layout>]]></layout></application>

@@ -1,0 +1,210 @@
+<java.classpath>
+%JAVA_HOME%/lib/jndi.jar
+%JAVA_HOME%/lib/tools.jar
+%JAVA_HOME%/lib/classes.zip
+../../../extlib/tanuki/lib/wrapper.jar
+../../../fmq/lib/fmq-kernel-all.jar
+../../../extlib/bsf/bsf.jar
+../../../extlib/js/js.jar
+../../../base64/base64-2.1.jar
+../../../piccolo/Piccolo.jar
+../../../esb/server/profiles
+../../../extlib/mx4j/mx4j-jmx.jar
+../../../extlib/mx4j/mx4j-remote.jar
+../../../extlib/mx4j/mx4j-tools.jar
+../../../extlib/mx4j/mx4j-rjmx.jar
+../../../extlib/enterprisedt/edtftpj-pro.jar
+../../../extlib/sax/sax2.jar
+../../tools/mapper/lib/esb-tools-DBLookup.jar
+../../../extlib/jta/jta-1_0_1B.jar
+../../../extlib/jms/jms.jar
+../../../extlib/sslava/sslava.jar
+../../../extlib/sslava/sslava_1.2.3_patch_5.jar
+../../../extlib/jsse/jcert.jar
+../../../extlib/jsse/jsse.jar
+../../../extlib/jetty/jetty.jar
+../../../extlib/jsse/jnet.jar
+../../../extlib/wutka/dtdparser121.jar
+../../../extlib/sms/sms.jar
+../../../extlib/snmp/snmp.jar
+../../../extlib/javamail/mail.jar
+../../../extlib/jaf/activation.jar
+../../../extlib/httpclient/httpclient.jar
+../../../extlib/castor/castor-1.0.2-xml.jar
+../../../extlib/oracle/ojdbc14.jar
+../../../extlib/xerces/xercesImpl.jar
+../../../extlib/xalan/xalan.jar
+../../../extlib/derby/derby.jar
+../../../extlib/log4j/log4j.jar
+../../../extlib/syslog4j/syslog4j-0.9.46-bin.jar
+../../../framework/lib/fiorano-lm-api.jar
+../../../framework/lib/fiorano-util.jar
+../../../framework/lib/fiorano-lm-impl.jar
+../../../extlib/ant/ant.jar
+../../../esb/lib/esb-fes-krnl-all.jar
+../../../esb/lib/esb-fps-krnl-all.jar
+../../../licenses
+../../../xml-catalog
+../../../extlib/mx4j/mx4j-rimpl.jar
+../../../eStudio/plugins/com.fiorano.tools.mapper.runtime_1.0.0/jars/fix-xmlconverter.jar
+../../../extlib/ObjectHandler/ObjectHandler.jar
+<java.library.path>
+../../../fmq/lib/common
+../../../framework/lib
+<java.system.props>
+SCRIPT=fps
+FIORANO_HOME=../../..
+isService=%isService%
+CERTS_DIR=%FIORANO_HOME%/esb/server/profiles/certs/
+FESB_HOME=../../server
+ESB_USER_DIR=%ESB_USER_DIR%
+FMQ_HOME=../../../fmq
+HTTPClient.forceHTTP_1.0=true
+HtmlAdaptor=true
+HtmlAdaptorPort=9083
+javax.net.ssl.trustStore=../../server/profiles/certs/jssecacerts
+log4j.configuration=log4j_config.txt
+mx4j.log.priority=error
+javax.management.builder.initial=mx4j.server.MX4JMBeanServerBuilder
+axis.EngineConfigFactory=com.fiorano.bc.axis.configuration.FioranoEngineConfigurationFactoryServlet
+java.naming.factory.initial=org.apache.naming.java.javaURLContextFactory
+java.naming.factory.url.pkgs=org.apache.naming
+org.mortbay.log.class=fiorano.esb.jetty.log.JettyFileLogger
+org.mortbay.jetty.Request.maxFormContentSize=10000000
+<java.endorsed.dirs>
+../../../esb/lib/endorsed
+../../../extlib/sax
+../../../extlib/dom
+../../../extlib/xerces
+../../../extlib/saxon
+../../../extlib/xalan
+../../../extlib/xml-commons-resolver
+# Comment out the below line if using Yawl or B2B with ESB
+../../../extlib/mx4j
+<java.ext.dirs>
+../../../esb/lib/ext
+<jvm.args>
+#---------------Server VM Option-------------#
+-server
+#--------------------------------------------#
+
+#--------------- Heap Memory ----------------#
+# Client class machines (< 2 Core CPU and < 2 GB Ram)
+-Xms128m
+-Xmx1024m
+
+# Server Class machines 32 bit (>2 core CPU and > 2GB Ram)
+# -Xms256m
+# -Xmx1024m
+
+# Server Class 64 bit machines (> 2 core CPU (64 bit) and > 2GB RAM)
+# -Xms512m
+# -Xmx4096m
+
+# setting the stack size
+# -Xss
+#-----------------------------------------------------#
+
+
+#----------------- IMPORTANT NOTE : START ---------------------- #
+# The JVM hotspot settings mentioned below are non-standard hotspot options provided by SUN VM implementation and are not guaranteed to be
+# supported by all JVM implementations e.g. IBM JRE does not support many of these options.
+# Thus, while using such VM implementations, unsupported values should be commented out or should be replaced with
+# corresponding option as provided by the VM vendor.
+# Please refer to MemoryManagement Section of the user guide for choosing the recommended options suited for your environment.
+#----------------- IMPORTANT NOTE : END ------------------------ #
+
+
+#----------------- Setting the Permanent Generation Size --------------- #
+# Client class machines
+-XX:MaxPermSize=256m
+
+# Server Class machines
+#-XX:MaxPermSize=512m
+# ---------------------------------------------------------------------- #
+
+# --------------- Recommended production JVM Settings --------------- #
+-XX:MaxGCPauseMillis=100000
+# By default the heap dump is created in a file called java_pid<pid>.hprof in the working directory
+# of the VM, where <pid> is the process ID. You can specify an alternative file name or directory with
+# the -XX:HeapDumpPath= option. For example, -XX:HeapDumpPath=/disk2/dumps will cause the
+# heap dump to be generated in the /disk2/dumps directory.
+# Note that this option is available only after JVM version 1.5 update 7 and above.
+# -XX:+HeapDumpOnOutOfMemoryError
+# -XX:HeapDumpPath=C:/temp/FioranoHeapDump
+-XX:+DisableExplicitGC
+#----------------Time resolution workaround parameter--------#
+#-XX:+ForceTimeHighResolution
+#use -XX:+ForceTimeHighResolution when system clock runs faster than normal
+#------------------------------------------------------------#
+# ------------------------------------------------------------------- #
+
+# --------------- Setting the GC algorithm --------------- #
+# Please refer to MemoryManagement Section of the user guide in choosing the GC algorithm
+# -XX:+UseConcMarkSweepGC
+# -XX:+CMSIncrementalMode
+# -XX:+UseParallelOldGC
+# -------------------------------------------------------- #
+
+# ------------------------ Enable GCC Logging -------------------- #
+# -Xloggc:log.gc
+# -XX:+PrintGCDetails
+# -XX:+PrintGCTimeStamps
+# -XX:+PrintTenuringDistribution
+# --------------------------------------------------------------- #
+
+# -------------------------- Debugging --------------------------- #
+# -XX:+PrintConcurrentLocks
+# -XX:+PrintClassHistogram
+# -XX:+TraceClassLoading
+# -XX:+TraceClassUnloading
+# ---------------------------------------------------------------- #
+
+# ------------------------ Enable Server Profiling ----------------------- #
+# hprof usage: java -agentlib:hprof=[help]|[<option>=<value>, ...]
+# OptionName and Value      Description                                 Default
+# ---------------------     -----------                                 -------
+# heap=dump|sites|all       heap profiling                              all
+# cpu=samples|times|old     CPU usage                                   off
+# monitor=y|n               monitor contention                          n
+# format=a|b                text(txt) or binary output                  a
+# file=<file>               write data to file                          java.hprof[.txt]
+# net=<host>:<port>         send data over a socket                     off
+# depth=<size>              stack trace depth                           4
+# interval=<ms>             sample interval in ms                       10
+# cutoff=<value>            output cutoff point                         0.0001
+# lineno=y|n                line number in traces?                      y
+# thread=y|n                thread in traces?                           n
+# doe=y|n                   dump on exit?                               y
+# msa=y|n                   Solaris micro state accounting              n
+# force=y|n                 force output to <file>                      y
+# verbose=y|n               print messages about dumps                  y
+# Examples
+# --------
+# - Get sample cpu information every 20 millisec, with a stack depth of 3:
+# java -agentlib:hprof=cpu=samples,interval=20,depth=3 classname
+# - Get heap usage information based on the allocation sites:
+# java -agentlib:hprof=heap=sites classname
+# Notes
+# -----
+# - The option format=b cannot be used with monitor=y.
+# - The option format=b cannot be used with cpu=old|times.
+# - Use of the -Xrunhprof interface can still be used, e.g.
+# java -Xrunhprof:[help]|[<option>=<value>, ...]
+# will behave exactly the same as:
+# java -agentlib:hprof=[help]|[<option>=<value>, ...]
+
+# -agentlib:hprof=heap=all, cpu=samples, monitor=y, thread=y
+
+# -------------------- CoreDump on Application or JVM Error ----------------- #
+# Specific to Java 6.0, cannot be used with 1.5
+# -XX:ErrorFile=./hs_err_pid<pid>.log
+#---------------------------------------------------------------------------- #
+
+#--------------- Enable RemoteDebugging ---------------#
+#-Xdebug
+#-Xnoagent
+#-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=3000
+#-----------------------------------------------#
+fiorano.server.boot.EsbContainer
+

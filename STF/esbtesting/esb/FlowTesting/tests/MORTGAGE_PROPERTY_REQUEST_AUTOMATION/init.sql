@@ -1,0 +1,18 @@
+create table requestor_information(firstname varchar(45), lastname varchar(45), ssn integer primary key, contactno varchar(25), email varchar(25), presentaddress varchar(45), city varchar(25), state char(2) , zipcode integer)
+create table property_information(id integer primary key, address varchar(45), city varchar(25), state char(2) , zipcode integer)
+create table loan_request(id integer primary key, entry_time timestamp, last_modified timestamp, status char(1), info_type char(1), loan_amount decimal, loan_type varchar(25), repay_time varchar(25), requestor_id integer, property_id integer, foreign key(requestor_id) references requestor_information(ssn), foreign key(property_id) references property_information(id))
+create table loan_request_data(id integer primary key, loanrequest_id integer, loan_details longvarchar, foreign key(loanrequest_id) references loan_request(id))
+insert into requestor_information values('Tom', 'Davis', 500111223,'890-120-123','tom.davis@yahoo.com','5th Avenue','NY','NY',10008)
+insert into requestor_information values('Matt', 'Smith', 560120890,'809-123-453','matt@youmadeit.com','10th Block','NY','NY',10008)
+insert into requestor_information values('Hugh', 'Brown', 654345123,'546-111-122','hugh1967@aol.com','101 S street','Stamford','CT',06928)
+insert into requestor_information values('Julia', 'Jones', 998763123,'223-345-112','julia@aol.com','10 Downing Street','Phoenix','AZ',85004)
+insert into property_information values(100,'7th Avenue','NY','NY',10006)
+insert into property_information values(101,'9th Block','NY','NY',10045)
+insert into property_information values(102,'Central Avenue','Stamford','CT',06923)
+insert into property_information values(103,'Eastern Circle','Phoenix','AZ',85067)
+insert into loan_request values(51216122,'2005-12-16 11:00:10','2005-12-16 11:00:10',1,1,60000, 'Fixed','5 years',500111223,100)
+insert into loan_request values(50113067,'2005-01-13 08:12:34','2005-01-13 08:12:34',1,2,100000,'Fixed', '10 years',560120890,101)
+insert into loan_request values(51213004,'2005-12-13 23:50:26','2005-12-13 23:50:26',1,3,78000,'Variable','15 years',654345123,102)
+insert into loan_request values(51213089,'2005-12-13 22:34:26','2005-12-13 22:34:26',1,1,123000,'Variable','20 years',998763123,103)
+
+

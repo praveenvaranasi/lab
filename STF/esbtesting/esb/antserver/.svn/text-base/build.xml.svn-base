@@ -1,0 +1,1328 @@
+<project name="esb-antserver" default="run" basedir="." xmlns:fiorano="antlib:com.fiorano.ant">
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <!--<taskdef name="trycatch" classname="net.sf.antcontrib.logic.TryCatchTask" />-->
+
+    <property environment="env"/>
+    <property name="esb-antserver" value="${ant.file.esb-antserver}/.."/>
+    <property file="${ant.file.esb-antserver}/../../../configuration/test.properties"/>
+    <!--<property name="installer" value="../../../installer"/>-->
+    <property name="port" value="9876"/>
+
+
+    <target name="run" depends="backup_server_profiles">
+        <antserver port="9876"/>
+    </target>
+    <target name="backup_server_profiles">
+        <available file="${FIORANO_HOME}/esb/server/profiles_backup" property="backupPresent"/>
+        <fiorano:if>
+            <not>
+                <equals arg1="${backupPresent}" arg2="true"/>
+            </not>
+            <fiorano:then>
+                <copy todir="${FIORANO_HOME}/esb/server/profiles_backup">
+                    <fileset dir="${FIORANO_HOME}/esb/server/profiles/"/>
+                </copy>
+            </fiorano:then>
+
+        </fiorano:if>
+        <echo message="-----------------------------------------------------------"/>
+        <echo message="Backup of server profiles complete! "/>
+        <echo message="proceed to run script 'stf' located under Testing_home/esb"/>
+
+    </target>
+
+    <target name="test">
+        <echo message="testMessage"/>
+    </target>
+
+    <target name="copyConfigs">
+        <echo message="copying user config files to server"/>
+        <copy todir="${FIORANO_HOME}/esb/fes/bin/" file="../../configuration/serverConfigs/fes.conf" overwrite="true"/>
+        <copy todir="${FIORANO_HOME}/esb/fps/bin/" file="../../configuration/serverConfigs/fps.conf" overwrite="true"/>
+        <copy todir="${FIORANO_HOME}/launcher/" file="../../configuration/serverConfigs/server.conf" overwrite="true"/>
+        <copy todir="${FIORANO_HOME}/esb/server/profiles/profile1/FES/conf/" overwrite="true">
+            <fileset dir="../../configuration/serverConfigs">
+                <include name="**/*.cfg"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="mountLock">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+
+                <mkdir dir="${mountPoint}"/>
+
+                <fiorano:if>
+                    <equals arg1="${gateway.machine.os}" arg2="unix"/>
+                    <fiorano:then>
+                        <echo message="-c 'echo ${userPasswd}|sudo -S mount -t nfs4 -o rw ${gateway.ip.add}:/ ${mountPoint}'"/>
+                        <exec executable="/bin/sh"
+                              dir="${FIORANO_HOME}"
+                              spawn="yes">
+                            <!--arg line="-e 'echo ${userPasswd}|sudo -S mount -t nfs4 -o rw,uid=501,gid=501,umask=0022, //      					          ${gateway.ip.add}/${gateway.file.path} ${lockfile}'"/-->
+                            <arg line="-c 'echo ${userPasswd}|sudo -S mount -t nfs4 -o rw ${gateway.ip.add}:/ ${mountPoint}'"/>
+                        </exec>
+                        <sleep seconds="5"/>
+
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="xterm"
+                              dir="${FIORANO_HOME}"
+                              spawn="yes">
+                            <arg line="-e sudo mount -t cifs //${gateway.ip.add}/${shareName}  ${mountPoint} -o rw,username=${userNameWindows},password=${userPasswdWindows}"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="Waiting for Lock file to be mounted..."/>
+        <sleep seconds="1"/>
+        <echo message="Finished mounting"/>
+    </target>
+
+
+    <target name="unMountLock">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}"
+                      spawn="yes">
+                    <arg line="-e sudo umount ${mountPoint}"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="Waiting for Lock file to be UnMounted..."/>
+        <sleep seconds="1"/>
+        <echo message="Finished UnMounting"/>
+    </target>
+
+
+    <target name="working_target_which_mounts_lockfile_using_cifs">
+        <!--the userNameWindows & userPasswordWindows fields refer to the credentials of the windows OS user account.-->
+        <exec executable="xterm"
+              dir="/home/prateek/Desktop"
+              spawn="yes">
+            <arg line="-e sudo mount -t cifs //192.168.1.87/ESB_TEAM_UPDATE/lock  /home/prateek/web/vishnu -o rw,username=administrator,password=fiorano"/>
+        </exec>
+    </target>
+    <!-- modifyFilter has been deprecated. use modifyFilter1-->
+    <target name="modifyFilter">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is Windows"/>
+                <fiorano:if>
+                    <equals arg1="${rule}" arg2="A"/>
+                    <fiorano:then>
+                        <sequential>
+                            <exec executable="cmd"
+                                  dir="${FIORANO_HOME}"
+                                  spawn="yes">
+                                <arg line="/c start cmd /c IPSeccmd.exe -f ${source.ip.add}/255.255.255.255=0:${port.change}:TCP -w REG
+                                -p &quot;Block TCP Filter&quot; -r &quot;Block ${port.change} TCP rule&quot; -n BLOCK -x"/>
+                            </exec>
+                            <exec executable="cmd"
+                                  dir="${FIORANO_HOME}"
+                                  spawn="yes">
+                                <arg line="/c start cmd /c IPSeccmd.exe -f 0=${source.ip.add}/255.255.255.255:${port.change}:TCP -w REG
+                                -p &quot;Block TCP Filter&quot; -r &quot;Block ${port.change} 2 TCP rule&quot; -n BLOCK -x"/>
+                            </exec>
+                        </sequential>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}"
+                              spawn="yes">
+                            <arg line="/c start cmd /c IPSeccmd.exe -w REG -p &quot;Block TCP Filter&quot; -r &quot;Block ${port.change} TCP rule&quot;
+                             -r &quot;Block ${port.change} 2 TCP rule&quot; -o"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <sequential>
+                    <exec executable="xterm"
+                          dir="${FIORANO_HOME}"
+                          spawn="yes">
+                        <arg line="-e 'echo fiorano|sudo -S /sbin/iptables -${rule} OUTPUT -d ${source.ip.add} -p tcp --dport ${port.change} -j DROP'"/>
+                    </exec>
+                    <exec executable="xterm"
+                          dir="${FIORANO_HOME}"
+                          spawn="yes">
+                        <arg line="-e 'echo fiorano|sudo -S /sbin/iptables -${rule} INPUT -s ${source.ip.add} -p tcp --dport ${port.change} -j DROP'"/>
+                    </exec>
+                </sequential>
+            </fiorano:else>
+        </fiorano:if>
+        <echo message="Changing filters between A and B nodes..."/>
+        <sleep seconds="10"/>
+        <echo message="Done"/>
+    </target>
+
+
+    <target name="modifyFilter1">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is Windows"/>
+                <fiorano:if>
+                    <equals arg1="${rule}" arg2="A"/>
+                    <fiorano:then>
+                        <fiorano:if>
+                            <os name="Windows Server 2008"/>
+                            <fiorano:then>
+                                <echo message="OS is Windows Server 2008"/>
+                                <sequential>
+                                    <exec executable="cmd"
+                                          dir="${FIORANO_HOME}"
+                                          spawn="yes">
+                                        <arg line="/c start cmd /c netsh advfirewall firewall add rule name=&quot;Block ${source.ip.add} ${port.change} 1&quot; dir=out remoteip=${source.ip.add} remoteport=${port.change} action=block protocol=tcp"/>
+                                    </exec>
+                                    <exec executable="cmd"
+                                          dir="${FIORANO_HOME}"
+                                          spawn="yes">
+                                        <arg line="/c start cmd /c netsh advfirewall firewall add rule name=&quot;Block ${source.ip.add} ${port.change} 2&quot; dir=in remoteip=${source.ip.add} localport=${local.port.change} action=block protocol=tcp"/>
+                                    </exec>
+                                </sequential>
+                            </fiorano:then>
+                            <fiorano:else>
+                                <sequential>
+                                    <exec executable="cmd"
+                                          dir="${FIORANO_HOME}"
+                                          spawn="yes">
+                                        <arg line="/c start cmd /c IPSeccmd.exe -f ${source.ip.add}/255.255.255.255=0:${port.change}:TCP -w REG
+                                    -p &quot;Block TCP Filter&quot; -r &quot;Block ${port.change} TCP rule&quot; -n BLOCK -x"/>
+                                    </exec>
+                                    <exec executable="cmd"
+                                          dir="${FIORANO_HOME}"
+                                          spawn="yes">
+                                        <arg line="/c start cmd /c IPSeccmd.exe -f 0=${source.ip.add}/255.255.255.255:${port.change}:TCP -w REG
+                                    -p &quot;Block TCP Filter&quot; -r &quot;Block ${port.change} 2 TCP rule&quot; -n BLOCK -x"/>
+                                    </exec>
+                                </sequential>
+                            </fiorano:else>
+                        </fiorano:if>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <fiorano:if>
+                            <os name="Windows Server 2008"/>
+                            <fiorano:then>
+                                <echo message="OS is Windows Server 2008"/>
+                                <sequential>
+                                    <exec executable="cmd"
+                                          dir="${FIORANO_HOME}"
+                                          spawn="yes">
+                                        <arg line="/c start cmd /c netsh advfirewall firewall delete rule name=&quot;Block ${source.ip.add} ${port.change} 1&quot;"/>
+                                    </exec>
+                                    <exec executable="cmd"
+                                          dir="${FIORANO_HOME}"
+                                          spawn="yes">
+                                        <arg line="/c start cmd /c netsh advfirewall firewall delete rule name=&quot;Block ${source.ip.add} ${port.change} 2&quot;"/>
+                                    </exec>
+                                </sequential>
+                            </fiorano:then>
+                            <fiorano:else>
+                                <exec executable="cmd"
+                                      dir="${FIORANO_HOME}"
+                                      spawn="yes">
+                                    <arg line="/c start cmd /c IPSeccmd.exe -w REG -p &quot;Block TCP Filter&quot; -r &quot;Block ${port.change} TCP rule&quot;
+                                      -r &quot;Block ${port.change} 2 TCP rule&quot; -o"/>
+                                </exec>
+                            </fiorano:else>
+                        </fiorano:if>
+                    </fiorano:else>
+                </fiorano:if>
+
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <sequential>
+                    <exec executable="xterm"
+                          dir="${FIORANO_HOME}"
+                          spawn="yes">
+                        <arg line="-e 'echo fiorano|sudo -S /sbin/iptables -${rule} OUTPUT -d ${source.ip.add} -p tcp --dport ${port.change} -j DROP'"/>
+                    </exec>
+                    <exec executable="xterm"
+                          dir="${FIORANO_HOME}"
+                          spawn="yes">
+                        <arg line="-e 'echo fiorano|sudo -S /sbin/iptables -${rule} INPUT -s ${source.ip.add} -p tcp --dport ${local.port.change} -j DROP'"/>
+                    </exec>
+                </sequential>
+            </fiorano:else>
+        </fiorano:if>
+        <echo message="Changing filters between A and B nodes..."/>
+        <sleep seconds="10"/>
+        <echo message="Done"/>
+    </target>
+
+
+    <target name="flushFilters">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is Windows"/>
+                <fiorano:if>
+                    <os name="Windows Server 2008"/>
+                    <fiorano:then>
+                        <!-- user should call from code 'modifyfilter1' with ARGUMENT 'D', as on this os , there is no way of flushing everything in one shot. calling modifyFilter1 multiple times will flush all rules-->
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}"
+                              spawn="yes">
+                            <arg line="/c start cmd /c IPSeccmd.exe -w REG -p &quot;Block TCP Filter&quot; -y"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}"
+                      spawn="yes">
+                    <arg line="-e 'echo fiorano|sudo -S /sbin/iptables -F'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="modifyGateway">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is Windows"/>
+                <fiorano:if>
+                    <equals arg1="${rule}" arg2="A"/>
+                    <fiorano:then>
+                        <sequential>
+                            <exec executable="cmd"
+                                  dir="${FIORANO_HOME}"
+                                  spawn="yes">
+                                <arg line="/c start cmd /c IPSeccmd.exe -f 0=${gateway.ip.add}/255.255.255.255:7:TCP -w REG
+                                -p &quot;Block 7 TCP Filter&quot; -r &quot;Block Gateway 7 TCP rule&quot; -n BLOCK -x"/>
+                            </exec>
+                            <exec executable="cmd"
+                                  dir="${FIORANO_HOME}"
+                                  spawn="yes">
+                                <arg line="/c start cmd /c IPSeccmd.exe -f ${gateway.ip.add}/255.255.255.255=0:7:TCP -w REG
+                                -p &quot;Block 7 TCP Filter&quot; -r &quot;Block Gateway 7 TCP rule&quot; -n BLOCK -x"/>
+                            </exec>
+                        </sequential>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}"
+                              spawn="yes">
+                            <arg line="/c start cmd /c IPSeccmd.exe -w REG -p &quot;Block 7 TCP Filter&quot; -y"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <sequential>
+                    <exec executable="xterm"
+                          dir="${FIORANO_HOME}"
+                          spawn="yes">
+                        <arg line="-e 'echo ${userPasswd}|sudo -S /sbin/iptables -${rule} OUTPUT -d ${gateway.ip.add} -p tcp --dport ${port.change} -j DROP'"/>
+                    </exec>
+                    <exec executable="xterm"
+                          dir="${FIORANO_HOME}"
+                          spawn="yes">
+                        <arg line="-e 'echo ${userPasswd}|sudo -S /sbin/iptables -${rule} INPUT -s ${gateway.ip.add} -p tcp --sport ${port.change} -j DROP'"/>
+                    </exec>
+                </sequential>
+            </fiorano:else>
+        </fiorano:if>
+        <echo message="Changing filters to gateway..."/>
+        <sleep seconds="10"/>
+        <echo message="Done"/>
+    </target>
+
+    <target name="startServer">
+
+        <echo message=" ${FIORANO_HOME}/${server.bin.path}/${server.startup.command} -profile ${server.profile}"/>
+
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is windows"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <echo message="starting the Server"/>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}/${server.bin.path}"
+                              spawn="yes">
+                            <arg line="/c start cmd /c ${server.startup.command}.bat -profile ${server.profile}"/>
+                        </exec>
+                    </fiorano:then>
+
+                    <fiorano:else>
+                        <echo message="starting the Server"/>
+                        <sequential>
+                            <antcall target="installNTService"/>
+                            <fiorano:if>
+                                <equals arg1="${isHA}" arg2="true"/>
+                                <fiorano:then>
+                                    <antcall target="giveUserAuthentication"/>
+                                </fiorano:then>
+                            </fiorano:if>
+                            <antcall target="_startNTService"/>
+                        </sequential>
+                    </fiorano:else>
+
+                </fiorano:if>
+            </fiorano:then>
+
+
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <echo message="starting the Server"/>
+                        <exec executable="xterm"
+                              dir="${FIORANO_HOME}/${server.bin.path}"
+                              spawn="yes">
+                            <arg line="-T ${server.profile}-${server.startup.command} -e './${server.startup.command}.sh -nobackground -profile ${server.profile}'"/>
+                        </exec>
+                    </fiorano:then>
+
+                    <fiorano:else>
+                        <echo message="starting the Server"/>
+                        <sequential>
+                            <antcall target="configureWrapper"/>
+                            <antcall target="copyServiceScript"/>
+                            <antcall target="_startLinuxService"/>
+                        </sequential>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:else>
+        </fiorano:if>
+
+
+        <echo message="Waiting for Fiorano server to bootup ..."/>
+        <sleep seconds="35"/>
+        <echo message="Started Fiorano Server - ${server.profile}"/>
+    </target>
+
+
+    <target name="stopEnterpriseServer">
+
+        <echo message=" ${FIORANO_HOME}/esb/fes/bin/shutdown-fes -profile ${server.profile}"/>
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is windows"/>
+                <echo message="stopping the Server"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}/esb/fes/bin"
+                              spawn="yes">
+                            <arg line="/c start cmd /c shutdown-fes.bat -connectorType RMI -address localhost -rmiPort ${rmiPort}"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}/esb/fes/bin"
+                              spawn="yes">
+                            <arg line="/c start cmd /c net stop &quot;FES &lt;${installed.service.name}&gt; ::Fiorano SOA ${soaver}&quot;"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <echo message="stopping the Server"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="xterm"
+                              dir="${FIORANO_HOME}/esb/fes/bin"
+                              spawn="yes">
+                            <arg line="-e './shutdown-fes.sh -connectorType RMI -address localhost -rmiPort ${rmiPort}'"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="xterm"
+                              dir="${FIORANO_HOME}/esb/fes/bin"
+                              spawn="yes">
+                            <arg line="-T ${server.profile} -e './fes-service.sh -profile ${server.profile} stop;read'"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="Waiting for Fiorano Enterprise server to shutdown..."/>
+        <sleep seconds="10"/>
+        <echo message="Finished shutting down Fiorano Enterprise Server"/>
+    </target>
+
+    <target name="stopPeerServer">
+
+        <echo message=" ${FIORANO_HOME}/esb/fps/bin/shutdown-fps -profile ${server.profile}"/>
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is windows"/>
+                <echo message="stopping the Peer Server"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}/esb/fps/bin"
+                              spawn="yes">
+                            <arg line="/c start cmd /c shutdown-fps.bat -connectorType RMI -host localhost -rmiPort ${rmiPort}"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd"
+                              dir="${FIORANO_HOME}/esb/fps/bin"
+                              spawn="yes">
+                            <arg line="/c start cmd /c net stop &quot;FPS &lt;${installed.service.name}&gt; ::Fiorano SOA ${soaver}&quot;"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <echo message="stopping the Peer Server"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="xterm"
+                              dir="${FIORANO_HOME}/esb/fps/bin"
+                              spawn="yes">
+                            <arg line="-e './shutdown-fps.sh -connectorType RMI -host localhost -rmiPort ${rmiPort};read'"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="xterm"
+                              dir="${FIORANO_HOME}/esb/fps/bin"
+                              spawn="yes">
+                            <arg line="-T ${server.profile} -e './fps-service.sh -profile ${server.profile} stop;read'"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="Waiting for Fiorano Peer server to shutdown..."/>
+        <sleep seconds="10"/>
+        <echo message="Finished shutting down Fiorano Peer Server - ${fps.name}"/>
+    </target>
+
+
+    <target name="installNTService">
+
+        <exec executable="cmd"
+              dir="${FIORANO_HOME}/${server.bin.path}/service"
+              spawn="yes">
+            <arg line="/c start cmd /c install-${server.startup.command}.service.bat -profile ${server.profile}"/>
+        </exec>
+        <sleep seconds="10"/>
+    </target>
+
+    <target name="giveUserAuthentication">
+        <exec executable="cmd"
+              dir="${FIORANO_HOME}"
+              spawn="yes">
+            <arg line="/c start cmd /c sc config &quot;${mode} &lt;${installed.service.name}&gt; ::Fiorano SOA ${soaver}&quot; obj= ${env.COMPUTERNAME}\${user.name} password= ${userPasswd} type= own"/>
+        </exec>
+        <sleep seconds="10"/>
+    </target>
+
+    <target name="_startNTService">
+        <exec executable="cmd"
+              dir="${FIORANO_HOME}/${server.bin.path}/service"
+              spawn="yes">
+            <arg line="/c start cmd /c net start &quot;${mode} &lt;${installed.service.name}&gt; ::Fiorano SOA ${soaver}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="configureWrapper">
+        <echo message="Configuring server to run as service"/>
+
+        <fiorano:if>
+            <os family="mac"/>
+            <fiorano:then>
+                <replace file="${FIORANO_HOME}/esb/fes/bin/service/fes-service.sh">
+
+
+                    <replacefilter
+                            token="ACTION="
+                            value="ACTION=start"/>
+                    <replacefilter
+                            token="startstart"
+                            value="start"/>
+
+                    <replacefilter
+                            token="#FIORANO_HOME="
+                            value="FIORANO_HOME=${FIORANO_HOME}"/>
+                    <replacefilter
+                            token="#export FIORANO_HOME"
+                            value="export FIORANO_HOME"/>
+                    <replacefilter
+                            token="#JAVA_HOME="
+                            value="JAVA_HOME=${java1.8}"/>
+                    <replacefilter
+                            token="#export JAVA_HOME"
+                            value="export JAVA_HOME"/>
+                    <replacefilter
+                            token="#cd $FIORANO_HOME/esb/fes/bin/service"
+                            value="cd $FIORANO_HOME/esb/fes/bin/service"/>
+                </replace>
+                <echo message="Adding execution permissions to scripts"/>
+                <chmod dir="${FIORANO_HOME}/esb/fes/bin/service/" perm="ugo+x"
+                       includes="**/*.sh"/>
+
+                <replace file="${FIORANO_HOME}/esb/fes/bin/service/com.fiorano.fes.plist">
+                    <replacefilter
+                            token="/Users/fioranosoftware/janardhan_ESB/fiorano9.3.0/Fiorano/FioranoSOA9.3.0/esb/fes/bin/service/fes-service.sh"
+                            value="${FIORANO_HOME}/esb/fes/bin/service/fes-service.sh"/>
+                </replace>
+                <replace file="${FIORANO_HOME}/esb/fps/bin/service/fps-service.sh">
+
+                    <replacefilter
+                            token="ACTION="
+                            value="ACTION=start"/>
+                    <replacefilter
+                            token="startstart"
+                            value="start"/>
+
+                    <replacefilter
+                            token="#FIORANO_HOME="
+                            value="FIORANO_HOME=${FIORANO_HOME}"/>
+                    <replacefilter
+                            token="#export FIORANO_HOME"
+                            value="export FIORANO_HOME"/>
+                    <replacefilter
+                            token="#JAVA_HOME="
+                            value="JAVA_HOME=${java1.8}"/>
+                    <replacefilter
+                            token="#export JAVA_HOME"
+                            value="export JAVA_HOME"/>
+                    <replacefilter
+                            token="#cd $FIORANO_HOME/esb/fps/bin/service"
+                            value="cd $FIORANO_HOME/esb/fps/bin/service"/>
+                </replace>
+                <echo message="Adding execution permissions to scripts"/>
+                <chmod dir="${FIORANO_HOME}/esb/fps/bin/service/" perm="ugo+x"
+                       includes="**/*.sh"/>
+
+                <replace file="${FIORANO_HOME}/esb/fps/bin/service/com.fiorano.fps.plist">
+                    <replacefilter
+                            token="/Users/fioranosoftware/janardhan_ESB/fiorano9.3.0/Fiorano/FioranoSOA9.3.0/esb/fps/bin/service/fps-service.sh"
+                            value="${FIORANO_HOME}/esb/fps/bin/service/fps-service.sh"/>
+                </replace>
+            </fiorano:then>
+            <fiorano:else>
+                <sequential>
+                    <exec executable="/bin/sh"
+                          dir="."
+                          resultproperty="os.type">
+                        <!--arg line="-e 'echo ${userPasswd}|sudo -S mount -t nfs4 -o rw,uid=501,gid=501,umask=0022, //      					          ${gateway.ip.add}/${gateway.file.path} ${lockfile}'"/-->
+                        <arg line="-c 'cat /proc/version | grep ubuntu'"/>
+                    </exec>
+                    <!--<echo message="${os.type}"/>-->
+                    <fiorano:if>
+                        <equals arg1="${os.type}" arg2="0"/>
+                        <fiorano:then>
+                            <replace file="${FIORANO_HOME}/esb/fes/bin/service/fes-service.sh">
+                                <replacefilter
+                                        token="#! /bin/sh"
+                                        value="#! /bin/bash"/>
+                            </replace>
+                            <replace file="${FIORANO_HOME}/esb/fps/bin/service/fps-service.sh">
+                                <replacefilter
+                                        token="#! /bin/sh"
+                                        value="#! /bin/bash"/>
+                            </replace>
+                            <replace file="${FIORANO_HOME}/esb/server/bin/service/server-service.sh">
+                                <replacefilter
+                                        token="#! /bin/sh"
+                                        value="#! /bin/bash"/>
+                            </replace>
+                        </fiorano:then>
+                    </fiorano:if>
+
+                </sequential>
+
+                <replace file="${FIORANO_HOME}/esb/fes/bin/service/fes-service.sh">
+                    <replacefilter
+                            token="#FIORANO_HOME="
+                            value="FIORANO_HOME=${FIORANO_HOME}"/>
+                    <replacefilter
+                            token="#export FIORANO_HOME"
+                            value="export FIORANO_HOME"/>
+                    <replacefilter
+                            token="#JAVA_HOME="
+                            value="JAVA_HOME=${java1.8}"/>
+                    <replacefilter
+                            token="#export JAVA_HOME"
+                            value="export JAVA_HOME"/>
+                    <replacefilter
+                            token="#cd $FIORANO_HOME/esb/fes/bin/service"
+                            value="cd $FIORANO_HOME/esb/fes/bin/service"/>
+                </replace>
+
+
+                <replace file="${FIORANO_HOME}/esb/fps/bin/service/fps-service.sh">
+                    <replacefilter
+                            token="#FIORANO_HOME="
+                            value="FIORANO_HOME=${FIORANO_HOME}"/>
+                    <replacefilter
+                            token="#export FIORANO_HOME"
+                            value="export FIORANO_HOME"/>
+                    <replacefilter
+                            token="#JAVA_HOME="
+                            value="JAVA_HOME=${java1.8}"/>
+                    <replacefilter
+                            token="#export JAVA_HOME"
+                            value="export JAVA_HOME"/>
+                    <replacefilter
+                            token="#cd $FIORANO_HOME/esb/fps/bin/service"
+                            value="cd $FIORANO_HOME/esb/fps/bin/service"/>
+                </replace>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="copyServiceScript">
+
+        <fiorano:if>
+            <os family="mac"/>
+            <fiorano:then>
+                <sequential>
+
+
+                    <echo message="sudo -S cp -f ${FIORANO_HOME}/${server.bin.path}/service/com.fiorano.${server.startup.command}.plist /System/Library/LaunchAgents/"/>
+                    <!-- since user is added to sudoers list, no need to echo passwd to sudo command-->
+                    <exec executable="/bin/sh"
+                          dir="."
+                          spawn="yes">
+                        <arg line="-c 'sudo -S cp -f ${FIORANO_HOME}/${server.bin.path}/service/com.fiorano.${server.startup.command}.plist /System/Library/LaunchAgents/' "/>
+                    </exec>
+
+                </sequential>
+            </fiorano:then>
+
+            <fiorano:else>
+                <!-- no need not unlink. just update existing file if any during the copy operation.>
+            <!- reason for doing so. if the file is not present in /etc/init.d, unlink was failing.>
+            <!-echo message="sudo -S unlink /etc/init.d/${server.startup.command}-service.sh"/>
+                <exec executable="/bin/sh"
+                      dir="."
+                      spawn="yes">
+                    <arg line="-c 'echo ${userPasswd}|sudo -S unlink /etc/init.d/${server.startup.command}-service.sh' "/>
+                </exec-->
+                <sequential>
+                    <echo message="sudo -S cp -u -f ${FIORANO_HOME}/${server.bin.path}/service/${server.startup.command}-service.sh /etc/init.d/"/>
+                    <!-- since user is added to sudoers list, no need to echo passwd to sudo command-->
+                    <exec executable="/bin/sh"
+                          dir="."
+                          spawn="yes">
+                        <arg line="-c 'sudo -S cp -u -f ${FIORANO_HOME}/${server.bin.path}/service/${server.startup.command}-service.sh /etc/init.d/' "/>
+                    </exec>
+
+                </sequential>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="_startLinuxService">
+        <fiorano:if>
+            <os family="mac"/>
+            <fiorano:then>
+                <echo message="Launchctl load /System/Library/LaunchAgents/com.fiorano.${server.startup.command}.plist "/>
+                <!-- since user is added to sudoers list, no need to echo passwd to sudo command-->
+                <exec executable="/bin/sh"
+                      dir="."
+                      spawn="yes">
+                    <arg line="-c 'Launchctl load /System/Library/LaunchAgents/com.fiorano.${server.startup.command}.plist' "/>
+                </exec>
+
+
+            </fiorano:then>
+            <fiorano:else>
+                <exec executable="xterm"
+                      dir="/etc/init.d/"
+                      spawn="yes">
+                    <arg line="-T ${server.profile}-${server.startup.command} -e './${server.startup.command}-service.sh -profile ${server.profile} console;read'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="startPrilimnarySteps">
+        <echo message="${init.startup.path}/${init.startup.command}"/>
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is windows"/>
+                <echo message="starting prilimnary steps"/>
+                <exec executable="cmd"
+                      dir="${init.startup.path}"
+                      spawn="yes">
+                    <arg line="/c start cmd /c ${init.startup.command} ${FIORANO_HOME}"/>
+                </exec>
+            </fiorano:then>
+
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <echo message="startPrilimnarySteps"/>
+                <exec executable="xterm"
+                      dir="${init.startup.path}"
+                      spawn="yes">
+                    <arg line="-T ${init.startup.path}-${init.startup.command} -e './${init.startup.command}.sh ${FIORANO_HOME}'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="Waiting for executing prilimnary steps ..."/>
+        <sleep seconds="2"/>
+        <echo message="completed"/>
+    </target>
+
+    <target name="cleanPrilimnarySteps">
+        <echo message="${init.cleanup.path}/${init.cleanup.command}"/>
+        <fiorano:if>
+
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="OS is windows"/>
+                <echo message="cleaning prilimnary steps"/>
+                <exec executable="cmd"
+                      dir="${init.cleanup.path}"
+                      spawn="yes">
+                    <arg line="/c start cmd /c ${init.cleanup.command} ${FIORANO_HOME}"/>
+                </exec>
+            </fiorano:then>
+
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <echo message="starting the Server"/>
+                <exec executable="xterm"
+                      dir="${init.cleanup.path}"
+                      spawn="yes">
+                    <arg line="-T ${init.cleanup.path}-${init.cleanup.command} -e './${init.cleanup.command}.sh ${FIORANO_HOME}'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="Waiting for cleaning prilimnary steps ..."/>
+        <sleep seconds="2"/>
+        <echo message="completed"/>
+    </target>
+
+
+    <target name="shutdownEnterpriseServer">
+        <fiorano:if>
+
+            <os family="windows"/>
+            <fiorano:then>
+
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="cmd" dir="${FIORANO_HOME}/esb/fes/bin" spawn="yes">
+                            <arg line="/c start cmd /c shutdown-fes.bat"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd" dir="${FIORANO_HOME}/esb/fes/bin/service" spawn="yes">
+                            <arg line="/c start cmd /c uninstall-fes.service.bat -profile ${installed.service.name}"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:then>
+
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="xterm" dir="${FIORANO_HOME}/esb/fes/bin" spawn="yes">
+                            <!--chaging to using rmi port so as to be able to shutdown passive servers as well -Arun -->
+                            <arg line="-e './shutdown-fes.sh -connectorType RMI -address localhost -rmiPort ${rmiPort}'"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <!--Not using shutdown script due to Bug # 19717 -->
+                        <!--<exec executable="xterm" dir="${FIORANO_HOME}/esb/fes/bin" spawn="yes">
+                            --><!--
+                            <arg line="-e './shutdown-fes.sh -connectorType RMI -address localhost -rmiPort ${rmiPort}'"/>
+                        </exec>-->
+                        <fiorano:if>
+                            <os family="mac"/>
+                            <fiorano:then>
+                                <exec executable="xterm" dir="${FIORANO_HOME}/esb/fes/bin/service" spawn="yes">
+                                    <arg line="-e './fes-service.sh -profile ${server.profile} stop'"/>
+                                </exec>
+                                <exec executable="/bin/sh" dir="." spawn="yes">
+                                    <arg line="-c 'Launchctl unload /System/Library/LaunchAgents/com.fiorano.fes.plist' "/>
+                                </exec>
+                                <exec executable="/bin/sh" dir="." spawn="yes">
+                                    <arg line="-c 'sudo rm /System/Library/LaunchAgents/com.fiorano.fes.plist'"/>
+                                </exec>
+
+                            </fiorano:then>
+                            <fiorano:else>
+                                <exec executable="xterm" dir="/etc/init.d" spawn="yes">
+                                    <arg line="-e './fes-service.sh -profile ${server.profile} stop'"/>
+                                </exec>
+                            </fiorano:else>
+                        </fiorano:if>
+
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:else>
+        </fiorano:if>
+        <echo message="Waiting for Fiorano Enterprise server to shutdown..."/>
+        <sleep seconds="10"/>
+        <echo message="Finished shutting down Fiorano Enterprise Server"/>
+    </target>
+
+    <target name="shutdownPeer">
+        <fiorano:if>
+
+            <os family="windows"/>
+            <fiorano:then>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+                        <exec executable="cmd" dir="${FIORANO_HOME}/esb/fps/bin" spawn="yes">
+                            <arg line="/c start cmd /c shutdown-fps.bat -connectorType RMI -host localhost -rmiPort ${rmiPort}"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <exec executable="cmd" dir="${FIORANO_HOME}/esb/fps/bin/service" spawn="yes">
+                            <arg line="/c start cmd /c uninstall-fps.service.bat -profile ${installed.service.name}"/>
+                        </exec>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:then>
+
+            <fiorano:else>
+                <echo message="OS is Non windows"/>
+                <fiorano:if>
+                    <equals arg1="${isWrapper}" arg2="false"/>
+                    <fiorano:then>
+
+                        <exec executable="xterm" dir="${FIORANO_HOME}/esb/fps/bin" spawn="yes">
+                            <arg line="-e './shutdown-fps.sh -connectorType RMI -host localhost -rmiPort ${rmiPort}'"/>
+                        </exec>
+                    </fiorano:then>
+                    <fiorano:else>
+                        <fiorano:if>
+                            <os family="mac"/>
+                            <fiorano:then>
+                                <exec executable="xterm" dir="${FIORANO_HOME}/esb/fps/bin/service" spawn="yes">
+                                    <arg line="-e './fps-service.sh -profile ${server.profile} stop'"/>
+                                </exec>
+                                <exec executable="/bin/sh" dir="." spawn="yes">
+                                    <arg line="-c 'Launchctl unload /System/Library/LaunchAgents/com.fiorano.fps.plist' "/>
+                                </exec>
+                                <exec executable="/bin/sh" dir="." spawn="yes">
+                                    <arg line="-c 'sudo rm /System/Library/LaunchAgents/com.fiorano.fps.plist'"/>
+                                </exec>
+
+                            </fiorano:then>
+                            <fiorano:else>
+                                <!--Not using shutdown script due to Bug # 19717 -->
+                                <!--   <exec executable="xterm" dir="${FIORANO_HOME}/esb/fps/bin" spawn="yes">
+                                    <arg line="-e './shutdown-fps.sh -connectorType RMI -host localhost -rmiPort ${rmiPort}'"/>
+                                </exec>-->
+                                <exec executable="xterm" dir="/etc/init.d" spawn="yes">
+                                    <arg line="-e './fps-service.sh -profile ${server.profile} stop'"/>
+                                </exec>
+                            </fiorano:else>
+                        </fiorano:if>
+                    </fiorano:else>
+                </fiorano:if>
+            </fiorano:else>
+        </fiorano:if>
+        <echo message="Waiting for Fiorano Peer server to shutdown..."/>
+        <sleep seconds="10"/>
+        <echo message="Finished shutting down Fiorano Peer Server - ${server.profile}"/>
+    </target>
+
+    <target name="zipProfiles">
+        <zip destfile="${FIORANO_HOME}/esb/server/profiles.zip"
+             basedir="${FIORANO_HOME}/esb/server/"
+             includes="profiles/**"
+             update="true"
+                />
+    </target>
+
+    <target name="sendProfiles">
+        <antcall target="zipProfiles"/>
+        <fiorano:for list="${machines}" param="machine" parallel='true'>
+
+            <sequential>
+                <!--<echo message="Sending The zip file:: ${FIORANO_HOME}/esb/server/profiles/../${profilesZipName}"/>-->
+                <echo message="Sending The zip file:: ${FIORANO_HOME}/esb/server/profiles/../${profilesZipName}"/>
+                <remoteant machine="@{machine}" port="${port}">
+                    <runtarget target="SetJavaRunTimeForServer"/>
+                    <sendfile file="${FIORANO_HOME}/esb/server/profiles/../${profilesZipName}"
+                              toFile="${profilesZipName}"/>
+
+                    <runtarget target="unzipProfiles">
+                        <property name="zip.name" value="${profilesZipName}"/>
+                    </runtarget>
+
+                </remoteant>
+
+            </sequential>
+        </fiorano:for>
+        <!--<delete file="${esb-antserver}/../../configuration/${profilesZipName}"/>        -->
+    </target>
+
+    <target name="unzipProfiles">
+        <echo message="deleting the directory... ${FIORANO_HOME}/esb/server/profiles/"/>
+        <available file="${FIORANO_HOME}/esb/server/profiles_backup" property="backupPresent"/>
+        <fiorano:if>
+            <not>
+                <equals arg1="${backupPresent}" arg2="true"/>
+            </not>
+            <fiorano:then>
+                <copy todir="${FIORANO_HOME}/esb/server/profiles_backup">
+                    <fileset dir="${FIORANO_HOME}/esb/server/profiles/"/>
+                </copy>
+            </fiorano:then>
+
+        </fiorano:if>
+        <!--delete dir="${FIORANO_HOME}/esb/server/profiles/"/-->
+        <!--<mkdir dir="${FIORANO_HOME}/esb/server/profiles/"/>-->
+        <unzip src="${zip.name}" dest="${FIORANO_HOME}/esb/server/" overwrite="true"/>
+        <delete file="${zip.name}"/>
+        <!--<unzip src="profiles.zip" dest="${FIORANO_HOME}/esb/server/" overwrite="true"/>-->
+        <!--<delete file="profiles.zip"/>-->
+
+        <!-- <fiorano:if>
+            <not>
+                <os family="windows"/>
+            </not>
+            <fiorano:then>
+                <echo>Adding execution permission to shell scripts ...</echo>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}"
+                      spawn="yes">
+                    <arg line="-e 'chmod -Rv +x ./*'"/>
+                </exec>
+            </fiorano:then>
+        </fiorano:if>-->
+
+    </target>
+
+
+    <target name="changeServerConf">
+        <exec executable="/bin/sh"
+              dir="."
+              resultproperty="jvm.type">
+            <!--arg line="-e 'echo ${userPasswd}|sudo -S mount -t nfs4 -o rw,uid=501,gid=501,umask=0022, //      					          ${gateway.ip.add}/${gateway.file.path} ${lockfile}'"/-->
+            <arg line="-c 'java -version 2>&amp;1| grep 64-Bit'"/>
+        </exec>
+        <fiorano:if>
+            <equals arg1="${jvm.type}" arg2="0"/>
+            <fiorano:then>
+                <property name="jvm.arch" value="x64"/>
+            </fiorano:then>
+            <fiorano:else>
+                <property name="jvm.arch" value="x86"/>
+            </fiorano:else>
+        </fiorano:if>
+
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <property name="arch" value="windows-${jvm.arch}"/>
+                <property name="lib" value="jprofilerti.dll"/>
+            </fiorano:then>
+            <fiorano:else>
+                <property name="arch" value="linux-${jvm.arch}"/>
+                <property name="lib" value="libjprofilerti.so"/>
+            </fiorano:else>
+        </fiorano:if>
+
+        <available file="../../configuration/serverConfigsBackup" type="dir" property="backup.present"/>
+        <fiorano:if>
+            <equals arg1="${backup.present}" arg2="true"/>
+            <fiorano:then>
+            </fiorano:then>
+            <fiorano:else>
+                <mkdir dir="../../configuration/serverConfigsBackup"/>
+                <copy todir="../../configuration/serverConfigsBackup">
+                    <fileset dir="../../configuration/serverConfigs/"/>
+                </copy>
+            </fiorano:else>
+        </fiorano:if>
+
+        <!--<echo message="#${line.separator}fiorano.server.boot.EsbContainer"/>-->
+        <replaceregexp file="../../configuration/serverConfigs/fes.conf" match="\s+$" replace="" flags="g"
+                       byline="true">
+        </replaceregexp>
+        <replace file="../../configuration/serverConfigs/fes.conf">
+            <replacefilter
+                    token="#${line.separator}fiorano.server.boot.EsbContainer"
+                    value="#${line.separator}-agentpath:${jprofilerHome}/bin/${arch}/${lib}=offline,id=${session.id},config=${basedir}/config.xml
+                    ${line.separator}fiorano.server.boot.EsbContainer"/>
+
+        </replace>
+        <!-- <replace file="../../configuration/serverConfigs/fps.conf">
+
+            <replacefilter
+                    token="#${line.separator}fiorano.server.boot.EsbContainer"
+                    value="#${line.separator}-agentpath:${jprofilerHome}/bin/${arch}/${lib}=offline,id=${session.id},config=${basedir}/config.xml
+                    ${line.separator}fiorano.server.boot.EsbContainer"/>
+        </replace>-->
+    </target>
+
+    <target name="revertServerConf">
+        <available file="../../configuration/serverConfigsBackup" property="backup.there"/>
+        <fiorano:if>
+            <equals arg1="${backup.there}" arg2="true"/>
+            <fiorano:then>
+                <sequential>
+                    <delete includeemptydirs="true">
+                        <fileset dir="../../configuration/serverConfigs" includes="**/*"/>
+                    </delete>
+                    <copy todir="../../configuration/serverConfigs">
+                        <fileset dir="../../configuration/serverConfigsBackup/"/>
+                    </copy>
+                </sequential>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="ALERT !!! NO BACKUP TO REVERT"/>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+
+    <target name="sendConfigs">
+        <fiorano:if>
+            <equals arg1="${runProfiler}" arg2="true"/>
+            <fiorano:then>
+                <antcall target="changeServerConf"/>
+            </fiorano:then>
+            <fiorano:else>
+                <antcall target="revertServerConf"/>
+            </fiorano:else>
+        </fiorano:if>
+
+        <echo message="zipping the configuration files"/>
+        <zip destfile="${esb-antserver}/../../configuration/${configsZipName}"
+             basedir="${esb-antserver}/../../configuration/"
+             includes="serverConfigs/**"
+             update="true"
+                />
+
+        <fiorano:for list="${machines}" param="machine" parallel='true'>
+
+            <sequential>
+                <echo message="Sending The zip file:: ${esb-antserver}/../../configuration/${configsZipName}"/>
+                <remoteant machine="@{machine}" port="${port}">
+
+                    <sendfile file="${esb-antserver}/../../configuration/${configsZipName}"
+                              toFile="${configsZipName}"/>
+
+                    <!--<sendfile file="${user.home}/.jprofiler6/config.xml"-->
+                    <!--toFile="config.xml"/>-->
+
+                    <runtarget target="unzipConfigs">
+                        <property name="zip.name" value="${configsZipName}"/>
+                    </runtarget>
+
+                    <runtarget target="copyConfigs">
+                    </runtarget>
+
+                </remoteant>
+
+            </sequential>
+        </fiorano:for>
+        <delete file="${esb-antserver}/../../configuration/${configsZipName}"/>
+
+    </target>
+
+    <target name="unzipConfigs">
+        <echo message="deleting the directory... ${esb-antserver}/../../configuration/serverConfigs/"/>
+        <!--delete dir="${esb-antserver}/../../configuration/serverConfigs/"/-->
+        <!--<mkdir dir="${FIORANO_HOME}/esb/server/profiles/"/>-->
+        <unzip src="${zip.name}" dest="${esb-antserver}/../../configuration/" overwrite="true"/>
+        <delete file="${zip.name}"/>
+
+        <!--<antcall target="changeServerConf"/>-->
+        <!--<antcall target="copyConfigs"/>-->
+    </target>
+
+
+    <!--
+    <target name="unzipBuild">
+        <echo message="deleting the directory... ${installer}"/>
+        <delete dir="${installer}"/>
+        <mkdir dir="${installer}"/>
+        <unzip src="${zip.name}" dest="${installer}" overwrite="true"/>
+        <delete file="${zip.name}"/>
+
+        <fiorano:if>
+            <not>
+                <os family="windows"/>
+            </not>
+            <fiorano:then>
+                <echo>Adding execution permission to shell scripts ...</echo>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}"
+                      spawn="yes">
+                    <arg line="-e 'chmod -Rv +x ./*'"/>
+                </exec>
+            </fiorano:then>
+        </fiorano:if>
+
+    </target>
+
+    <target name="unzipSources">
+        <unzip src="${zip.name}" dest="${sources}/testing" overwrite="true"/>
+        <delete file="${zip.name}"/>
+    </target>-->
+
+    <!--<target name="deleteSaxon">-->
+    <!--<fiorano:if>-->
+    <!--<os family="windows"/>-->
+    <!--<fiorano:then>-->
+    <!--<property name="ant.lib" location="${env.USERPROFILE}/.ant/lib"/>-->
+    <!--</fiorano:then>-->
+    <!--<fiorano:else>-->
+    <!--<property name="ant.lib" location="${env.HOME}/.ant/lib"/>-->
+    <!--</fiorano:else>-->
+    <!--</fiorano:if>-->
+
+    <!--<echo message="deleting saxon jars from ${ant.lib}"/>-->
+    <!--<delete>-->
+    <!--<fileset dir="${ant.lib}" includes="saxon*.*"/>-->
+    <!--</delete>-->
+    <!--</target>-->
+    <target name="SetJavaRunTimeForServer">
+        <echo message="server jre is being set to ${Server_Java_Run_Time_Home} in $FIORANO_HOME/fiorano.vars.sh/bat "/>
+        <fiorano:if>
+            <os family="windows"/>
+            <then>
+                <property name="extension" value="bat"/>
+            </then>
+            <fiorano:else>
+                <property name="extension" value="sh"/>
+            </fiorano:else>
+        </fiorano:if>
+
+        <available file="${FIORANO_HOME}/fiorano_vars_backup.${extension}" property="vars.backup.present"/>
+        <fiorano:if>
+
+            <equals arg1="${vars.backup.present}" arg2="true"/>
+
+            <fiorano:then>
+                <delete file="${FIORANO_HOME}/fiorano_vars.${extension}"/>
+                <copy file="${FIORANO_HOME}/fiorano_vars_backup.${extension}"
+                      tofile="${FIORANO_HOME}/fiorano_vars.${extension}"/>
+            </fiorano:then>
+            <fiorano:else>
+                <copy file="${FIORANO_HOME}/fiorano_vars.${extension}"
+                      tofile="${FIORANO_HOME}/fiorano_vars_backup.${extension}"/>
+            </fiorano:else>
+
+        </fiorano:if>
+
+        <fiorano:if>
+            <os family="windows"/>
+            <then>
+                <replace file="${FIORANO_HOME}/fiorano_vars.bat">
+                    <replacefilter
+                            token="SET JAVA_HOME=%FIORANO_HOME%\jre1.5.0_16"
+                            value="SET JAVA_HOME=${Server_Java_Run_Time_Home}"/>
+                </replace>
+            </then>
+            <fiorano:else>
+                <replace file="${FIORANO_HOME}/fiorano_vars.sh">
+                    <replacefilter
+                            token="#JAVA_HOME=/usr/java/jdk1.4"
+                            value="JAVA_HOME=${Server_Java_Run_Time_Home}"/>
+                </replace>
+            </fiorano:else>
+        </fiorano:if>
+
+
+    </target>
+
+    <target name="antregister">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <exec executable="cmd"
+                      dir="${FIORANO_HOME}/${custom_component_directory}">
+                    <arg line="/c start cmd /c ant -logfile ${FIORANO_HOME}/${output.log} register"/>
+                </exec>
+            </fiorano:then>
+            <fiorano:else>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}/${custom_component_directory}">
+                    <arg line="-e 'ant -logfile ${FIORANO_HOME}/${output.log} register'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="antunregister">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <exec executable="cmd"
+                      dir="${FIORANO_HOME}/${custom_component_directory}">
+                    <arg line="/c start cmd /c ant -logfile ${FIORANO_HOME}/${output.log} unregister"/>
+                </exec>
+            </fiorano:then>
+            <fiorano:else>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}/${custom_component_directory}">
+                    <arg line="-e 'ant -logfile ${FIORANO_HOME}/${output.log} unregister'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="antreregister">
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <exec executable="cmd"
+                      dir="${FIORANO_HOME}/${custom_component_directory}">
+                    <arg line="/c start cmd /c ant -logfile ${FIORANO_HOME}/${output.log} reregister"/>
+                </exec>
+            </fiorano:then>
+            <fiorano:else>
+                <exec executable="xterm"
+                      dir="${FIORANO_HOME}/${custom_component_directory}">
+                    <arg line="-e 'ant -logfile ${FIORANO_HOME}/${output.log} reregister'"/>
+                </exec>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+</project>

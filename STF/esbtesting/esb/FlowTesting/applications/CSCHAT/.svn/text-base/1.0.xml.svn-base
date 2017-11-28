@@ -1,0 +1,291 @@
+<Application>
+    <Schemas>
+        <Schema id="schema1"><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+							<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+							<xsd:element name="Error">
+							<xsd:complexType>
+							<xsd:sequence>
+							<xsd:element name="errorCode" type="xsd:string"/>
+							<xsd:element name="errorMessage" type="xsd:string"/>
+							<xsd:element name="errorTrace" type="xsd:string" minOccurs="0"/>
+							<xsd:element name="data" minOccurs="0">
+							<xsd:complexType>
+							<xsd:sequence>
+							<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+							</xsd:sequence>
+							</xsd:complexType>
+							</xsd:element>
+							</xsd:sequence>
+							</xsd:complexType>
+							</xsd:element>
+							</xsd:schema>            
+							]]></Schema>
+        <Schema id="schema0"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            
+           ]]></Schema>
+        <Schema id="schema2"><![CDATA[<?xml version="1.0" encoding="UTF-8" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:element name="Error"><xsd:complexType><xsd:sequence><xsd:element name="errorCode" type="xsd:string"/><xsd:element name="errorMessage" type="xsd:string"/><xsd:element name="errorTrace" type="xsd:string" minOccurs="0"/><xsd:element name="data" minOccurs="0"><xsd:complexType><xsd:sequence><xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/></xsd:sequence></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element></xsd:schema>]]></Schema>
+    </Schemas>
+    <ApplicationHeader Scope="network" isSubgraphable="true">
+        <Name>CSCHAT</Name>
+        <ApplicationGUID>CSCHAT</ApplicationGUID>
+        <Author>Admin</Author>
+        <CreationDate>27-Oct-2006</CreationDate>
+        <Icon>default</Icon>
+        <Version isLocked="false">1.0</Version>
+        <Label>Development</Label>
+        <Category>User Processes</Category>
+        <Param name="ServiceNoCache">false</Param>
+    </ApplicationHeader>
+    <ServiceInstances>
+        <ServiceInstance debugPort="5000" delayedPort="All"
+            durableConnection="false" durableSubscription="false"
+            isDebugMode="false" isDelayedLaunch="false"
+            isEndOfWorkflow="false" isErrorHandlingEnabled="true"
+            isInMemoryLaunch="false" isManualLaunch="false"
+            isStateful="false" isTransacted="true"
+            isTransportLPC="false" killPrimaryOnSecondaryLaunch="true"
+            maxRetries="-1" preferLaunchOnHigherLevelNode="false">
+            <ServiceInstanceName>chat1</ServiceInstanceName>
+            <ServiceGUID>chat</ServiceGUID>
+            <BufferSizePerPort>524288</BufferSizePerPort>
+            <Version isLocked="true">4.0</Version>
+            <Node level="0">fps</Node>
+            <EventHandler deliveryMode="persistent" expiryTime="0">1</EventHandler>
+            <RuntimeArguments/>
+            <PortInstDescriptor>
+                <InPortInst isDisabled="false" isSyncRequestType="false">
+                    <Name>IN_PORT</Name>
+                    <XSDRef>schema0</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">ChatMessage</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Queue</Param>
+                    <Param name="Transacted">true</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">1</Param>
+                    <Param name="Message Priority">0</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                </InPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>OUT_PORT</Name>
+                    <XSDRef>schema0</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">ChatMessage</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Persistent">true</Param>
+                </OutPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>ON_EXCEPTION</Name>
+                    <XSDRef>schema1</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Error</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Persistent">true</Param>
+                </OutPortInst>
+            </PortInstDescriptor>
+            <LogManager>
+                <Name>java.util.logging.FileHandler</Name>
+                <Param name="java.util.logging.FileHandler.dir">./logs</Param>
+                <Param name="java.util.logging.FileHandler.limit">50000</Param>
+                <Param name="java.util.logging.FileHandler.count">4</Param>
+                <Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param>
+            </LogManager>
+            <Param name="ServiceNoCache">false</Param>
+            <LogModules>
+                <Module name="ERR_HANDLER" traceLevel="SEVERE"/>
+                <Module name="ChatUI" traceLevel="SEVERE"/>
+                <Module name="OUT_HANDLER" traceLevel="INFO"/>
+                <Module name="ChatService" traceLevel="SEVERE"/>
+            </LogModules>
+        </ServiceInstance>
+        <ServiceInstance debugPort="5000" delayedPort="All"
+            durableConnection="false" durableSubscription="false"
+            isDebugMode="false" isDelayedLaunch="false"
+            isEndOfWorkflow="false" isErrorHandlingEnabled="true"
+            isInMemoryLaunch="false" isManualLaunch="false"
+            isStateful="false" isTransacted="true"
+            isTransportLPC="false" killPrimaryOnSecondaryLaunch="true"
+            maxRetries="-1" preferLaunchOnHigherLevelNode="false">
+            <ServiceInstanceName>csChat1</ServiceInstanceName>
+            <ServiceGUID>csChat</ServiceGUID>
+            <BufferSizePerPort>524288</BufferSizePerPort>
+            <Version isLocked="true">4.0</Version>
+            <Node level="0">fps</Node>
+            <EventHandler deliveryMode="persistent" expiryTime="0">1</EventHandler>
+            <RuntimeArguments/>
+            <PortInstDescriptor>
+                <InPortInst isDisabled="false" isSyncRequestType="false">
+                    <Name>IN_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Queue</Param>
+                    <Param name="Transacted">true</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">1</Param>
+                    <Param name="Message Priority">0</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                </InPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>OUT_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Persistent">true</Param>
+                </OutPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>ON_EXCEPTION</Name>
+                    <XSDRef>schema2</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Error</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Persistent">true</Param>
+                </OutPortInst>
+            </PortInstDescriptor>
+            <LogManager>
+                <Name>java.util.logging.FileHandler</Name>
+                <Param name="java.util.logging.FileHandler.dir">./logs</Param>
+                <Param name="java.util.logging.FileHandler.limit">50000</Param>
+                <Param name="java.util.logging.FileHandler.count">4</Param>
+                <Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param>
+            </LogManager>
+            <Param name="ServiceNoCache">false</Param>
+            <LogModules/>
+        </ServiceInstance>
+    </ServiceInstances>
+    <Routes>
+        <Route applyTransformationAtSrc="false" isDurable="false"
+            isP2PRoute="true" isPersistant="true">
+            <Name>Event-Route1</Name>
+            <RouteGUID>Event-Route1</RouteGUID>
+            <TimeToLive>0</TimeToLive>
+            <SrcServiceInstance>chat1</SrcServiceInstance>
+            <SrcPort>OUT_PORT</SrcPort>
+            <TgtServiceInstance>csChat1</TgtServiceInstance>
+            <TgtPort>IN_PORT</TgtPort>
+            <Param name="ON_TRANS_FAIL">SEND_TO_ERR_PORT</Param>
+        </Route>
+        <Route applyTransformationAtSrc="false" isDurable="false"
+            isP2PRoute="true" isPersistant="true">
+            <Name>Event-Route2</Name>
+            <RouteGUID>Event-Route2</RouteGUID>
+            <TimeToLive>0</TimeToLive>
+            <SrcServiceInstance>csChat1</SrcServiceInstance>
+            <SrcPort>OUT_PORT</SrcPort>
+            <TgtServiceInstance>chat1</TgtServiceInstance>
+            <TgtPort>IN_PORT</TgtPort>
+            <Param name="ON_TRANS_FAIL">SEND_TO_ERR_PORT</Param>
+        </Route>
+    </Routes>
+    <Layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="chat1" position="133,212"/>
+   <service-instance name="csChat1" position="360,153"/>
+   <route name="Event-Route1" shape="0"/>
+   <route name="Event-Route2" shape="0"/>
+</layout>]]></Layout>
+</Application>

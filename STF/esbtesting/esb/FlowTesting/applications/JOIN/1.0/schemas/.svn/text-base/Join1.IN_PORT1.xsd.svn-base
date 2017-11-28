@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.fiorano.com/fesb/activity/XML2Text2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.fiorano.com/fesb/activity/XML2Text2">
+   <xsd:element name="Employee_Schema">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Employee">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="EmployeeName" type="xsd:string"/>
+                     <xsd:element name="EmployeeID" type="xsd:string"/>
+                     <xsd:element name="EmployeeAge" type="xsd:int"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+</xsd:schema>

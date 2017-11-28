@@ -1,0 +1,7 @@
+<project name="test" default="deploy" basedir="."  xmlns:fiorano="antlib:com.fiorano.ant">
+    <property name="service.version" value="1.0"/>
+    <import file="common.xml"/>
+	
+	<!--Checks for Copyright if the following target is commented-->
+	<target name="check-copyright"/>
+</project>

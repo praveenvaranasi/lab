@@ -1,0 +1,1144 @@
+<Application>
+    <Schemas>
+        <Schema id="schema1"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.fiorano.com/fesb/activity/FileReader1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="Input">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="FileName" type="xsd:string" minOccurs="0"  maxOccurs="1"/>
+		    <xsd:element name="Directory" type="xsd:string" minOccurs="0"  maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>]]></Schema>
+        <Schema id="schema0"><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>]]></Schema>
+        <Schema id="schema2"><![CDATA[<?xml version="1.0" encoding="UTF-8" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:element name="Error"><xsd:complexType><xsd:sequence><xsd:element name="errorCode" type="xsd:string"/><xsd:element name="errorMessage" type="xsd:string"/><xsd:element name="errorTrace" type="xsd:string" minOccurs="0"/><xsd:element name="data" minOccurs="0"><xsd:complexType><xsd:sequence><xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/></xsd:sequence></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element></xsd:schema>]]></Schema>
+    </Schemas>
+    <ApplicationHeader Scope="network" isSubgraphable="true">
+        <Name>PERL</Name>
+        <ApplicationGUID>PERL</ApplicationGUID>
+        <Author>Admin</Author>
+        <CreationDate>27-Oct-2006</CreationDate>
+        <Icon>default</Icon>
+        <Version isLocked="false">1.0</Version>
+        <Label>Development</Label>
+        <Category>User Processes</Category>
+        <Param name="ServiceNoCache">false</Param>
+    </ApplicationHeader>
+    <ServiceInstances>
+        <ServiceInstance debugPort="5000" delayedPort="All"
+            durableConnection="false" durableSubscription="false"
+            isDebugMode="false" isDelayedLaunch="false"
+            isEndOfWorkflow="false" isErrorHandlingEnabled="true"
+            isInMemoryLaunch="false" isManualLaunch="false"
+            isStateful="false" isTransacted="true"
+            isTransportLPC="false" killPrimaryOnSecondaryLaunch="true"
+            maxRetries="-1" preferLaunchOnHigherLevelNode="false">
+            <ServiceInstanceName>PerlScript1</ServiceInstanceName>
+            <ServiceGUID>PerlScript</ServiceGUID>
+            <BufferSizePerPort>524288</BufferSizePerPort>
+            <Version isLocked="true">4.0</Version>
+            <Node level="0">fps</Node>
+            <EventHandler deliveryMode="persistent" expiryTime="0">1</EventHandler>
+            <RuntimeArguments>
+                <UserDefinedPropertySheet><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;true&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;false&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;false&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;PerlScript1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;ScriptInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;ScriptInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;ScriptInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.script.cci.ScriptInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.script.cci.PerlInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;PerlScript1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;scriptConfiguration&quot;&gt; 
+    &lt;string&gt;while(@ARGV)
+{
+  $str= shift @ARGV;
+  $str1 = &amp;quot;$str1 $str&amp;quot;;	
+}
+print($str1);&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/PerlScript1&lt;/string&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;Script&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;The Scripting Adapter used to modify any incoming document using Perl Script&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;perl.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.script.cci.PerlInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;PerlScript&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.script.spi.outbound.ScriptManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;Script&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;JavaScript Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;cf.gif&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.script.spi.outbound.ScriptManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;JavaScript Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"> 
+  <void property="launchMode"> 
+   <string>FEPO</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="input"> 
+   <string></string> 
+  </void> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1127476866250</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></UserDefinedPropertySheet>
+            </RuntimeArguments>
+            <PortInstDescriptor>
+                <InPortInst isDisabled="false" isSyncRequestType="false">
+                    <Name>IN_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Queue</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">1</Param>
+                    <Param name="Message Priority">0</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                </InPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>OUT_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>ON_EXCEPTION</Name>
+                    <StandardXSD/>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Error</Param>
+                    <Param name="rootElementNS">http://www.fiorano.com/fesb/activity/fault</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+            </PortInstDescriptor>
+            <ShortDescription>The Scripting Adapter used to modify any incoming document using Perl Script</ShortDescription>
+            <LogManager>
+                <Name>java.util.logging.FileHandler</Name>
+                <Param name="java.util.logging.FileHandler.dir">./logs</Param>
+                <Param name="java.util.logging.FileHandler.limit">50000</Param>
+                <Param name="java.util.logging.FileHandler.count">4</Param>
+                <Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param>
+            </LogManager>
+            <Param name="ServiceNoCache">false</Param>
+            <Param name="javax.resource.cci.InteractionSpec">com.fiorano.adapter.jca.script.cci.PerlInteractionSpec</Param>
+            <LogModules>
+                <Module name="fiorano.client.TrGateway" traceLevel="INFO"/>
+                <Module
+                    name="com.fiorano.adapter.jca.script.cci.ScriptInteraction" traceLevel="SEVERE"/>
+                <Module name="ERR_HANDLER" traceLevel="INFO"/>
+                <Module name="OUT_HANDLER" traceLevel="INFO"/>
+            </LogModules>
+        </ServiceInstance>
+        <ServiceInstance debugPort="5000" delayedPort="All"
+            durableConnection="false" durableSubscription="false"
+            isDebugMode="false" isDelayedLaunch="false"
+            isEndOfWorkflow="false" isErrorHandlingEnabled="true"
+            isInMemoryLaunch="false" isManualLaunch="false"
+            isStateful="false" isTransacted="true"
+            isTransportLPC="false" killPrimaryOnSecondaryLaunch="true"
+            maxRetries="-1" preferLaunchOnHigherLevelNode="false">
+            <ServiceInstanceName>FileReader1</ServiceInstanceName>
+            <ServiceGUID>FileReader</ServiceGUID>
+            <BufferSizePerPort>524288</BufferSizePerPort>
+            <Version isLocked="true">4.0</Version>
+            <Node level="0">fps</Node>
+            <EventHandler deliveryMode="persistent" expiryTime="0">1</EventHandler>
+            <RuntimeArguments>
+                <UserDefinedPropertySheet><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;true&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;false&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;false&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;FileReader1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;FileReaderManagedConnectionFactory&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;FileReaderManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;FileReaderManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.filereader.spi.outbound.FileReaderManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;FileReaderInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;FileReaderInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;FileReaderInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.filereader.cci.FileReaderInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;LOGGER_DISPLAY_NAME&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;LOGGER_DESCRIPTION&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;LOGGER_DISPLAY_NAME&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;LOGGER_NAME&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.filereader.spi.outbound.FileReaderManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Read files&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;cf.gif&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.filereader.spi.outbound.FileReaderManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;FileReader&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.filereader.cci.FileReaderInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;errorDirectory&quot;&gt; 
+    &lt;object class=&quot;java.io.File&quot;&gt; 
+     &lt;string&gt;C:\workerr&lt;/string&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;fileName&quot;&gt; 
+    &lt;string&gt;test.txt&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;FileReader1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;isConfiguredNew&quot;&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;sourceDirectory&quot;&gt; 
+    &lt;object class=&quot;java.io.File&quot;&gt; 
+     &lt;string&gt;C:\&lt;/string&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/FileReader1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;workingDirectory&quot;&gt; 
+    &lt;object class=&quot;java.io.File&quot;&gt; 
+     &lt;string&gt;C:\work&lt;/string&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;File&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Reads File contents&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;filereadercomponent.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.filereader.cci.FileReaderInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;FileReader&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"> 
+  <void property="launchMode"> 
+   <string>FEPO</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="input"> 
+   <string></string> 
+  </void> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1127476758828</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></UserDefinedPropertySheet>
+            </RuntimeArguments>
+            <PortInstDescriptor>
+                <InPortInst isDisabled="false" isSyncRequestType="false">
+                    <Name>IN_PORT</Name>
+                    <XSDRef>schema1</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Input</Param>
+                    <Param name="rootElementNS">http://www.fiorano.com/fesb/activity/FileReader1</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Queue</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">1</Param>
+                    <Param name="Message Priority">0</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                </InPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>OUT_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>ON_EXCEPTION</Name>
+                    <StandardXSD/>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Error</Param>
+                    <Param name="rootElementNS">http://www.fiorano.com/fesb/activity/fault</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+            </PortInstDescriptor>
+            <ShortDescription>Reads File contents</ShortDescription>
+            <LogManager>
+                <Name>java.util.logging.FileHandler</Name>
+                <Param name="java.util.logging.FileHandler.dir">./logs</Param>
+                <Param name="java.util.logging.FileHandler.limit">50000</Param>
+                <Param name="java.util.logging.FileHandler.count">4</Param>
+                <Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param>
+            </LogManager>
+            <Param name="ServiceNoCache">false</Param>
+            <LogModules>
+                <Module name="fiorano.client.TrGateway" traceLevel="INFO"/>
+                <Module
+                    name="com.fiorano.adapter.jca.filereader.cci.FileReaderInteraction" traceLevel="SEVERE"/>
+                <Module name="ERR_HANDLER" traceLevel="INFO"/>
+                <Module name="OUT_HANDLER" traceLevel="INFO"/>
+                <Module
+                    name="com.fiorano.adapter.jca.filereader.spi.outbound.FileReaderManagedConnectionFactory" traceLevel="SEVERE"/>
+                <Module name="LOGGER_NAME" traceLevel="SEVERE"/>
+            </LogModules>
+        </ServiceInstance>
+        <ServiceInstance debugPort="5000" delayedPort="All"
+            durableConnection="false" durableSubscription="false"
+            isDebugMode="false" isDelayedLaunch="false"
+            isEndOfWorkflow="false" isErrorHandlingEnabled="true"
+            isInMemoryLaunch="false" isManualLaunch="false"
+            isStateful="false" isTransacted="false"
+            isTransportLPC="false" killPrimaryOnSecondaryLaunch="true"
+            maxRetries="-1" preferLaunchOnHigherLevelNode="false">
+            <ServiceInstanceName>Feeder1</ServiceInstanceName>
+            <ServiceGUID>Feeder</ServiceGUID>
+            <BufferSizePerPort>524288</BufferSizePerPort>
+            <Version isLocked="true">4.0</Version>
+            <Node level="0">fps</Node>
+            <EventHandler deliveryMode="persistent" expiryTime="0">1</EventHandler>
+            <RuntimeArguments>
+                <UserDefinedPropertySheet><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="java.util.Properties"> 
+  <void method="put"> 
+   <string>RootElementName</string> 
+   <string>Input</string> 
+  </void> 
+  <void method="put"> 
+   <string>MessageFormat</string> 
+   <string>XML</string> 
+  </void> 
+  <void method="put"> 
+   <string>OutputDTD</string> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;
+&lt;xsd:schema targetNamespace=&quot;http://www.fiorano.com/fesb/activity/FileReader1&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#13;
+    &lt;xsd:element name=&quot;Input&quot;&gt;&#13;
+        &lt;xsd:complexType&gt;&#13;
+            &lt;xsd:sequence&gt;&#13;
+                &lt;xsd:element name=&quot;FileName&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot;  maxOccurs=&quot;1&quot;/&gt;&#13;
+		    &lt;xsd:element name=&quot;Directory&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot;  maxOccurs=&quot;1&quot;/&gt;&#13;
+            &lt;/xsd:sequence&gt;&#13;
+        &lt;/xsd:complexType&gt;&#13;
+    &lt;/xsd:element&gt;&#13;
+&lt;/xsd:schema&gt;</string> 
+  </void> 
+  <void method="put"> 
+   <string>Message</string> 
+   <string>&lt;ns1:Input xmlns:ns1=&quot;http://www.fiorano.com/fesb/activity/FileReader1&quot;&gt;
+   &lt;FileName&gt;test.txt&lt;/FileName&gt;
+   &lt;Directory&gt;C:\&lt;/Directory&gt;
+&lt;/ns1:Input&gt;</string> 
+  </void> 
+  <void method="put"> 
+   <string>StructureType</string> 
+   <string>1</string> 
+  </void> 
+  <void method="put"> 
+   <string>RootElementNS</string> 
+   <string>http://www.fiorano.com/fesb/activity/FileReader1</string> 
+  </void> 
+  <void method="put"> 
+   <string>HistorySize</string> 
+   <string>10</string> 
+  </void> 
+ </object> 
+</java> 
+]]></UserDefinedPropertySheet>
+            </RuntimeArguments>
+            <PortInstDescriptor>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>OUT_PORT</Name>
+                    <XSDRef>schema1</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Input</Param>
+                    <Param name="rootElementNS">http://www.fiorano.com/fesb/activity/FileReader1</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>ON_EXCEPTION</Name>
+                    <StandardXSD/>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Error</Param>
+                    <Param name="rootElementNS">http://www.fiorano.com/fesb/activity/fault</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+            </PortInstDescriptor>
+            <ShortDescription>The Feeder service is used to feed in data.</ShortDescription>
+            <LogManager>
+                <Name>java.util.logging.FileHandler</Name>
+                <Param name="java.util.logging.FileHandler.dir">./logs</Param>
+                <Param name="java.util.logging.FileHandler.limit">50000</Param>
+                <Param name="java.util.logging.FileHandler.count">4</Param>
+                <Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param>
+            </LogManager>
+            <Param name="ServiceNoCache">false</Param>
+            <LogModules>
+                <Module name="FeederServiceInfo" traceLevel="SEVERE"/>
+            </LogModules>
+        </ServiceInstance>
+        <ServiceInstance debugPort="5000" delayedPort="All"
+            durableConnection="false" durableSubscription="false"
+            isDebugMode="false" isDelayedLaunch="false"
+            isEndOfWorkflow="false" isErrorHandlingEnabled="true"
+            isInMemoryLaunch="false" isManualLaunch="false"
+            isStateful="false" isTransacted="true"
+            isTransportLPC="false" killPrimaryOnSecondaryLaunch="true"
+            maxRetries="-1" preferLaunchOnHigherLevelNode="false">
+            <ServiceInstanceName>Display1</ServiceInstanceName>
+            <ServiceGUID>Display</ServiceGUID>
+            <BufferSizePerPort>524288</BufferSizePerPort>
+            <Version isLocked="true">4.0</Version>
+            <Node level="0">fps</Node>
+            <EventHandler deliveryMode="persistent" expiryTime="0">1</EventHandler>
+            <RuntimeArguments/>
+            <PortInstDescriptor>
+                <InPortInst isDisabled="false" isSyncRequestType="false">
+                    <Name>IN_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Queue</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">1</Param>
+                    <Param name="Message Priority">0</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                </InPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>OUT_PORT</Name>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+                <OutPortInst isSyncRequestType="false">
+                    <Name>ON_EXCEPTION</Name>
+                    <XSDRef>schema2</XSDRef>
+                    <Param name="structureType">1</Param>
+                    <Param name="rootElementName">Error</Param>
+                    <Param name="Enable Request Reply">false</Param>
+                    <Param name="Transport Protocol">TCP</Param>
+                    <Param name="Use Proxy">false</Param>
+                    <Param name="Username">anonymous</Param>
+                    <Param name="Password">anonymous</Param>
+                    <Param name="Use specified Destination">false</Param>
+                    <Param name="Destination Type">Topic</Param>
+                    <Param name="Transacted">false</Param>
+                    <Param name=" Transaction Size">1</Param>
+                    <Param name="Acknowledge Mode">3</Param>
+                    <Param name="Durable Subscription">false</Param>
+                    <Param name="Subscription Name">null</Param>
+                    <Param name="Compression">false</Param>
+                    <Param name="Session Count">0</Param>
+                    <Param name="Message Priority">4</Param>
+                    <Param name="Message TTL">0</Param>
+                    <Param name="Persistant">false</Param>
+                    <Param name="Persistent">false</Param>
+                </OutPortInst>
+            </PortInstDescriptor>
+            <LogManager>
+                <Name>java.util.logging.FileHandler</Name>
+                <Param name="java.util.logging.FileHandler.dir">./logs</Param>
+                <Param name="java.util.logging.FileHandler.limit">50000</Param>
+                <Param name="java.util.logging.FileHandler.count">4</Param>
+                <Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param>
+            </LogManager>
+            <Param name="ServiceNoCache">false</Param>
+            <LogModules>
+                <Module name="DisplayServiceInfo" traceLevel="SEVERE"/>
+            </LogModules>
+        </ServiceInstance>
+    </ServiceInstances>
+    <Routes>
+        <Route applyTransformationAtSrc="false" isDurable="false"
+            isP2PRoute="true" isPersistant="true">
+            <Name>Event-Route1</Name>
+            <RouteGUID>Event-Route1</RouteGUID>
+            <TimeToLive>0</TimeToLive>
+            <SrcServiceInstance>Feeder1</SrcServiceInstance>
+            <SrcPort>OUT_PORT</SrcPort>
+            <TgtServiceInstance>FileReader1</TgtServiceInstance>
+            <TgtPort>IN_PORT</TgtPort>
+            <Param name="ON_TRANS_FAIL">SEND_TO_ERR_PORT</Param>
+        </Route>
+        <Route applyTransformationAtSrc="false" isDurable="false"
+            isP2PRoute="true" isPersistant="true">
+            <Name>Event-Route2</Name>
+            <RouteGUID>Event-Route2</RouteGUID>
+            <TimeToLive>0</TimeToLive>
+            <SrcServiceInstance>FileReader1</SrcServiceInstance>
+            <SrcPort>OUT_PORT</SrcPort>
+            <TgtServiceInstance>PerlScript1</TgtServiceInstance>
+            <TgtPort>IN_PORT</TgtPort>
+            <Param name="ON_TRANS_FAIL">SEND_TO_ERR_PORT</Param>
+        </Route>
+        <Route applyTransformationAtSrc="false" isDurable="false"
+            isP2PRoute="true" isPersistant="true">
+            <Name>Event-Route3</Name>
+            <RouteGUID>Event-Route3</RouteGUID>
+            <TimeToLive>0</TimeToLive>
+            <SrcServiceInstance>PerlScript1</SrcServiceInstance>
+            <SrcPort>OUT_PORT</SrcPort>
+            <TgtServiceInstance>Display1</TgtServiceInstance>
+            <TgtPort>IN_PORT</TgtPort>
+            <Param name="ON_TRANS_FAIL">SEND_TO_ERR_PORT</Param>
+        </Route>
+    </Routes>
+    <Layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="PerlScript1" position="226,192"/>
+   <service-instance name="FileReader1" position="130,312"/>
+   <service-instance name="Feeder1" position="45,408"/>
+   <service-instance name="Display1" position="336,100"/>
+   <route name="Event-Route1" shape="0"/>
+   <route name="Event-Route2" shape="0"/>
+   <route name="Event-Route3" shape="0"/>
+</layout>]]></Layout>
+</Application>

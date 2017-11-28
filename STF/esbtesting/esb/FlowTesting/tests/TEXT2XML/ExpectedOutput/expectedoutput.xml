@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:Result xmlns:ns1="http://www.fiorano.com/fesb/activity/FileWriter1">
+   <ns1:FileInfo>
+      <FullName>/home/lokesh2/Desktop/Dev/installer/trgtDir/1033.xml</FullName>
+      <FileName>1033.xml</FileName>
+      <FilePath>/home/lokesh2/Desktop/Dev/installer/trgtDir</FilePath>
+      <Type>File</Type>
+      <ReadAccess>true</ReadAccess>
+      <WriteAccess>true</WriteAccess>
+      <Size>247</Size>
+   </ns1:FileInfo>
+</ns1:Result>

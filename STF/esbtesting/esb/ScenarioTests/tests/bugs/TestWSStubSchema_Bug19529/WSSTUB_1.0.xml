@@ -1,0 +1,502 @@
+<application guid="WSSTUB" version="1.0"><display name="wsstub" categories="User Processes" /><creation date="20-05-2010 03:14:58" /><deployment label="development" /><service-instances><inst name="WSStub1"><service guid="WSStub" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_16" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.edbc.wsstub.model.WSStubPM"> 
+  <void property="contextName"> 
+   <string>JMSContext</string> 
+  </void> 
+  <void property="failureRecDef"> 
+   <object class="fiorano.esb.record.ESBRecordDefinition"> 
+    <void property="rootElementName"> 
+     <string>Error</string> 
+    </void> 
+    <void property="structure"> 
+     <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;&#13;
+&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; targetNamespace=&quot;http://www.fiorano.com/fesb/activity/fault&quot; xmlns:tns=&quot;http://www.fiorano.com/fesb/activity/fault&quot;&gt;&#13;
+    &lt;xsd:element name=&quot;Error&quot;&gt;&#13;
+       &lt;xsd:complexType&gt;&#13;
+          &lt;xsd:sequence&gt;&#13;
+            &lt;xsd:element name=&quot;errorCode&quot; type=&quot;xsd:string&quot;/&gt;&#13;
+            &lt;xsd:element name=&quot;errorMessage&quot; type=&quot;xsd:string&quot;/&gt;&#13;
+            &lt;xsd:element name=&quot;errorDetail&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot;/&gt;&#13;
+            &lt;xsd:element name=&quot;data&quot; type=&quot;tns:data&quot; minOccurs=&quot;0&quot;/&gt;&#13;
+          &lt;/xsd:sequence&gt;&#13;
+       &lt;/xsd:complexType&gt;&#13;
+    &lt;/xsd:element&gt;&#13;
+    &lt;xsd:complexType name=&quot;data&quot;&gt;&#13;
+	  &lt;xsd:sequence&gt;&#13;
+         &lt;xsd:any namespace=&quot;##any&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;/&gt;&#13;
+      &lt;/xsd:sequence&gt;&#13;
+    &lt;/xsd:complexType&gt;&#13;
+&lt;/xsd:schema&gt;</string> 
+    </void> 
+    <void property="targetNamespace"> 
+     <string>http://www.fiorano.com/fesb/activity/fault</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="operationConfiguration"> 
+   <object class="com.fiorano.edbc.wsstub.model.OperationConfiguration"> 
+    <void property="description"> 
+     <string>Send message to Primary Queue</string> 
+    </void> 
+    <void property="name"> 
+     <string>SendMessage</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="responseRecDef"> 
+   <array class="com.fiorano.edbc.wsstub.model.RecordDefinition" length="2"> 
+    <void index="0"> 
+     <object class="com.fiorano.edbc.wsstub.model.RecordDefinition"> 
+      <void property="rootElementName"> 
+       <string>Message</string> 
+      </void> 
+      <void property="structure"> 
+       <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;
+&lt;xsd:schema xmlns:fns=&quot;http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out&quot;&gt;&#13;
+   &lt;xsd:element name=&quot;Message&quot;&gt;&#13;
+      &lt;xsd:complexType&gt;&#13;
+         &lt;xsd:sequence&gt;&#13;
+            &lt;xsd:element name=&quot;Body&quot; type=&quot;xsd:string&quot;/&gt;&#13;
+            &lt;xsd:element name=&quot;SentMessage&quot; type=&quot;xsd:string&quot;/&gt;&#13;
+         &lt;/xsd:sequence&gt;&#13;
+      &lt;/xsd:complexType&gt;&#13;
+   &lt;/xsd:element&gt;&#13;
+&lt;/xsd:schema&gt;</string> 
+      </void> 
+      <void property="targetNamespace"> 
+       <string>http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.fiorano.edbc.wsstub.model.RecordDefinition"/> 
+    </void> 
+   </array> 
+  </void> 
+ </object> 
+</java> 
+]]></configuration><resource-properties><resource-property name="Context Name">JMSContext</resource-property><resource-property name="FES URL">tsp_tcp://localhost:1947</resource-property><resource-property name="FES Username">admin</resource-property><resource-property name="FES Backup URL">tsp_tcp://localhost:1948</resource-property><resource-property name="Operation Name">SendMessage</resource-property></resource-properties><configuration-properties><property name="Operation Name" encrypt="false" type="java.lang.String">SendMessage</property><property name="FES Username" encrypt="false" type="java.lang.String">admin</property><property name="Context Name" encrypt="false" type="java.lang.String">JMSContext</property><property name="FES Password" encrypt="true" type="java.lang.String">DMSLzKckc/JLgIUhIpdeyw==</property><property name="FES Backup URL" encrypt="false" type="java.lang.String">tsp_tcp://localhost:1948</property><property name="FES URL" encrypt="false" type="java.lang.String">tsp_tcp://localhost:1947</property></configuration-properties><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><inputport-instances><inputport-instance name="RESPONSE"><schema root="{http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out}Message"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:fns="http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out">
+   <xsd:element name="Message">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="Body" type="xsd:string"/>
+            <xsd:element name="SentMessage" type="xsd:string"/>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+</xsd:schema>]]></content></schema><jms><destination /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance><inputport-instance name="FAILURE"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${ERROR_XSD}]]></content></schema><jms><destination /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="REQUEST"><jms><destination /><publisher><messages persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${ERROR_XSD}]]></content></schema><jms><destination /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><Param name="java.util.logging.FileHandler.limit">50000</Param><Param name="java.util.logging.FileHandler.dir">logs</Param><Param name="fiorano.jms.log2.def.DefaultFormatter.dateformat">MM/dd/yyyy HH:mm:ss</Param><Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param><Param name="java.util.logging.FileHandler.count">4</Param></logmanager><logmodules><logmodule name="com.fiorano.edbc.wsstub.WSStubService" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="JMSIn1"><service guid="JMSIn" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_16" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;false&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;false&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;false&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_16&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;GUID&quot;&gt; 
+   &lt;string&gt;JMSIn&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;appName&quot;&gt; 
+   &lt;string&gt;WSSTUB&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;JMSIn1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;JMSAdaptersManagedConnectionFactory&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;JMSAdaptersManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;JMSAdaptersManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;JMSManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;JMSAdaptersInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;JMSAdaptersInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;JMSAdaptersInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;JMSInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_16&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;fiorano.esb.adapter.jca.cci.ESBConnectionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;MCFClassName&quot;&gt; 
+    &lt;string&gt;com.fiorano.adapter.jca.jmsadapters.spi.outbound.JMSAdaptersManagedConnectionFactory&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;connectionFactoryJNDIName&quot;&gt; 
+    &lt;string&gt;JMSIn&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;8&lt;/int&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;fiorano.esb.adapter.jca.cci.ESBConnectionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.ConnectionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_16&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.jmsadapters.cci.jmsIn.JMSInInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;deliveryMode&quot;&gt; 
+    &lt;string&gt;Persistent Mode&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;destinationName&quot;&gt; 
+    &lt;string&gt;PrimaryQueue&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;destinationType&quot;&gt; 
+    &lt;string&gt;Queue&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;1&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;4&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;/&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;guid&quot;&gt; 
+    &lt;string&gt;JMSIn&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;WSSTUB__JMSIn1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/JMSIn1&lt;/string&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;MOMs&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Sends message to JMS Queue or Topic&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;jmsin.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.jmsadapters.cci.jmsIn.JMSInInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;JMSIn&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_16&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.jmsadapters.spi.outbound.JMSAdaptersManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;JNDIName&quot;&gt; 
+    &lt;string&gt;JMSIn&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;WSSTUB__JMSIn1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;providerURL&quot;&gt; 
+    &lt;string&gt;http://localhost:1867&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;8&lt;/int&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;MOMs&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;JMS Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;jmsconnection.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.jmsadapters.spi.outbound.JMSAdaptersManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;JMS&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_16" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"> 
+  <void property="launchMode"> 
+   <string>FEPO</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_16" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"/> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_16" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1274348780000</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></configuration><resource-properties><resource-property name="URL">http://localhost:1867</resource-property><resource-property name="Initial Context Factory">fiorano.jms.runtime.naming.FioranoInitialContextFactory</resource-property><resource-property name="Destination Name">PrimaryQueue</resource-property><resource-property name="Destination Type">Queue</resource-property><resource-property name="Provider name">Fiorano MQ</resource-property></resource-properties><configuration-properties><property name="JNDI Password" encrypt="true" type="java.lang.String">CVuEpOIpQJAIVeUQIs7kBQ==</property><property name="JMS Username" encrypt="false" type="java.lang.String">ayrton</property><property name="JNDI Username" encrypt="false" type="java.lang.String">anonymous</property><property name="JMS Password" encrypt="true" type="java.lang.String">zcC6SXzF+bh4BGN4YJKKfw==</property><property name="URL" encrypt="false" type="java.lang.String">http://localhost:1867</property><property name="Backup URL" encrypt="false" type="java.lang.String"></property><property name="Is Backup URL required" encrypt="false" type="java.lang.Boolean">false</property></configuration-properties><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="{http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out}Message"><content><![CDATA[${WSStub1.RESPONSE}]]></content></schema><jms><destination /><publisher><messages persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${ERROR_XSD}]]></content></schema><jms><destination /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><Param name="java.util.logging.FileHandler.limit">50000</Param><Param name="java.util.logging.FileHandler.dir">logs</Param><Param name="fiorano.jms.log2.def.DefaultFormatter.dateformat">MM/dd/yyyy HH:mm:ss</Param><Param name="fiorano.jms.log2.def.DefaultFormatter.includetimestamp">true</Param><Param name="java.util.logging.FileHandler.count">4</Param></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="com.fiorano.bc.trgateway" /><logmodule name="com.fiorano.adapter.jca.jmsadapters.spi.outbound.JMSManagedConnectionFactory" /><logmodule name="OUT_HANDLER" level="INFO" /><logmodule name="com.fiorano.adapter.jca.jmsadapters.cci.JMSAdaptersInteraction" /><logmodule name="fiorano.esb.adapter.jca.dii.jmsin.monitor" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument><runtime-argument name="javax.resource.cci.InteractionSpec"><value>com.fiorano.adapter.jca.jmsadapters.cci.jmsIn.JMSInInteractionSpec</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="route1"><source inst="WSStub1" port="REQUEST" /><target inst="JMSIn1" port="IN_PORT" /><messages /></route><route name="route2"><source inst="JMSIn1" port="ON_EXCEPTION" /><target inst="WSStub1" port="FAILURE" /><messages /></route><route name="route3"><source inst="JMSIn1" port="OUT_PORT" /><target inst="WSStub1" port="RESPONSE" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="WSStub1" position="197,209"/>
+   <service-instance name="JMSIn1" position="387,260"/>
+   <route name="route1" shape="2"/>
+   <route name="route2" shape="2"/>
+   <route name="route3" shape="2"/>
+</layout>]]></layout></application>

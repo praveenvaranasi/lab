@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+   <mbean code="fiorano.jms.cm.def.SocketReadHandlerServiceMBean" name="Fiorano.socketAcceptors.port-2.SocketReadHandler:ServiceType=SocketReadHandler,Impl=NATIVE,Name=NativeSocketReadHandler2" xmbean-dd="fiorano/jms/cm/def/SocketReadHandlerServiceMBean.xml">
+      <depends optional-attribute-name="ThreadManager">Fiorano.etc:ServiceType=ThreadManager,Name=ThreadManager</depends>
+   </mbean>
+</server>

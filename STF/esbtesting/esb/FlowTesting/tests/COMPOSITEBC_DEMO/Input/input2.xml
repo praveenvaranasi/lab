@@ -1,0 +1,1 @@
+<ns1:HTTPRequest xmlns:ns1="http://www.fiorano.com/httpReceive"><Headers><Scheme>http</Scheme><Host>localhost</Host><Port>9999</Port><Method>GET</Method><Connection>keep-alive</Connection></Headers><Params><param>http://www.fiorano.com</param></Params></ns1:HTTPRequest>

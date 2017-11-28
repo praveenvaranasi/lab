@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:SMTP xmlns:ns1="http://www.fiorano.com/fesb/activity/WarningMail/smtp/out">
+   <ns1:Result>Email sent successfully </ns1:Result>
+</ns1:SMTP>

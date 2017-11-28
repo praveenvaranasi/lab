@@ -1,0 +1,65 @@
+<html xmlns:java="http://xml.apache.org/xslt/java" xmlns:bundle="java:com.fiorano.ant.ResourceBundleUtil"
+      xmlns:file="java:com.fiorano.ant.FileUtil">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="../../../../../help/jh.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>-Help</title>
+</head>
+<body bgcolor="white">
+<h2 class="bcTitle"></h2>
+<hr>
+<p class="bcBody"><img src="../../../../../help/" align="left" border="0" hspace="0" vspace="0">&nbsp;&nbsp;
+</p>
+
+<h3 class="bcConfig">Configuration Properties</h3>
+
+<p class="bcBody"> has the following configuration properties.</p>
+
+<div align="left">
+    <table border="1">
+        <caption></caption>
+        <tr>
+            <th>
+                <div class="bcTableHeading">Name</div>
+            </th>
+            <th>
+                <div class="bcTableHeading">Description</div>
+            </th>
+        </tr>
+        <tr align="left" valign="top">
+            <td>
+                <div class="bcTableBody">My Property</div>
+            </td>
+            <td>
+                <div class="bcTableBody">this is a sample property</div>
+            </td>
+        </tr>
+        <tr align="left" valign="top">
+            <td>
+                <div class="bcTableBody">error_handling_configuration_name</div>
+            </td>
+            <td>
+                <div class="bcTableBody">error_handling_configuration_desc</div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" align="left">
+        <tr>
+            <td><img src="../../../../../help/optional.gif" align="right" border="0" hspace="0" vspace="0"></td>
+            <td>
+                <div class="bcTableFooter">Optional Property</div>
+            </td>
+        </tr>
+        <tr>
+            <td><img src="../../../../../help/expert.gif" align="right" border="0" hspace="0" vspace="0"></td>
+            <td>
+                <div class="bcTableFooter">Expert Property</div>
+            </td>
+        </tr>
+    </table>
+</div>
+<hr>
+</body>
+</html>

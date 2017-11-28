@@ -1,0 +1,203 @@
+compile:
+    [mkdir] Created dir: /home/raja/fsoa_test/fioranodev/head/sources/testing/QA/esb/ScenarioTests/build
+    [javac] Compiling 95 source files to /home/raja/fsoa_test/fioranodev/head/sources/testing/QA/esb/ScenarioTests/build
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+
+createjar:
+      [jar] Building jar: /home/raja/fsoa_test/fioranodev/head/sources/testing/QA/esb/ScenarioTests/scenario-tests.jar
+
+runTests:
+
+runTests:
+     [java] Listening for transport dt_socket at address: 34009
+     [java] Starting Server ::EnterpriseServer on Machine::localhost
+     [java] Starting Server ::fps_test on Machine::localhost
+     [java] Running Test Cases ...
+     [java] The Parameters Used For The Test Are::
+     [java] The Resource File Path:: /home/raja/fsoa_test/fioranodev/head/installer/../sources/testing/QA/esb/ScenarioTests/tests/scenario/AddResources/com.ibm.mq.jar
+     [java] ...........................................................................
+     [java] Started the Execution of the TestCase::testDBResources
+     [java] Starting test  ********* testDBResources
+     [java] Exception in the Execution of test case::testDBResources
+     [java] fiorano.tifosi.common.TifosiException: ADDING_RESOURCE_TO_SERVICE_ERROR :: Resource URL :: /home/raja/fsoa_test/fioranodev/head/installer/../sources/testing/QA/esb/ScenarioTests/tests/scenario/AddResources/com.ibm.mq.jar GUID Version :: MQSeriesIn1 4.0
+     [java]     at com.fiorano.esb.rtl.component.FioranoServiceRepository.addResource(FioranoServiceRepository.java:422)
+     [java]     at com.fiorano.esb.junit.scenario.AddResourcesTest.testDBResources(AddResourcesTest.java:77)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java]     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java]     at java.lang.reflect.Method.invoke(Method.java:585)
+     [java]     at junit.framework.TestCase.runTest(TestCase.java:154)
+     [java]     at junit.framework.TestCase.runBare(TestCase.java:127)
+     [java]     at junit.framework.TestResult$1.protect(TestResult.java:106)
+     [java]     at junit.framework.TestResult.runProtected(TestResult.java:124)
+     [java]     at junit.framework.TestResult.run(TestResult.java:109)
+     [java]     at junit.framework.TestCase.run(TestCase.java:118)
+     [java]     at junit.framework.TestSuite.runTest(TestSuite.java:208)
+     [java]     at com.fiorano.stf.test.core.STFTestSuite.run(STFTestSuite.java:258)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:313)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:175)
+     [java]     at com.fiorano.stf.ESBTestHarness.execute(ESBTestHarness.java:138)
+     [java]     at com.fiorano.stf.ESBTestHarness.main(ESBTestHarness.java:627)
+     [java] Caused by: fiorano.tifosi.common.TifosiException: ERROR_ADDING_RESOURCE :: [Service Repository]Error in adding resource to the service
+     [java]     at com.fiorano.esb.service.repository.external.proxy.ComponentRepositoryProxy.addResource(ComponentRepositoryProxy.java:531)
+     [java]     at com.fiorano.esb.rtl.component.FioranoServiceRepository.addResource(FioranoServiceRepository.java:374)
+     [java]     ... 17 more
+     [java] Caused by: fiorano.tifosi.common.TifosiException: ERROR_ADDING_RESOURCE :: Exception occurred while adding resource: com.ibm.mq.jar to service: MQSeriesIn1 having version: 4.0.
+     [java]     at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+     [java]     at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+     [java]     at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+     [java]     at java.lang.reflect.Constructor.newInstance(Constructor.java:494)
+     [java]     at fiorano.tifosi.common.EnterpriseExceptionUtil.fromStream(EnterpriseExceptionUtil.java:63)
+     [java]     at fiorano.tifosi.common.TifosiException.fromStream(TifosiException.java:333)
+     [java]     at fiorano.tifosi.tr.uc.def.client.UCClientSession.execute(UCClientSession.java:465)
+     [java]     at com.fiorano.esb.service.repository.external.proxy.ComponentRepositoryProxy.addResource(ComponentRepositoryProxy.java:527)
+     [java]     ... 18 more
+     [java] Caused by: java.lang.Throwable:  :: java.lang.NullPointerException
+     [java]     at com.fiorano.esb.service.repository.ComponentRepository.addResource(ComponentRepository.java:1243)
+     [java]     at com.fiorano.esb.service.repository.external.stub.SP_AddResource.execute(ComponentRepositoryStub.java:194)
+     [java]     at com.fiorano.esb.stubmanager.external.AbstractStubLoader.onRequest(AbstractStubLoader.java:92)
+     [java]     at com.fiorano.esb.stubmanager.external.FESStubManager.onRequest(FESStubManager.java:141)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCServerSessionListener.execute(UCServerSessionListener.java:381)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.for(UCSocketReadJob.java:151)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.execute(UCSocketReadJob.java:113)
+     [java]     at fiorano.tifosi.cm.def.ClientWorker.execute(ClientWorker.java:80)
+     [java]     at fiorano.tifosi.tm.Executable.run(Executable.java:95)
+     [java]     at fiorano.tifosi.tm.def.KeThread.run(KeThread.java:273)
+     [java]     at java.lang.Thread.run(Thread.java:595)
+
+     [java]     at fiorano.tifosi.common.EnterpriseExceptionUtil.fromStream(EnterpriseExceptionUtil.java:114)
+     [java]     ... 21 more
+
+     [java] fiorano.tifosi.common.TifosiException: ERROR_ADDING_RESOURCE :: [Service Repository]Error in adding resource to the service
+     [java]     at com.fiorano.esb.service.repository.external.proxy.ComponentRepositoryProxy.addResource(ComponentRepositoryProxy.java:531)
+     [java]     at com.fiorano.esb.rtl.component.FioranoServiceRepository.addResource(FioranoServiceRepository.java:374)
+     [java]     at com.fiorano.esb.junit.scenario.AddResourcesTest.testDBResources(AddResourcesTest.java:77)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java]     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java]     at java.lang.reflect.Method.invoke(Method.java:585)
+     [java]     at junit.framework.TestCase.runTest(TestCase.java:154)
+     [java]     at junit.framework.TestCase.runBare(TestCase.java:127)
+     [java]     at junit.framework.TestResult$1.protect(TestResult.java:106)
+     [java]     at junit.framework.TestResult.runProtected(TestResult.java:124)
+     [java]     at junit.framework.TestResult.run(TestResult.java:109)
+     [java]     at junit.framework.TestCase.run(TestCase.java:118)
+     [java]     at junit.framework.TestSuite.runTest(TestSuite.java:208)
+     [java]     at com.fiorano.stf.test.core.STFTestSuite.run(STFTestSuite.java:258)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:313)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:175)
+     [java]     at com.fiorano.stf.ESBTestHarness.execute(ESBTestHarness.java:138)
+     [java]     at com.fiorano.stf.ESBTestHarness.main(ESBTestHarness.java:627)
+     [java] Caused by: fiorano.tifosi.common.TifosiException: ERROR_ADDING_RESOURCE :: Exception occurred while adding resource: com.ibm.mq.jar to service: MQSeriesIn1 having version: 4.0.
+     [java]     at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+     [java]     at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+     [java]     at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+     [java]     at java.lang.reflect.Constructor.newInstance(Constructor.java:494)
+     [java]     at fiorano.tifosi.common.EnterpriseExceptionUtil.fromStream(EnterpriseExceptionUtil.java:63)
+     [java]     at fiorano.tifosi.common.TifosiException.fromStream(TifosiException.java:333)
+     [java]     at fiorano.tifosi.tr.uc.def.client.UCClientSession.execute(UCClientSession.java:465)
+     [java]     at com.fiorano.esb.service.repository.external.proxy.ComponentRepositoryProxy.addResource(ComponentRepositoryProxy.java:527)
+     [java]     ... 18 more
+     [java] Caused by: java.lang.Throwable:  :: java.lang.NullPointerException
+     [java]     at com.fiorano.esb.service.repository.ComponentRepository.addResource(ComponentRepository.java:1243)
+     [java]     at com.fiorano.esb.service.repository.external.stub.SP_AddResource.execute(ComponentRepositoryStub.java:194)
+     [java]     at com.fiorano.esb.stubmanager.external.AbstractStubLoader.onRequest(AbstractStubLoader.java:92)
+     [java]     at com.fiorano.esb.stubmanager.external.FESStubManager.onRequest(FESStubManager.java:141)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCServerSessionListener.execute(UCServerSessionListener.java:381)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.for(UCSocketReadJob.java:151)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.execute(UCSocketReadJob.java:113)
+     [java]     at fiorano.tifosi.cm.def.ClientWorker.execute(ClientWorker.java:80)
+     [java]     at fiorano.tifosi.tm.Executable.run(Executable.java:95)
+     [java]     at fiorano.tifosi.tm.def.KeThread.run(KeThread.java:273)
+     [java]     at java.lang.Thread.run(Thread.java:595)
+
+     [java]     at fiorano.tifosi.common.EnterpriseExceptionUtil.fromStream(EnterpriseExceptionUtil.java:114)
+     [java]     ... 21 more
+
+     [java] fiorano.tifosi.common.TifosiException: ERROR_ADDING_RESOURCE :: Exception occurred while adding resource: com.ibm.mq.jar to service: MQSeriesIn1 having version: 4.0.
+     [java]     at com.fiorano.esb.service.repository.ComponentRepository.addResource(ComponentRepository.java:1321)
+     [java]     at com.fiorano.esb.service.repository.external.stub.SP_AddResource.execute(ComponentRepositoryStub.java:194)
+     [java]     at com.fiorano.esb.stubmanager.external.AbstractStubLoader.onRequest(AbstractStubLoader.java:92)
+     [java]     at com.fiorano.esb.stubmanager.external.FESStubManager.onRequest(FESStubManager.java:141)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCServerSessionListener.execute(UCServerSessionListener.java:381)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.for(UCSocketReadJob.java:151)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.execute(UCSocketReadJob.java:113)
+     [java]     at fiorano.tifosi.cm.def.ClientWorker.execute(ClientWorker.java:80)
+     [java]     at fiorano.tifosi.tm.Executable.run(Executable.java:95)
+     [java]     at fiorano.tifosi.tm.def.KeThread.run(KeThread.java:273)
+     [java]     at java.lang.Thread.run(Thread.java:595)
+     [java] Caused by: java.lang.NullPointerException
+     [java]     at com.fiorano.esb.service.repository.ComponentRepository.addResource(ComponentRepository.java:1243)
+     [java]     ... 10 more
+
+
+     [java] java.lang.Throwable:  :: java.lang.NullPointerException
+     [java]     at com.fiorano.esb.service.repository.ComponentRepository.addResource(ComponentRepository.java:1243)
+     [java]     at com.fiorano.esb.service.repository.external.stub.SP_AddResource.execute(ComponentRepositoryStub.java:194)
+     [java]     at com.fiorano.esb.stubmanager.external.AbstractStubLoader.onRequest(AbstractStubLoader.java:92)
+     [java]     at com.fiorano.esb.stubmanager.external.FESStubManager.onRequest(FESStubManager.java:141)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCServerSessionListener.execute(UCServerSessionListener.java:381)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.for(UCSocketReadJob.java:151)
+     [java]     at fiorano.tifosi.tr.uc.def.server.UCSocketReadJob.execute(UCSocketReadJob.java:113)
+     [java]     at fiorano.tifosi.cm.def.ClientWorker.execute(ClientWorker.java:80)
+     [java]     at fiorano.tifosi.tm.Executable.run(Executable.java:95)
+     [java]     at fiorano.tifosi.tm.def.KeThread.run(KeThread.java:273)
+     [java]     at java.lang.Thread.run(Thread.java:595)
+
+     [java]     at fiorano.tifosi.common.EnterpriseExceptionUtil.fromStream(EnterpriseExceptionUtil.java:114)
+     [java]     at fiorano.tifosi.common.TifosiException.fromStream(TifosiException.java:333)
+     [java]     at fiorano.tifosi.tr.uc.def.client.UCClientSession.execute(UCClientSession.java:465)
+     [java]     at com.fiorano.esb.service.repository.external.proxy.ComponentRepositoryProxy.addResource(ComponentRepositoryProxy.java:527)
+     [java]     at com.fiorano.esb.rtl.component.FioranoServiceRepository.addResource(FioranoServiceRepository.java:374)
+     [java]     at com.fiorano.esb.junit.scenario.AddResourcesTest.testDBResources(AddResourcesTest.java:77)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java]     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java]     at java.lang.reflect.Method.invoke(Method.java:585)
+     [java]     at junit.framework.TestCase.runTest(TestCase.java:154)
+     [java]     at junit.framework.TestCase.runBare(TestCase.java:127)
+     [java]     at junit.framework.TestResult$1.protect(TestResult.java:106)
+     [java]     at junit.framework.TestResult.runProtected(TestResult.java:124)
+     [java]     at junit.framework.TestResult.run(TestResult.java:109)
+     [java]     at junit.framework.TestCase.run(TestCase.java:118)
+     [java]     at junit.framework.TestSuite.runTest(TestSuite.java:208)
+     [java]     at com.fiorano.stf.test.core.STFTestSuite.run(STFTestSuite.java:258)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:313)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:175)
+     [java]     at com.fiorano.stf.ESBTestHarness.execute(ESBTestHarness.java:138)
+     [java]     at com.fiorano.stf.ESBTestHarness.main(ESBTestHarness.java:627)
+     [java] Failure in test ********* testDBResources
+     [java] junit.framework.AssertionFailedError: TestCase Failed because of ADDING_RESOURCE_TO_SERVICE_ERROR :: Resource URL :: /home/raja/fsoa_test/fioranodev/head/installer/../sources/testing/QA/esb/ScenarioTests/tests/scenario/AddResources/com.ibm.mq.jar GUID Version :: MQSeriesIn1 4.0
+     [java]     at junit.framework.Assert.fail(Assert.java:47)
+     [java]     at junit.framework.Assert.assertTrue(Assert.java:20)
+     [java]     at com.fiorano.esb.junit.scenario.AddResourcesTest.testDBResources(AddResourcesTest.java:83)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java]     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java]     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java]     at java.lang.reflect.Method.invoke(Method.java:585)
+     [java]     at junit.framework.TestCase.runTest(TestCase.java:154)
+     [java]     at junit.framework.TestCase.runBare(TestCase.java:127)
+     [java]     at junit.framework.TestResult$1.protect(TestResult.java:106)
+     [java]     at junit.framework.TestResult.runProtected(TestResult.java:124)
+     [java]     at junit.framework.TestResult.run(TestResult.java:109)
+     [java]     at junit.framework.TestCase.run(TestCase.java:118)
+     [java]     at junit.framework.TestSuite.runTest(TestSuite.java:208)
+     [java]     at com.fiorano.stf.test.core.STFTestSuite.run(STFTestSuite.java:258)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:313)
+     [java]     at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:175)
+     [java]     at com.fiorano.stf.ESBTestHarness.execute(ESBTestHarness.java:138)
+     [java]     at com.fiorano.stf.ESBTestHarness.main(ESBTestHarness.java:627)
+     [java] Ended test     ********* testDBResources
+     [java] Ended test     ********* testDBResources
+
+generateReports:
+[junitreport] Transform time: 485ms
+
+BUILD SUCCESSFUL
+Total time: 2 minutes 18 seconds
+You have new mail in /var/spool/mail/raja
+[raja@localhost esb]$ 
+

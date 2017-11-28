@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/esb/shared/lib/all/esb-shared.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/esb/server/lib/esb-fes-tif.jar"/>	
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/esb/tools/lib/esb-tools-antDeploy.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/framework/lib/all/fiorano-framework.jar"/>	
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/extlib/jms/jms.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/fmq/lib/fmq-rtl.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/bc/lib/fbc-utils.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/bc/lib/fbc-common.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/antscripts/lib/translation-tools.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/adapters/lib/edbc/fesb-edbcdk.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/adapters/lib/esb/adapters-esb-wrapper.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/adapters/lib/esb/adapters-esb-util.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/esb/tools/lib/esb-tools-util.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/Desktop/Fiorano/FioranoSOA9.3.0/esb/tools/lib/esb-tools-tif-cps-util.jar"/>	
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

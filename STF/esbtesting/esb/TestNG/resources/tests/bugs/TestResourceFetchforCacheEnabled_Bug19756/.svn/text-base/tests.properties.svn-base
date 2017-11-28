@@ -1,0 +1,4 @@
+ApplicationGUID=SIMPLECHAT
+ApplicationVersion=1.0
+serviceGUID=chat
+serviceVersion=4.0

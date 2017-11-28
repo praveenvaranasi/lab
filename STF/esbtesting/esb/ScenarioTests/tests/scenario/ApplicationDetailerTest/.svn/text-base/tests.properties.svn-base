@@ -1,0 +1,12 @@
+ApplicationGUID=Test
+RouteGUID=route1
+ApplicationVersion=1.0
+ApplicationFile=test_1.0.xml
+ApplicationFile1=APPDETAILER_1.0.xml
+ApplicationFile2=APPDETAILERHTTP_1.0.xml
+InstanceName1=chat1
+InstanceName2=chat2
+InstanceName3=HttpStub1
+ApplicationGuid1=EAI_DEMO
+ApplicationGuid2=APPDETAILER
+ApplicationGuid3=APPDETAILERHTTP

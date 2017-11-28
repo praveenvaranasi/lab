@@ -1,0 +1,5 @@
+ApplicationGUID=TRANSFORMATIONTEST_SCENARIO_JUNIT
+ApplicationVersion=1.0
+RouteGUID=route1
+ApplicationFile=TRANSFORMATIONTEST_SCENARIO_JUNIT_1.0.xml
+NewTransformation=NewTransformation.txt

@@ -1,0 +1,122 @@
+<application guid="CBRTEST" version="1.0"><display name="CBRTest" categories="User Processes" /><creation date="31-03-2008 12:37:22" authors="Admin" /><deployment label="Development" /><application-context root="{http://fiorano.com/textbook}book"><content><![CDATA[<?xml version="1.0" ?>  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"              xmlns="http://fiorano.com/textbook"              targetNamespace="http://fiorano.com/textbook">   <xsd:element name="book"> 	<xsd:complexType> 	  <xsd:sequence> 		<xsd:element name="index" minOccurs="1" maxOccurs="unbounded"> 		  <xsd:complexType> 			<xsd:sequence> 			  <xsd:element name="word" type="xsd:string"/> 			  <xsd:element name="ref" minOccurs="1" maxOccurs="unbounded"> 				<xsd:complexType> 				  <xsd:sequence> 					<xsd:element name="page" type="xsd:int"/> 					<xsd:element name="line" type="xsd:int"/> 				  </xsd:sequence> 				</xsd:complexType> 			  </xsd:element> 			</xsd:sequence> 		  </xsd:complexType> 		</xsd:element> 		<xsd:element name="chapter" minOccurs="1" maxOccurs="unbounded"> 		  <xsd:complexType> 			<xsd:sequence> 			  <xsd:element name="comment" minOccurs='0' maxOccurs='1' type='xsd:string'/> 			  <xsd:element name="paragraph" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/> 			</xsd:sequence> 		  </xsd:complexType> 		</xsd:element> 		<xsd:element name="summary" minOccurs='0' maxOccurs='1' type='xsd:string'/> 		<xsd:element name="good"> 		</xsd:element> 		<xsd:element name="available"> 		</xsd:element> 		<xsd:element name="extra"> 		  <xsd:complexType> 			<xsd:sequence> 			  <xsd:choice> 				<xsd:element name="size-cm" type="dimensions"/> 				<xsd:element name="size-inches" type="dimensions"/> 				<xsd:element name="size" type="dimensions"/> 			  </xsd:choice> 			  <xsd:element name="color" minOccurs='0' maxOccurs='1' type='xsd:string'/> 			  <xsd:choice> 				<xsd:element name="weight-lb" type="xsd:float"/> 				<xsd:element name="weight-kg" type="xsd:float"/> 			  </xsd:choice> 			</xsd:sequence> 		  </xsd:complexType> 		</xsd:element> 	  </xsd:sequence> 	</xsd:complexType>   </xsd:element>    <!-- Try represent 2x4 ("two by four") -->   <xsd:simpleType name="dimensions">     <xsd:restriction base="xsd:string"> 	  <xsd:pattern value="\d+x\d+"/> 	</xsd:restriction>   </xsd:simpleType> </xsd:schema> ]]></content></application-context><service-instances><inst name="chat1"><service guid="chat" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.chat.model.ChatPropertyModel"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  		  <xs:element name="ChatMessage">
+  		     <xs:complexType>
+  		        <xs:sequence>
+  		            <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+  			    <xs:element name="Message" type="xs:string"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+  		  </xs:element>
+    
+  		  <xs:complexType name="SenderType">
+  		        <xs:sequence>
+  		            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+  		            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+  		        </xs:sequence>
+  		     </xs:complexType>
+ 		</xs:schema>            
+           ]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="ChatMessage"><content><![CDATA[${chat1.IN_PORT}]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+							<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault">
+							<xsd:element name="Error">
+							<xsd:complexType>
+							<xsd:sequence>
+							<xsd:element name="errorCode" type="xsd:string"/>
+							<xsd:element name="errorMessage" type="xsd:string"/>
+							<xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+							<xsd:element name="data" minOccurs="0">
+							<xsd:complexType>
+							<xsd:sequence>
+							<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+							</xsd:sequence>
+							</xsd:complexType>
+							</xsd:element>
+							</xsd:sequence>
+							</xsd:complexType>
+							</xsd:element>
+							</xsd:schema>            
+							]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="ChatUI" /><logmodule name="ChatService" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="CBR1"><service guid="CBR" version="4.0" /><long-description>The CBR service allows data filtering based on the given XPATH selection criteria. This service accepts XML data on the input channel, performs XPATH selection and writes data to the appropriate output port.
+		</long-description><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.cbr.model.CBRPropertyModel"> 
+  <void property="XPaths"> 
+   <void method="add"> 
+    <string>contains(/ChatMessage/Message,&apos;fiorano&apos;)</string> 
+   </void> 
+  </void> 
+  <void property="namespaces"> 
+   <object class="java.util.HashMap"> 
+    <void method="put"> 
+     <string>ns1</string> 
+     <string>http://www.w3.org/2001/XMLSchema</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="outPortNames"> 
+   <void method="add"> 
+    <string>FIORANO</string> 
+   </void> 
+  </void> 
+  <void property="routeCounts"> 
+   <void method="add"> 
+    <int>1</int> 
+   </void> 
+  </void> 
+ </object> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="ChatMessage"><content><![CDATA[${chat1.IN_PORT}]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_FALSE"><schema root="ChatMessage"><content><![CDATA[${chat1.IN_PORT}]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="FIORANO"><schema root="ChatMessage"><content><![CDATA[${chat1.IN_PORT}]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+								<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault">
+								<xsd:element name="Error">
+								<xsd:complexType>
+								<xsd:sequence>
+								<xsd:element name="errorCode" type="xsd:string"/>
+								<xsd:element name="errorMessage" type="xsd:string"/>
+								<xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="data" minOccurs="0">
+								<xsd:complexType>
+								<xsd:sequence>
+								<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+								</xsd:sequence>
+								</xsd:complexType>
+								</xsd:element>
+								</xsd:sequence>
+								</xsd:complexType>
+								</xsd:element>
+								</xsd:schema>
+            ]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /><logmodule name="CBRService" /></logmodules><runtime-arguments><runtime-argument name="useFioranoCBR"><value>false</value></runtime-argument><runtime-argument name="numConnections"><value>1</value></runtime-argument><runtime-argument name="numSessions"><value>1</value></runtime-argument><runtime-argument name="numConsumers"><value>1</value></runtime-argument><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Display_Fiorano"><service guid="Display" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+									<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault">
+									<xsd:element name="Error">
+									<xsd:complexType>
+									<xsd:sequence>
+									<xsd:element name="errorCode" type="xsd:string"/>
+									<xsd:element name="errorMessage" type="xsd:string"/>
+									<xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="data" minOccurs="0">
+									<xsd:complexType>
+									<xsd:sequence>
+									<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+									</xsd:sequence>
+									</xsd:complexType>
+									</xsd:element>
+									</xsd:sequence>
+									</xsd:complexType>
+									</xsd:element>
+									</xsd:schema>            
+							]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="DisplayServiceInfo" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Display_Normal"><service guid="Display" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.display.model.ConfigurationPM"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[${Display_Fiorano.ON_EXCEPTION}]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="DisplayServiceInfo" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="Event_Route1"><source inst="chat1" port="OUT_PORT" /><target inst="CBR1" port="IN_PORT" /><messages /></route><route name="Event_Route3"><source inst="CBR1" port="OUT_FALSE" /><target inst="Display_Normal" port="IN_PORT" /><messages /></route><route name="Event_Route2"><source inst="CBR1" port="FIORANO" /><target inst="Display_Fiorano" port="IN_PORT" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="chat1" position="60,251"/>
+   <service-instance name="CBR1" position="258,251"/>
+   <service-instance name="Display_Fiorano" position="420,355"/>
+   <service-instance name="Display_Normal" position="421,146"/>
+   <route name="Event_Route1" shape="0"/>
+   <route name="Event_Route3" shape="0"/>
+   <route name="Event_Route2" shape="0"/>
+</layout>]]></layout></application>

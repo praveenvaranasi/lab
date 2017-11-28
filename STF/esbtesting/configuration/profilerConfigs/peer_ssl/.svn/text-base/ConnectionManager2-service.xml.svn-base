@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+   <mbean code="fiorano.jms.ex.cm.ExConnectionManagerServiceMBean" name="Fiorano.socketAcceptors.port-2:ServiceType=ConnectionManager,Name=ConnectionManager2" xmbean-dd="fiorano/jms/ex/cm/ExConnectionManagerServiceMBean.xml">
+      <depends optional-attribute-name="MQConfigLoader">Fiorano.etc:ServiceType=FMQConfigLoader,Name=FMQConfigLoader2</depends>
+      <depends optional-attribute-name="ObjectManager">Fiorano.etc.runtimeObjectManagers:ServiceType=ObjectManager,Name=ObjectManager</depends>
+      <depends optional-attribute-name="PingServiceManager">Fiorano.etc:ServiceType=PingManager,Name=PingManager</depends>
+      <depends optional-attribute-name="ServiceManager">Fiorano.etc:ServiceType=ExServiceManager,Name=ExServiceManager</depends>
+      <depends optional-attribute-name="SocketReadHandler">Fiorano.socketAcceptors.port-2.SocketReadHandler:ServiceType=SocketReadHandler,Impl=NATIVE,Name=NativeSocketReadHandler2</depends>
+      <depends optional-attribute-name="ThreadManager">Fiorano.etc:ServiceType=ThreadManager,Name=ThreadManager</depends>
+   </mbean>
+</server>

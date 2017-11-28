@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/esb/shared/lib/all/esb-shared.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/esb/server/lib/esb-fes-tif.jar"/>	
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/esb/tools/lib/esb-tools-antDeploy.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/framework/lib/all/fiorano-framework.jar"/>	
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/extlib/jms/jms.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/fmq/lib/fmq-rtl.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/bc/lib/fbc-utils.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/bc/lib/fbc-common.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/antscripts/lib/translation-tools.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/adapters/lib/edbc/fesb-edbcdk.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/adapters/lib/esb/adapters-esb-wrapper.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/adapters/lib/esb/adapters-esb-util.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/esb/tools/lib/esb-tools-util.jar"/>
+	<classpathentry kind="lib" path="/home/sagar/fioranodev/installer/esb/tools/lib/esb-tools-tif-cps-util.jar"/>	
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

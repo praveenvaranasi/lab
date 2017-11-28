@@ -1,0 +1,117 @@
+<application guid="TIMEREX" version="1.0"><display name="Timerex" categories="User Processes" /><creation date="15-04-2008 04:15:37" /><deployment label="Development" /><service-instances><inst name="Timer1"><service guid="Timer" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.timer.model.TimerPM"> 
+  <void property="inputText"> 
+   <string>this is input message</string> 
+  </void> 
+  <void property="messageFormat"> 
+   <string>Text</string> 
+  </void> 
+  <void property="pollIntervalUnit"> 
+   <int>1</int> 
+  </void> 
+  <void property="pollStartTime"> 
+   <long>1208256252000</long> 
+  </void> 
+  <void property="recordDef"> 
+   <null/> 
+  </void> 
+ </object> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><outputport-instances><outputport-instance name="MESSAGE_PORT"><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="TIMER_PORT"><schema root="Timer"><content><![CDATA[<?xml version="1.0"?>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+		    <xsd:element name="Timer">
+		        <xsd:complexType>
+		            <xsd:sequence>
+		                <xsd:element ref="time"/>
+		                <xsd:element ref="second"/>
+		                <xsd:element ref="minute"/>
+		                <xsd:element ref="hour"/>
+		                <xsd:element ref="dayOfWeek"/>
+		                <xsd:element ref="dayOfMonth"/>
+		                <xsd:element ref="weekOfMonth"/>
+		                <xsd:element ref="weekOfYear"/>
+		                <xsd:element ref="month"/>
+		                <xsd:element ref="year"/>
+		                <xsd:element ref="date"/>
+		            </xsd:sequence>
+			</xsd:complexType>
+		    </xsd:element>
+		    <xsd:element name="time" type="xsd:string"/>
+		    <xsd:element name="second" type="xsd:string"/>
+		    <xsd:element name="minute" type="xsd:string"/>
+		    <xsd:element name="hour" type="xsd:string"/>
+		    <xsd:element name="dayOfWeek" type="xsd:string"/>
+		    <xsd:element name="dayOfMonth" type="xsd:string"/>
+		    <xsd:element name="weekOfMonth" type="xsd:string"/>
+		    <xsd:element name="weekOfYear" type="xsd:string"/>
+		    <xsd:element name="month" type="xsd:string"/>
+		    <xsd:element name="year" type="xsd:string"/>
+		    <xsd:element name="date" type="xsd:string"/>
+		</xsd:schema>
+            ]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler" /><logmodules><logmodule name="com.fiorano.edbc.timer" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Display2"><service guid="Display" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_08" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.display.model.ConfigurationPM"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler" /><logmodules><logmodule name="com.fiorano.edbc.display" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Display1"><service guid="Display" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="false" /><subscription durable="false" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms><workflow type="1" datatype="0" /></outputport-instance><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages persistent="true" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler" /><logmodules><logmodule name="com.fiorano.edbc.display" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="route2"><source inst="Timer1" port="TIMER_PORT" /><target inst="Display2" port="IN_PORT" /><messages /></route><route name="route1"><source inst="Timer1" port="MESSAGE_PORT" /><target inst="Display1" port="IN_PORT" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation/>
+   <service-instance name="Timer1" position="147,174"/>
+   <service-instance name="Display2" position="477,296"/>
+   <service-instance name="Display1" position="476,69"/>
+   <route name="route2" shape="2"/>
+   <route name="route1" shape="2"/>
+</layout>]]></layout></application>

@@ -1,0 +1,197 @@
+<project name="qa-esb" default="runTests" basedir="." xmlns:fiorano="antlib:com.fiorano.ant"
+         xmlns:svn4ant="antlib:com.idaremedia.svn4ant.client">
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <property file="${ant.file.qa-esb}/../../configuration/test.properties"/>
+
+    <echo message="${FIORANO_HOME}"/>
+    <target name="build">
+        <echo>build STF...</echo>
+        <ant dir="STF"/>
+        <echo>building ScenarioTests...</echo>
+        <ant dir="ScenarioTests"/>
+    </target>
+
+    <target name="clean">
+        <echo>cleaning STF...</echo>
+        <ant dir="STF" target="clean"/>
+        <echo>cleaning ScenarioTests...</echo>
+        <ant dir="ScenarioTests" target="clean"/>
+        <!-- <delete dir="${installer}/runtimedata" /-->
+        <delete dir="STF/reports"/>
+        <delete includeemptydirs="true">
+          <fileset dir="../reports" includes="**/*"/>
+        </delete>
+    </target>
+
+       <target name="setup">
+        <delete dir="ftp"/>
+        <fiorano:if>
+            <not>
+                <available file="ftp" type="dir"/>
+            </not>
+            <fiorano:then>
+
+                <fiorano:if>
+                    <os family="windows"/>
+                    <fiorano:then>
+                        <sequential>
+                            <mkdir dir="ftp"/>
+                            <ftp action="get"
+                                 server="ftpblr.fiorano.com"
+                                 userid="ftpblr" password="fstpl12*"
+                                 remotedir="/Installers/soa/v${soaver}/latest">
+                                <fileset dir="ftp">
+                                    <include name="fsoa*.exe"/>
+                                </fileset>
+                            </ftp>
+                        </sequential>
+                        <input message="Please extract the Fiorano SOA installer at the location QA/esb/STF/ftp/
+				 and press return key on completion"/>
+
+                    </fiorano:then>
+
+                    <fiorano:else>
+                        <sequential>
+                            <mkdir dir="ftp"/>
+                            <ftp action="get"
+                                 server="ftpblr.fiorano.com"
+                                 userid="ftpblr" password="fstpl12*"
+                                 remotedir="/Installers/soa/v${soaver}/latest">
+                                <fileset dir="ftp">
+                                    <include name="fsoa*.gnu.tar.gz"/>
+                                </fileset>
+                            </ftp>
+
+                            <echo>xtracting the installer</echo>
+                            <untar compression="gzip" dest="${basedir}/ftp" overwrite="false">
+                                <fileset dir="ftp">
+                                    <include name="*.gnu.tar.gz"/>
+                                </fileset>
+                            </untar>
+                        </sequential>
+                    </fiorano:else>
+                </fiorano:if>
+
+            </fiorano:then>
+        </fiorano:if>
+
+       <sequential>
+        <mkdir dir="${FIORANO_HOME}"/>
+        <copy toDir="${FIORANO_HOME}">
+            <fileset dir="${basedir}/ftp/Fiorano/FioranoSOA${soaver}/"/>
+        </copy>
+
+        <antcall target="fetchLicenses"/>
+
+        <!--only required for linux-->
+       <echo message="Adding execution permissions to scripts"/>
+           <chmod dir="${FIORANO_HOME}" perm="ugo+x"
+            includes="**/*.sh"/>
+       </sequential>
+    </target>
+
+    <target name="fetchLicenses">
+        <sequential>
+            <echo message="checking out licenses and copying it to installer"/>
+            <!--<mkdir dir="licenses" />-->
+            <fiorano:if>
+                <not>
+                    <available file="licenses" type="dir"/>
+                </not>
+                <fiorano:then>
+                    <mkdir dir="licenses"/>
+                </fiorano:then>
+            </fiorano:if>
+
+            <svn4ant:svncheckout force="yes"
+                                 username="${svn.username}"
+                                 password="${svn.passwd}"
+                                 from="svn://fioranorepo.fstpl.com/fioranorepo/trunk/licenses"
+                                 to="licenses"/>
+        </sequential>
+        <copy todir="${FIORANO_HOME}/licenses" overwrite="true">
+            <fileset dir="licenses"/>
+        </copy>
+    </target>
+
+
+    <target name="resource">
+       <!--<ant dir="STF" target="setup"/>-->
+        <svn4ant:svncheckout force="yes"
+                             username="${svn.username}"
+                             password="${svn.passwd}"
+                             from="svn://fioranorepo.fstpl.com/fioranorepo/trunk/3rdParty"
+                             to="../3rdParty"/>
+
+        <svn4ant:svncheckout force="yes"
+                             username="${svn.username}"
+                             password="${svn.passwd}"
+                             from="svn://fioranorepo.fstpl.com/fioranorepo/trunk/antscripts"
+                             to="../antscripts"/>
+
+        <echo message="copying required jars"/>
+        <ant dir="${ant.dir}"/>
+
+        <copy todir="${user.home}/.ant/lib">
+            <fileset dir="${ant.file.qa-esb}/../../configuration/libs">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+
+
+        <echo message="checking out testing/QA/scripts to testing/QA/"/>
+        <fiorano:if>
+            <not>
+                <available file="../scripts" type="dir"/>
+            </not>
+            <fiorano:then>
+                <sequential>
+                    <mkdir dir="../scripts"/>
+                    <svn4ant:svncheckout force="yes"
+                                         username="${svn.username}"
+                                         password="${svn.passwd}"
+                                         from="svn://testingrepo.fstpl.com/testingrepo/trunk/testing/QA/scripts"
+                                         to="../scripts"/>
+                </sequential>
+            </fiorano:then>
+        </fiorano:if>
+
+    </target>
+
+    <target name="setLogLevel">
+        <echo message="changing the log level of server logs to debug"/>
+        <replace dir="${FIORANO_HOME}/esb/server/profiles">
+            <include name="**/*Configs.xml"/>
+            <replacefilter
+                    token="LogLevel=&quot;4&quot;"
+                    value="LogLevel=&quot;6&quot;"/>
+            <replacefilter
+                    token="LogLevel=&quot;3&quot;"
+                    value="LogLevel=&quot;6&quot;"/>
+        </replace>
+    </target>
+
+   <!-- <target name="copyConfigs">
+        <echo message="copying user config files to server"/>
+        <copy todir="${FIORANO_HOME}/esb/fes/bin/" file="../configuration/serverConfigs/fes.conf" overwrite="true"/>
+        <copy todir="${FIORANO_HOME}/esb/fps/bin/" file="../configuration/serverConfigs/fps.conf" overwrite="true"/>
+        <copy todir="${FIORANO_HOME}/launcher/" file="../configuration/serverConfigs/server.conf" overwrite="true"/>
+        <copy todir="${FIORANO_HOME}/esb/server/profiles/profile1/FES/conf/" overwrite="true">
+            <fileset dir="../configuration/serverConfigs">
+                <include name="**/*.cfg"/>
+            </fileset>
+        </copy>
+    </target>-->
+
+
+    <target name="runTests" depends="clean,build" >
+        <echo message="Adding execution permissions to scripts"/>
+           <chmod dir="${basedir}" perm="ugo+x"
+            includes="**/*.sh"/>
+        <antcall target="setLogLevel"/>
+        <ant dir="STF" target="runTests"/>
+        <!--<ant dir="STF" target="generateReports"/>-->
+        <!--<ant dir="STF" target="mailReports"/>-->
+    </target>
+</project>

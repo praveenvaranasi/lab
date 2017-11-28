@@ -1,0 +1,7 @@
+ApplicationGUID=EVENT_PROCESS4
+ApplicationVersion=1.0
+ApplicationFile=EVENT_PROCESS4_1.0.xml
+//RouteGUID=route1
+//InputFile=InputFile.txt
+//OutputFile=OutputFile.txt
+//CheckFile=output.txt

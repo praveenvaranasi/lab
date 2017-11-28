@@ -1,0 +1,20 @@
+<ns1:SQL_CFG_1 xmlns:ns1="http://www.fiorano.com/fesb/activity/DB2/Request" id="-9223372036854775808">
+   <ns1:EnterProductDetails>
+      <ns1:TIF_RECORDID>1000</ns1:TIF_RECORDID>
+      <ns1:FIRSTNAME>FN1</ns1:FIRSTNAME>
+      <ns1:LASTNAME>LN1</ns1:LASTNAME>
+      <ns1:EMAILID>praveenk434@gmail.com</ns1:EMAILID>
+      <ns1:PRODUCTPURCHASED>fsoa</ns1:PRODUCTPURCHASED>
+      <ns1:AMOUNTPAID>50000</ns1:AMOUNTPAID>
+      <ns1:TIF_STATUS>N</ns1:TIF_STATUS>
+   </ns1:EnterProductDetails>
+   <ns1:EnterProductDetails>
+      <ns1:TIF_RECORDID>1001</ns1:TIF_RECORDID>
+      <ns1:FIRSTNAME>FN2</ns1:FIRSTNAME>
+      <ns1:LASTNAME>LN2</ns1:LASTNAME>
+      <ns1:EMAILID>krishna.aditya@fiorano.com</ns1:EMAILID>
+      <ns1:PRODUCTPURCHASED>fmq</ns1:PRODUCTPURCHASED>
+      <ns1:AMOUNTPAID>40000</ns1:AMOUNTPAID>
+      <ns1:TIF_STATUS>N</ns1:TIF_STATUS>
+   </ns1:EnterProductDetails>
+</ns1:SQL_CFG_1>

@@ -1,0 +1,1445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config version="6.0.6">
+  <nextId id="116" />
+  <licenseKey name="Lokesh" company="" key="E-J6-LOKESH#1004583-2010.08.07-10-2mkxff5ymrijj3#4252" />
+  <generalSettings setupHasRun="true" showQuickstart="true" lookAndFeel="1" iconMode="largeWithText" browserCommand="" externalSourceViewerCommand="" lastExportFormatClass="1" embeddedUseJvmpiFor15="false" embeddedUseInterpreted="false" rememberWindowSizes="true" defaultFilterTemplateId="" defaultProfilingSettingsTemplateId="50" defaultTriggerSetId="">
+    <jvmConfigurations defaultId="105">
+      <jvmConfiguration id="105" name="Sun 1.5.0_16" javaHome="/home/lokesh2/Desktop/programs/j2sdk1.5.2_15" version="1.5.0_16" vendor="Sun Microsystems Inc." arch="i386" modeId="" isJRE="false" />
+      <jvmConfiguration id="104" name="Sun 1.4.2_19" javaHome="/home/lokesh2/Desktop/programs/j2sdk1.4.2_19" version="1.4.2_19" vendor="Sun Microsystems Inc." arch="i386" modeId="" isJRE="false" />
+      <jvmConfiguration id="106" name="Sun 1.6.0_14" javaHome="/home/lokesh2/Desktop/programs/jdk1.6.0_14" version="1.6.0_14" vendor="Sun Microsystems Inc." arch="i386" modeId="" isJRE="false" />
+    </jvmConfigurations>
+    <integrations>
+      <netbeansConfig installDir="" homeDir="" />
+      <eclipseConfig installDir="" />
+      <wsad5Config installDir="" />
+      <rad6Config installDir="" />
+      <eclipse3Config installDir="" />
+      <jbuilderConfig installDir="" />
+      <idea6Config installDir="" />
+      <idea7Config installDir="" />
+      <idea8Config installDir="/home/lokesh2/Desktop/programs/idea-9886" />
+      <idea9Config installDir="" />
+      <jdeveloperConfig installDir="" />
+    </integrations>
+    <messageFlags frozenWarning="true" sessionOpenWarning="true" applyProfilingSettingsQuestion="true" emptyClassPathWarning="true" parsePathWarning="true" vmExitWarning="true" vmCrashWarning="true" recordMemoryWarning="true" configSyncWarning="true" configSyncMessage="true" callTracerWarning="true" recordedObjectsComparisonWarning="true" heapwalkerObjectsComparisonWarning="true" closeSession="true" exitApplication="true" closeSnapshot="true" closeComparisons="true" hideNode="true" hprofComparison="true" dynamicInstrumentationWarning="true" nodesOfInterestMessage="true" />
+    <directoryPresets export="" snapshots="/home/lokesh2/Desktop/Dev/QA/Fiorano/FioranoSOA9.2.1/esb/fes/bin" jws="" settingsExport="" />
+    <exportFormats />
+    <filterTemplates />
+    <triggerSets />
+  </generalSettings>
+  <comparisonSettings>
+    <viewSettings>
+      <telemetry scaleToFit="true" verticalGridlines="3" snapshotSymbol="3" />
+      <objectsComparisonView primaryMeasure="1" sizeScale="1" differenceDisplayType="1" showZeroValues="false" />
+      <allocationHotspots alwaysShowSignature="false" differenceDisplayType="1" showZeroValues="false" scale="1" />
+      <cpuHotspots alwaysShowSignature="false" differenceDisplayType="1" showZeroValues="false" scale="1" />
+      <cpuCalltree showCommonOnly="false" differenceDisplayType="1" showZeroValues="false" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+      <allocationCalltree showCommonOnly="false" differenceDisplayType="1" showZeroValues="false" cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+    </viewSettings>
+    <viewFilters />
+  </comparisonSettings>
+  <templates>
+    <template id="50" name="All features enabled, dynamic bytecode instrumentation" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" description="This is JProfiler's fully featured mode. This default is suitable for evaluating JProfiler and for getting a general overview of the application's resource usage. In this setting, all stack information is accurate (dynamic instrumentation) with standard filters enabled." system="true">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+    </template>
+    <template id="51" name="All features enabled, CPU sampling" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="3" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" description="This template has low overhead and is particularly suitable for CPU profiling and for memory profiling when accurate allocation information is not important. JEE payloads cannot be annotated in the call tree, but payload hotspots without backtraces are available." system="true">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+    </template>
+    <template id="53" name="All features enabled, CPU sampling with line number resolution" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="3" samplingNoFilters="false" lineNumbers="true" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" description="This template is the 'All features enabled, sampling' template with additional line number resolution. It has low overhead and is particularly suitable for CPU profiling and for memory profiling when accurate allocation information is not important." system="true">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+    </template>
+    <template id="52" name="Performance bottleneck search" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="3" samplingNoFilters="true" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="true" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" description="This setting is most suitable to quickly find performance bottlenecks. The overhead is very low (sampling), but accuracy of non-timing related stack information is low. No filters are used." system="true">
+      <annotations>
+        <annotation type="1" enabled="false" />
+        <annotation type="2" enabled="false" />
+        <annotation type="3" enabled="false" />
+        <annotation type="4" enabled="false" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+    </template>
+    <template id="55" name="Memory profiling only, no call tree collection" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="true" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="true" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" description="Only memory profiling is enabled, CPU and Thread views will not be available. Additionally, there is no allocation information. The overhead is very low." system="true">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+    </template>
+    <template id="58" name="Thread profiling only, no call tree collection" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="true" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" description="Only thread profiling is enabled. No stack traces are available, but the overhead is very low." system="true">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+    </template>
+  </templates>
+  <customTemplates />
+  <sessions>
+    <session id="80" name="Animated Bezier Curve Demo" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="false" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="1" hidden="false" host="127.0.0.1" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="BezierAnim" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="bea." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="" />
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath>
+        <classPathEntry path="../demo/bezier" />
+      </classPath>
+      <sourcePath>
+        <sourcePathEntry path="../demo/bezier" />
+      </sourcePath>
+      <libraryPath />
+    </session>
+    <session id="81" name="Applet Demo (Fishworld)" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="false" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="3" hidden="false" host="127.0.0.1" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="../demo/fishworld/fishworld.html" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="bea." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="" />
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath>
+        <classPathEntry path="../demo/fishworld" />
+      </classPath>
+      <sourcePath>
+        <sourcePathEntry path="../demo/fishworld" />
+      </sourcePath>
+      <libraryPath />
+    </session>
+    <session id="108" name="Remote application on 192.168.1.73" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="false" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="2" hidden="false" host="localhost" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="bea." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="">
+        <methodInvocation enabled="true" groupId="" useGroupId="false" descriptionType="automatic" manualDescription="" ignoreRecursiveCalls="true">
+          <actions>
+            <saveSnapshot file="launch1" number="false" />
+          </actions>
+          <methods>
+            <method className="com.fiorano.esb.application.controller.ApplicationControllerManager" methodName="launchApplication" signature="(Ljava/lang/String;FLjava/lang/String;)Lfiorano/tifosi/dmi/aps/ApplicationStateDetails;" />
+            <method className="com.fiorano.esb.application.controller.ApplicationControllerManager" methodName="launchApplication" signature="(Ljava/lang/String;FLfiorano/tifosi/dmi/application/Application;Ljava/lang/String;)Lfiorano/tifosi/dmi/aps/ApplicationStateDetails;" />
+          </methods>
+        </methodInvocation>
+      </triggers>
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath>
+        <classPathEntry path="/home/lokesh2/Desktop/Dev/installer/esb/server/lib/all/esb-fes.jar" />
+      </classPath>
+      <sourcePath />
+      <libraryPath />
+    </session>
+    <session id="109" name="Copy of Remote application on 192.168.1.73" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="false" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="2" hidden="false" host="192.168.1.73" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="bea." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="">
+        <methodInvocation enabled="true" groupId="" useGroupId="false" descriptionType="automatic" manualDescription="" ignoreRecursiveCalls="true">
+          <actions>
+            <saveSnapshot file="launch1" number="false" />
+          </actions>
+          <methods>
+            <method className="com.fiorano.esb.application.controller.ApplicationControllerManager" methodName="launchApplication" signature="(Ljava/lang/String;FLjava/lang/String;)Lfiorano/tifosi/dmi/aps/ApplicationStateDetails;" />
+            <method className="com.fiorano.esb.application.controller.ApplicationControllerManager" methodName="launchApplication" signature="(Ljava/lang/String;FLfiorano/tifosi/dmi/application/Application;Ljava/lang/String;)Lfiorano/tifosi/dmi/aps/ApplicationStateDetails;" />
+          </methods>
+        </methodInvocation>
+      </triggers>
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath>
+        <classPathEntry path="/home/lokesh2/Desktop/Dev/installer/esb/server/lib/all/esb-fes.jar" />
+      </classPath>
+      <sourcePath />
+      <libraryPath />
+    </session>
+    <session id="111" name="Application server on localhost" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="false" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="2" hidden="false" host="127.0.0.1" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="bea." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="" />
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath />
+      <sourcePath />
+      <libraryPath />
+    </session>
+    <session id="112" name="Remote application on localhost" startFrozen="false" recordCPUOnStartup="true" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="true" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="2" hidden="false" host="127.0.0.1" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="bea." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="" />
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath />
+      <sourcePath />
+      <libraryPath />
+    </session>
+    <session id="114" name="Remote application on 192.168.1.72" startFrozen="false" recordCPUOnStartup="false" vmCannotExit="false" instrumentationType="1" samplingNoFilters="false" lineNumbers="false" samplingFrequency="5" timeType="1" disableCPUProfiling="false" recordAllocOnStartup="false" enableTriggersOnStartup="true" allocTreeRecordingType="1" disableMonitorContentions="false" componentDetection="true" urlRetainedParameters="" chronoHeap="false" autoUpdatePeriodLong="5" autoUpdatePeriodShort="2" filteredAnnotations="false" allUrls="false" annotationCap="20" showSystemThreads="false" utilConcurrentHandling="true" libraryDebugParameters="" exceptionalCap="5" exceptionalTimeType="4" autoTuneInstrumentation="true" autoTuneMaxAverage="100" autoTuneMinPerMille="10" templateId="50" autoUpdateAllocationViews="false" type="2" hidden="false" host="192.168.1.72" port="8849" timeout="20" isExecuteStartCommand="false" startCommand="" isExecuteStopCommand="false" stopCommand="" jvmConfigurationId="105" workingDirectory="" isStartupWorkingDirectory="true" openBrowser="false" browserUrl="" vmArguments="" mainClass="" arguments="" consoleBufferSize="1000" nativeConsole="false" consoleSizeWidth="80" consoleSizeHeight="25" configSyncMode="1" configSyncCopyTarget="" configSyncCommand="" appletURL="" jnlpURL="" jwsDir="">
+      <annotations>
+        <annotation type="1" enabled="true" />
+        <annotation type="2" enabled="true" />
+        <annotation type="3" enabled="true" />
+        <annotation type="4" enabled="true" />
+        <annotation type="5" enabled="false" />
+      </annotations>
+      <filters>
+        <group type="exclusive" name="Default excludes">
+          <filter type="exclusive" name="$Proxy" />
+          <filter type="exclusive" name="$java." />
+          <filter type="exclusive" name="$javax." />
+          <filter type="exclusive" name="AOPContainerProxy$" />
+          <filter type="exclusive" name="COM.cloudscape." />
+          <filter type="exclusive" name="COM.objectspace." />
+          <filter type="exclusive" name="COM.rsa." />
+          <filter type="exclusive" name="EDU.oswego." />
+          <filter type="exclusive" name="GregorSamsa" />
+          <filter type="exclusive" name="__" />
+          <filter type="exclusive" name="allaire.jrun" />
+          <filter type="exclusive" name="antlr." />
+          <filter type="exclusive" name="apple." />
+          <filter type="exclusive" name="atg" />
+          <filter type="exclusive" name="bea." />
+          <filter type="exclusive" name="bsh" />
+          <filter type="exclusive" name="c8" />
+          <filter type="exclusive" name="coldfusion." />
+          <filter type="exclusive" name="com.acumenat." />
+          <filter type="exclusive" name="com.adobe." />
+          <filter type="exclusive" name="com.adventnet." />
+          <filter type="exclusive" name="com.apple." />
+          <filter type="exclusive" name="com.asn1c." />
+          <filter type="exclusive" name="com.bea" />
+          <filter type="exclusive" name="com.caucho" />
+          <filter type="exclusive" name="com.certicom." />
+          <filter type="exclusive" name="com.ctc.wstx." />
+          <filter type="exclusive" name="com.ebay." />
+          <filter type="exclusive" name="com.evermind" />
+          <filter type="exclusive" name="com.gp." />
+          <filter type="exclusive" name="com.ibm." />
+          <filter type="exclusive" name="com.incors." />
+          <filter type="exclusive" name="com.informix" />
+          <filter type="exclusive" name="com.intellij.rt." />
+          <filter type="exclusive" name="com.inzoom." />
+          <filter type="exclusive" name="com.iplanet." />
+          <filter type="exclusive" name="com.jnbridge." />
+          <filter type="exclusive" name="com.jprofiler.agent." />
+          <filter type="exclusive" name="com.linar." />
+          <filter type="exclusive" name="com.livesoftware." />
+          <filter type="exclusive" name="com.lowagie." />
+          <filter type="exclusive" name="com.mysql." />
+          <filter type="exclusive" name="com.netscape.server.http" />
+          <filter type="exclusive" name="com.octetstring." />
+          <filter type="exclusive" name="com.opensymphony." />
+          <filter type="exclusive" name="com.orionserver" />
+          <filter type="exclusive" name="com.phaos." />
+          <filter type="exclusive" name="com.pointbase." />
+          <filter type="exclusive" name="com.pramati" />
+          <filter type="exclusive" name="com.rsa." />
+          <filter type="exclusive" name="com.saxon." />
+          <filter type="exclusive" name="com.solarmetric." />
+          <filter type="exclusive" name="com.sssw" />
+          <filter type="exclusive" name="com.sun." />
+          <filter type="exclusive" name="com.swiftmq." />
+          <filter type="exclusive" name="com.sybase" />
+          <filter type="exclusive" name="com.tivoli." />
+          <filter type="exclusive" name="com.unify" />
+          <filter type="exclusive" name="compressionFilters." />
+          <filter type="exclusive" name="edu.emory.mathcs.backport." />
+          <filter type="exclusive" name="filters." />
+          <filter type="exclusive" name="flashgateway." />
+          <filter type="exclusive" name="flex." />
+          <filter type="exclusive" name="fr.dyade" />
+          <filter type="exclusive" name="gnu." />
+          <filter type="exclusive" name="groovy." />
+          <filter type="exclusive" name="interceptors." />
+          <filter type="exclusive" name="java." />
+          <filter type="exclusive" name="javassist." />
+          <filter type="exclusive" name="javax." />
+          <filter type="exclusive" name="javelin." />
+          <filter type="exclusive" name="javelinx." />
+          <filter type="exclusive" name="jrockit." />
+          <filter type="exclusive" name="jrun." />
+          <filter type="exclusive" name="jrun__" />
+          <filter type="exclusive" name="jrunx." />
+          <filter type="exclusive" name="jsp_servlet." />
+          <filter type="exclusive" name="junit." />
+          <filter type="exclusive" name="kodo." />
+          <filter type="exclusive" name="listeners." />
+          <filter type="exclusive" name="macromedia." />
+          <filter type="exclusive" name="mx4j." />
+          <filter type="exclusive" name="net.sf.cglib." />
+          <filter type="exclusive" name="net.sf.ehcache." />
+          <filter type="exclusive" name="netscape." />
+          <filter type="exclusive" name="newatlanta.servletexec" />
+          <filter type="exclusive" name="oasis.names." />
+          <filter type="exclusive" name="oracle." />
+          <filter type="exclusive" name="org.apache." />
+          <filter type="exclusive" name="org.apache.felix." />
+          <filter type="exclusive" name="org.bouncycastle" />
+          <filter type="exclusive" name="org.codehaus.gant." />
+          <filter type="exclusive" name="org.codehaus.groovy." />
+          <filter type="exclusive" name="org.codehaus.stax2." />
+          <filter type="exclusive" name="org.codehaus.swizzle." />
+          <filter type="exclusive" name="org.dom4j." />
+          <filter type="exclusive" name="org.eclipse." />
+          <filter type="exclusive" name="org.enhydra" />
+          <filter type="exclusive" name="org.glassfish." />
+          <filter type="exclusive" name="org.hibernate." />
+          <filter type="exclusive" name="org.hsql" />
+          <filter type="exclusive" name="org.ietf." />
+          <filter type="exclusive" name="org.jboss" />
+          <filter type="exclusive" name="org.jcp.xml" />
+          <filter type="exclusive" name="org.jdom." />
+          <filter type="exclusive" name="org.jnp." />
+          <filter type="exclusive" name="org.jpedal." />
+          <filter type="exclusive" name="org.jvnet." />
+          <filter type="exclusive" name="org.mortbay." />
+          <filter type="exclusive" name="org.mozilla." />
+          <filter type="exclusive" name="org.netbeans." />
+          <filter type="exclusive" name="org.objectweb." />
+          <filter type="exclusive" name="org.omg." />
+          <filter type="exclusive" name="org.openide." />
+          <filter type="exclusive" name="org.osgi." />
+          <filter type="exclusive" name="org.quartz." />
+          <filter type="exclusive" name="org.slf4j." />
+          <filter type="exclusive" name="org.springframework." />
+          <filter type="exclusive" name="org.tranql." />
+          <filter type="exclusive" name="org.w3c." />
+          <filter type="exclusive" name="org.xml." />
+          <filter type="exclusive" name="schema.system" />
+          <filter type="exclusive" name="schemacom_bea" />
+          <filter type="exclusive" name="schemaorg_apache_xmlbeans.system." />
+          <filter type="exclusive" name="serp." />
+          <filter type="exclusive" name="solid." />
+          <filter type="exclusive" name="ssa." />
+          <filter type="exclusive" name="sun." />
+          <filter type="exclusive" name="sunw." />
+          <filter type="exclusive" name="weblogic." />
+          <filter type="exclusive" name="workshop." />
+        </group>
+      </filters>
+      <exceptionalMethods />
+      <ignoredMethods />
+      <triggers logTarget="stdout" logFile="">
+        <methodInvocation enabled="true" groupId="" useGroupId="false" descriptionType="manual" manualDescription="getData" ignoreRecursiveCalls="true">
+          <actions>
+            <startRecording>
+              <cpu enabled="true" resetData="true" />
+              <allocation enabled="true" resetData="true" />
+              <thread enabled="true" />
+              <telemetry enabled="true" />
+              <methodStats enabled="true" />
+            </startRecording>
+            <sleep time="10" timeUnit="s" />
+            <triggerHeapdump fullGc="true" onlyRecordedObjects="false" recordPrimitiveData="true" calculateRetainedSizes="true" />
+            <saveSnapshot file="fff" number="false" />
+            <stopRecording>
+              <cpu enabled="true" />
+              <allocation enabled="true" />
+              <thread enabled="true" />
+              <telemetry enabled="true" />
+              <methodStats enabled="true" />
+            </stopRecording>
+          </actions>
+          <methods>
+            <method className="com.fiorano.esb.application.controller.ApplicationControllerManager" methodName="synchronizeApplication" signature="(Ljava/lang/String;ILjava/lang/String;)Lfiorano/tifosi/dmi/aps/ApplicationStateDetails;" />
+          </methods>
+        </methodInvocation>
+        <heapThreshold enabled="true" groupId="" useGroupId="false" descriptionType="automatic" manualDescription="" threshold="20" minimumTime="10" minimumTimeUnit="s" useBelowTime="true" minimumBelowTime="1" minimumBelowTimeUnit="m" inhibitDuplicateTime="1" inhibitDuplicateTimeUnit="m">
+          <actions>
+            <saveSnapshot file="heapThreshold" number="false" />
+          </actions>
+        </heapThreshold>
+        <oom enabled="true" groupId="" useGroupId="false" descriptionType="automatic" manualDescription="">
+          <actions>
+            <hprofHeapdump file="" fullGc="true" number="false" />
+          </actions>
+        </oom>
+      </triggers>
+      <viewSettings>
+        <invocationView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <hotspotsView showTime="true" showInherentTime="false" showInvocationCount="true" showAverage="false" isUsePercentageThreshold="false" percentageThreshold="0.01" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <callTracer percentageThreshold="100000" recordFiltered="false" timeDisplay="relativeToFirstTrace" showSignature="true" showClassNamesForMethods="false" />
+        <methodDistribution timeGridlines="3" scaleToFit="true" verticalGridlines="3" logarithmicValues="true" />
+        <threadsHistoryView timeGridlines="3" bookmarks="3" scaleToFit="false" background="2" monitorToolTips="true" />
+        <monitorHistory blockingThreshold="1000" waitingThreshold="100000" />
+        <monitorHistoryTelemetry timeGridlines="3" bookmarks="3" scaleToFit="false" />
+        <threadsMonitorView showRunnable="true" showWaitingOnCondition="true" showWaitingOnMonitor="true" showNetIo="true" showDead="false" />
+        <methodGraph colorInformation="1" colorScaleBase="1" showSignature="false" usePercentageThreshold="false" percentageThreshold="0.01" showAverageTimes="false" />
+        <classMonitorView primaryMeasure="1" sizeScale="1" diffColumnOrder="2" differenceDisplayType="1" />
+        <allocationsMonitor cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <allocationHotspots diffColumnOrder="2" differenceDisplayType="1" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerView showViewHelperDialog="true" showSelectionSteps="false" />
+        <heapWalkerClassesView primaryMeasure="1" sizeScale="1" />
+        <heapWalkerAllocationsView cumulate="true" showPercentageBar="true" alwaysShowFQN="true" alwaysShowSignature="false" percentageBase="2" scale="1" />
+        <heapWalkerBiggestObjectsView sizeScale="1" showObjectIds="false" showRetainedSizeBar="true" percentageBase="topLevel" />
+        <heapWalkerReferencesView primaryMeasure="1" sizeScale="1" showObjectIds="false" showObjectIdsInTree="true" showDeclaringClassesInTree="true" />
+        <heapWalkerChronoView timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <classTracker timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" objectScopeSelection="all" livenessTypeSelection="Live objects">
+          <selections />
+        </classTracker>
+        <objectStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <classStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <recordedThroughput timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" />
+        <heapStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <threadsStatistics timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <gcActivity timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+        <cpuLoad timeGridlines="3" bookmarks="3" scaleToFit="false" verticalGridlines="3" graphType="1" />
+      </viewSettings>
+      <viewFilters />
+      <threadFilters />
+      <classPath>
+        <classPathEntry path="/home/lokesh2/Desktop/Dev/installer/esb/server/lib/all/esb-fes.jar" />
+      </classPath>
+      <sourcePath />
+      <libraryPath />
+    </session>
+  </sessions>
+  <mementos />
+</config>
+

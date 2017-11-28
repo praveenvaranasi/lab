@@ -1,0 +1,7 @@
+<target label="development">
+   <instance name="chat1">
+      <instance-properties>
+         <deployment nodes="fps_test" cache="true"/>
+      </instance-properties>
+   </instance>
+</target>

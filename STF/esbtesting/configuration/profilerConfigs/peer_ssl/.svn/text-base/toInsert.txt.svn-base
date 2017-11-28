@@ -1,0 +1,3 @@
+services/fmq/ConnectionManager/ConnectionManager2-service.xml=${FIORANO_HOME}/esb/server/profiles/services/fmq/ConnectionManager/ConnectionManager2-service.xml
+services/fmq/SocketReadHandler/NATIVE/SocketReadHandler1-service.xml=${FIORANO_HOME}/esb/server/profiles/services/fmq/SocketReadHandler/NATIVE/SocketReadHandler1-service.xml
+services/fmq/FMQConfigLoader/FMQConfigLoader1-service.xml=${FIORANO_HOME}/esb/server/profiles/services/fmq/FMQConfigLoader/FMQConfigLoader1-service.xml

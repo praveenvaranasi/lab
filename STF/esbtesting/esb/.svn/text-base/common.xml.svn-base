@@ -1,0 +1,35 @@
+<project name="stf-common" default="" basedir=".">
+
+    <property file="${ant.file.stf-common}/../../configuration/test.properties"/>    
+
+    <path id="common.lib">
+       <pathelement location="${FIORANO_HOME}/xml-catalog"/>
+       <pathelement location="${FIORANO_HOME}/extlib/junit/junit.jar"/>
+       <pathelement location="${FIORANO_HOME}/extlib/xmlunit/xmlunit.jar"/>
+       <pathelement location="${FIORANO_HOME}/extlib/jms/jms.jar"/>
+	   <pathelement location="../TestNG/lib/testng-jdk15.jar"/> <!--for compiling TestNGTestCase.java. We are located in STF while running -->
+       <pathelement location="../TestNG/lib/commons-lang-2.0.jar"/> <!--for compiling TestNGTestCase.java We are located in STF while running -->
+
+
+        <fileset dir="${FIORANO_HOME}/esb/server/lib">
+            <include name="**/esb-fes.jar"/>
+        </fileset>
+	<fileset dir="${FIORANO_HOME}/esb/client/rtl/old">
+            <include name="**/esb-rtl-old.jar"/>
+        </fileset>
+        	<fileset dir="${FIORANO_HOME}/esb/server/lib">
+            <include name="**/esb-rmiInterface-api.jar"/>
+        </fileset>
+        <fileset dir="${FIORANO_HOME}/esb/shared/lib">
+            <include name="**/esb-shared.jar"/>
+        </fileset>
+	<fileset dir="${FIORANO_HOME}/esb/ESBDashboard/ESBDashboard/WEB-INF/lib">
+	    <include name="**/dashboard-servlets.jar" />
+	    <include name="**/gwt-servlet.jar" />
+	</fileset>
+        <fileset dir="${FIORANO_HOME}/framework/lib/all">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    </project>
+

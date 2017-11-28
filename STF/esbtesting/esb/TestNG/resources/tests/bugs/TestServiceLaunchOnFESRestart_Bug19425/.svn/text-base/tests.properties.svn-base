@@ -1,0 +1,5 @@
+ApplicationGUID=CHAT_CLUSTER
+ApplicationVersion=1.0
+ApplicationFile=CHAT_CLUSTER_1.0.xml
+ChatInstanceOne=chat1
+ChatInstanceTwo=chat2

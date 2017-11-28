@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:Message xmlns:ns1="http://www.fiorano.com/fesb/activity/JMSIn1/jmsIn/Out">
+   <ns1:Body>Message sent to Destination PrimaryTopic</ns1:Body>
+   <ns1:SentMessage>This is Test Message for JMS Adapter</ns1:SentMessage>
+</ns1:Message>

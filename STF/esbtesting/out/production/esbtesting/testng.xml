@@ -1,0 +1,147 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+
+<!-- disable ant debugger if any-->
+<suite name="ESB Rmi Test Suite">
+    <test name="bugs" preserve-order="true">
+        <classes>
+
+            <!--run first as these cases get affected by other cases
+
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestFeederAttachment"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestPurchaseSystem"/>-->
+
+            <!-- run after running the above cases
+            <class name="com.fiorano.esb.testng.rmi.bugs.CheckRemoteInstanceLogs_21287"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.NoOptionToReinject_22060"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.RouteNotRemoved_21910"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.RunContainerLogs20637"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.StopAppBP_21595"/>
+	        <class name="com.fiorano.esb.testng.rmi.bugs.StopApplicationWithBreakpt_Bug21600"/>
+	        <class name="com.fiorano.esb.testng.rmi.bugs.TestDestinationsNotGettingDeleted22424"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestAccentedComponents"/>
+	        <class name="com.fiorano.esb.testng.rmi.bugs.TestAddSelectrAddServInst21567"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestAppContext"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestAPPGUIDstartswithT_orQ_"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestAutoDeleteWSDL"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestBackupTakenInClearDB21808"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestBreakpointReappears"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestCCP"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestChangeDebuggerLaunchType21394"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestChangePasswdSecurity19625"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestChangePasswordForNewUser21803"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestComponentDependency"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestComponentReLaunch"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestConfigurationListener"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestConstants"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestCRIS_POC_20819"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDashboardAccessibility21796"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDashBrdLogsNonCCP21530"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDashBrdOnDiffMachine21469"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDataStoreResetByNonAdmin22275"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDebugAddServInst19596"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDebugChangDeploymnt19596"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDebugStopPeerRemovBrkPont19596"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDebugTwoStudios19596"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDeleteSelectedRecords_21976"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestdelteRouteWithBP19596"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDisplayLaunch"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDMRuleswithLabels"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestEditAndDeleteNamedConfiguration_20729"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestEditServiceDependancy21113"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestEventProcessOverwrite"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestExceptionInFESLogs21878"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestExportRelevantLogs_22063"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestFESRestartAfterSavedConfigs_22769"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestFioranomonitoringService"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestGarbledLogs"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestGetWSContexts"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestGracefullyKilledComp21667"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestImportSSLWSStub"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestImportWSDL"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestInMemory17763"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestIRepositoryEventListener"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestJapanese"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestMaintainInternalVersionB20059"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestUnexpectedComponentShutdown"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestNamedConfig20283"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestNamedConfig20741"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestNamedWorkflowConfig"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestNoCache_CRC_20578"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestPasswordRule"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestPermission"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestPersistDeploymentRules"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestPolicyManager"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestPortChanges"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRemote"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRemoteFeederDisplay"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRemoteServiceInstance"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRemoteServices21990"/>
+
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestReregisterCustomService"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRestartPeerStopEP21883"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRestrictedAccessUser_Reinject_20699"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRestStubIncorrectXML_21054"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRmtFdrRmtDips21388"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSameAlertID_22037"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSBWEvent"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSBWUserdefineDOC"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSchedulingComponentOnPeerRestart"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSender_Reciever"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestShutting_down_server_22833"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestStopComponentRevertPeer21769"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestStopEPafterMsgSent21544"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestStopEPAfterPeerRestart"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSyncAfterStoppingComponent"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestThreadDump"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestRemoveRemoteAccess"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestStopRemoteInstance"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestServiceLaunchOnFESRestart"/>
+
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestVisibilityLogs21799"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestWSStubCleanup"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestWsstubJapanese"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestTempCliFolderCleanup"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDashboardAlerts"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestDeleteRouteTransformation21397"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestMsgNotIntrceptedOnBrkPont19596"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestClearOutMQLogs20586"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestExtraMQLogs"/>
+             <class name="com.fiorano.esb.testng.rmi.bugs.TestWSStubLaunching"/>
+             <class name="com.fiorano.esb.testng.rmi.bugs.TestFileDescriptor19637"/>   --> <!--takes 30mins    -->
+
+            <!-- run at last
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestResourceFetchForChatComponent19543"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestResourceConfigurations17597"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestResourceFetch"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestResourceFetchForCacheEnabled"/>  -->
+
+            <!-- Run separately with SSL enabled for "fps1" in testenv.xml, after running revert back the ssl option to false-->
+            <!--<class name="com.fiorano.esb.testng.rmi.bugs.SSLPeerTest"/>-->
+
+            <!-- need to be re written
+
+                  <class name="com.fiorano.esb.testng.rmi.bugs.UserProvidedKeystore_21226"/>      -->
+
+
+
+            <!-- Not working
+                 <class name="com.fiorano.esb.testng.rmi.bugs.TestFESMemoryUsage"/>
+            -->
+
+            <!-- Case on break points not valid, cannot be automated
+                <class name="com.fiorano.esb.testng.rmi.bugs.TestComponentPortChange21238"/>
+            -->
+            <!--<class name="com.fiorano.esb.testng.rmi.bugs.TestServerShutdown22219"/>-->
+            <class name="com.fiorano.esb.testng.rmi.bugs.TryServerShutDownAndStart"/>
+        </classes>
+    </test>
+</suite>

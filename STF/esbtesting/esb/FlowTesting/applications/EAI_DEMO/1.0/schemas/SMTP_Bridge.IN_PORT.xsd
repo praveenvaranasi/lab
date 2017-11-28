@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in">
+  <xsd:element name="Email">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="To" type="xsd:string" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+                <xsd:documentation>Comma separated sequence of email addresses of the recipient(s)</xsd:documentation>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="From" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="CC" type="xsd:string" minOccurs="0"></xsd:element>
+        <xsd:element name="BCC" type="xsd:string" minOccurs="0"></xsd:element>
+        <xsd:element name="ReplyTo" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Subject" type="xsd:string" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+                <xsd:documentation>Subject of the mail</xsd:documentation>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="Headers" type="HeadersType" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Attachments" type="AttachmentsType" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Body" type="Body" minOccurs="0" maxOccurs="1"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="Body">
+    <xsd:sequence>
+      <xsd:element name="TextBody" type="xsd:string" minOccurs="0"></xsd:element>
+      <xsd:element name="HtmlBody" type="xsd:string" minOccurs="0"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentsType">
+    <xsd:sequence>
+      <xsd:element name="Attachment" type="AttachmentType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentType" mixed="true">
+   <xsd:simpleContent>
+   <xsd:extension base="xsd:string">
+    <xsd:attribute name="name" use="required" type="xsd:string">
+    </xsd:attribute>
+    <xsd:attribute name="readFromFile" default="no">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:NMTOKEN">
+          <xsd:enumeration value="yes"></xsd:enumeration>
+          <xsd:enumeration value="no"></xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="base64Encoded" default="no">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:NMTOKEN">
+          <xsd:enumeration value="yes"></xsd:enumeration>
+          <xsd:enumeration value="no"></xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="HeadersType">
+    <xsd:sequence>
+      <xsd:element name="Header" type="HeaderType" minOccurs="0" maxOccurs="unbounded"/>
+	</xsd:sequence>
+  </xsd:complexType>
+<xsd:complexType name="HeaderType">
+<xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+<xsd:attribute name="value" use="required" type="xsd:string"></xsd:attribute>
+</xsd:complexType>
+</xsd:schema>

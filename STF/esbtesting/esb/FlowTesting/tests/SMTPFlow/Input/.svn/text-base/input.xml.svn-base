@@ -1,0 +1,15 @@
+<ns1:Email xmlns:ns1="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in">
+   <To>ayrton@fiorano.com</To>
+   <From>ayrton@fiorano.com</From>
+   <Subject>SMTP Flow Test Case</Subject>
+   <Headers>
+      <Header name="name" value="value"/>
+   </Headers>
+   <Attachments>
+      <Attachment name="name" readFromFile="no" base64Encoded="no">string</Attachment>
+   </Attachments>
+   <Body>
+      <TextBody>TextBody</TextBody>
+      <HtmlBody>HtmlBody</HtmlBody>
+   </Body>
+</ns1:Email>

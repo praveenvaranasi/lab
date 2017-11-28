@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+    targetNamespace="http://middleware.network.dhl.com/schema/CDM" 
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+    
+    <xsd:simpleType name="NetworkType">
+        <xsd:restriction base = "xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="MessageIdentifierType">
+        <xsd:restriction base = "xsd:token">
+            <xsd:enumeration value = "CPM"/>
+            <xsd:enumeration value = "LDM"/>
+            <xsd:enumeration value = "CAM"/>
+            <xsd:enumeration value = "UNK"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="OriginatingSystemType">
+        <xsd:restriction base = "xsd:token">
+            <xsd:enumeration value="EMAIL"/>
+            <xsd:enumeration value="SITA"/>
+            <xsd:enumeration value="NMIV"/>
+            <xsd:enumeration value="AIMS"/>
+            <xsd:enumeration value="DBCORE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="StationType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="DayOfOperationType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="MovementNrType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+ 
+    <xsd:simpleType name="VehicleRegistrationType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+ 
+    <xsd:simpleType name="UldNrType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="PositionType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="InfoTextType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="WeightType">
+        <xsd:restriction base="xsd:token" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="UnitType">
+        <xsd:restriction base = "xsd:token" />
+    </xsd:simpleType>
+    
+</xsd:schema>

@@ -1,0 +1,9 @@
+ApplicationGUID=SelectorTest_Scenario_JUnit
+ApplicationVersion=1.0
+SelectorRouteGUID=Route_Selector
+ApplicationFile=SELECTORTEST_SCENARIO_JUNIT_1.0.xml
+RouteOfComponent1=route1
+RouteOfComponent2=route2
+RouteOfComponent3=route3
+MessageFile=Message.txt
+MessageFileWrong=MessageWrong.txt

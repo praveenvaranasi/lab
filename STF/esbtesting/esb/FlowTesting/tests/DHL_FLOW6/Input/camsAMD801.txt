@@ -1,0 +1,5 @@
+AMD801  13/11/2007CENQY 1207    Geert Scheers                 CPNEX,SE,XX                13/11/2007T09:45DHLCMN,VLC,CGN,BFS,OSL,CIA,IST,VIE,EVN,SEN,WAW,PSA,CFE,AJA,QLA
+AMD801  13/11/2007CENQY 378     Ronny Jacobs                  FON                       T13/11/2007T09:45DHL                                                           
+AMD802  13/11/2007CENQY 1207    Geert Scheers                 CPNEX,SE,XX                13/11/2007T09:45DHLCMN,VLC,CGN,BFS,OSL,CIA,IST,VIE,EVN,SEN,WAW,PSA,CFE,AJA,QLA
+AMD802  13/11/2007CENQY 378     Ronny Jacobs                  FON                       T13/11/2007T09:45DHL                                                           
+AMD801  13/11/2007CENQY 378     Ronny Jacobs                  FON                       T13/11/2007T09:45DHL                                                           

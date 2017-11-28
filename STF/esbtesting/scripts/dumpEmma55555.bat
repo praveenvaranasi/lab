@@ -1,0 +1,1 @@
+%JAVA_HOME%\bin\java -cp %FIORANO_HOME%\..\sources\3rdParty\emma\emma.jar emma ctl -connect localhost:55555 -command coverage.dump,Emma\rawoutput.es

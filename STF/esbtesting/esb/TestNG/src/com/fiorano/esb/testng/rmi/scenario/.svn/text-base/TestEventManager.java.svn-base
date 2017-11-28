@@ -1,0 +1,783 @@
+package com.fiorano.esb.testng.rmi.scenario;
+
+import com.fiorano.esb.rtl.TifosiConstants;
+import com.fiorano.esb.rtl.application.FioranoApplicationController;
+import com.fiorano.esb.rtl.events.FioranoEventsManager;
+import com.fiorano.esb.rtl.fps.FioranoFPSManager;
+import com.fiorano.esb.testng.rmi.AbstractTestNG;
+import com.fiorano.esb.testng.rmi.log.Logger;
+import com.fiorano.stf.framework.ServerStatusController;
+import com.fiorano.stf.jms.STFQueueSender;
+import com.fiorano.stf.misc.JUnitDebuger;
+import com.fiorano.stf.misc.JUnitEventListener;
+import fiorano.tifosi.common.FioranoException;
+import fiorano.tifosi.common.TifosiException;
+import fiorano.tifosi.dmi.application.Application;
+import fiorano.tifosi.dmi.application.ApplicationParser;
+import fiorano.tifosi.dmi.events.ApplicationEvent;
+import fiorano.tifosi.dmi.events.EventSearchContext;
+import fiorano.tifosi.events.EventConstants;
+import fiorano.tifosi.events.EventStateConstants;
+import fiorano.tifosi.events.TifosiEventTypes;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.io.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.logging.Level;
+
+/**
+* Created by IntelliJ IDEA.
+* User: ranu
+* Date: 10/19/11
+* Time: 5:40 PM
+* To change this template use File | Settings | File Templates.
+*/
+public class TestEventManager extends AbstractTestNG{
+    private boolean m_initialised;
+    FioranoEventsManager m_EventsManager;
+    FioranoApplicationController m_fioranoApplicationController;
+    private String resourceFilePath;
+    private String m_appGUID;
+    private float m_version;
+    private String m_appFile;
+    private String m_startInstance;
+    private String m_endInstance;
+
+    static boolean isModifiedOnceHA=false;//to check the files overwriting
+    static boolean isModifiedOnce=false;
+    private FilenameFilter xmlFilter;//file extracter
+
+    //creating the xml file filter
+    private void setXmlFilter(String ext){
+           xmlFilter=new OnlyExt(ext);
+       }
+
+    // the function modifies the xml files and replace any "search" string with "replace" string
+    void modifyXmlFiles(String path,String search,String replace) throws IOException{
+        File fl=new File(path);
+        File[]filearr=fl.listFiles(xmlFilter);
+        FileReader fr=null;
+        FileWriter fw=null;
+       boolean change=false;
+        BufferedReader br;
+        String s;
+        String result="";
+
+
+        int i=0;
+        while(i<filearr.length-1)
+        {
+            try{
+                fr=new FileReader(filearr[i]) ;
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+            try{
+                fw=new FileWriter("temp.xml");
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+            br=null;
+            br=new BufferedReader(fr);
+
+
+         while((s=br.readLine())!=null)
+         {
+
+             int j=s.indexOf(search);
+             if(j!=-1)
+             {
+                 change=true;
+                 int k=search.length()+j;
+                 //System.out.println("The Index start is "+j+" and index last is "+ k);
+                 result=s.substring(0,j);
+                 result=result+replace;
+                 result=result+ s.substring(k);
+                 s=result;
+
+              }
+                //System.out.print(s);
+
+                fw.write(s);
+               fw.write('\n');
+        }
+            fr.close();
+            fw.close();
+
+            if(change)
+            {
+                fr=new FileReader("temp.xml");
+                fw=new FileWriter(filearr[i]);
+                br=new BufferedReader(fr);
+                while((s=br.readLine())!=null)
+                {
+                    fw.write(s);
+                    fw.write('\n');
+                }
+                fr.close();
+                fw.close();
+                change=false;
+            }
+
+            i=i+1;
+
+        }
+    }
+
+    public void init() throws Exception {
+        m_appGUID = testProperties.getProperty("ApplicationGUID");
+        m_version = Float.parseFloat(testProperties.getProperty("ApplicationVersion"));
+        m_appFile = resourceFilePath+ fsc + testProperties.getProperty("ApplicationFile", "1.0.xml");
+        m_startInstance = testProperties.getProperty("WorkFlowStartInstance");
+        m_endInstance = testProperties.getProperty("WorkFlowEndInstance");
+    }
+
+    protected void printInitParams() {
+        System.out.println("_______________________The Initialization Paramaters_______________________");
+        System.out.println("Application GUID::       " + m_appGUID + "  Version Number::" + m_version);
+        System.out.println("Application File" + m_appFile);
+        System.out.println("_____________________________________________________________________________");
+    }
+
+    @BeforeClass(groups = "EventManagerTest", alwaysRun = true)
+    public void startSetUp(){
+        System.out.println("Started the Execution of the TestCase::" + getName());
+        if (!m_initialised) {
+            initializeProperties("scenario" + fsc + "EventsManager" + fsc + "tests.properties");
+            resourceFilePath = testResourcesHome + fsc + "tests" +  fsc + "scenario" + fsc + "EventsManager";
+            m_fioranoApplicationController = rtlClient.getFioranoApplicationController();
+
+            ServerStatusController stc;
+            stc= ServerStatusController.getInstance();
+            boolean isFPSHA=stc.getFPSHA();
+            setXmlFilter("xml");
+            try {
+                if(isFPSHA && !isModifiedOnceHA)
+                {
+                    isModifiedOnceHA=true;
+                    modifyXmlFiles(resourceFilePath,"fps","fps_ha");
+                }
+                else if(!isFPSHA && !isModifiedOnce)
+                {
+                    isModifiedOnce=true;
+                    modifyXmlFiles(resourceFilePath,"fps_ha","fps");
+                }
+                init();
+            m_EventsManager = rtlClient.getFioranoEventsManager();
+            } catch (Exception e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                Assert.fail(Logger.getErrMessage(getName(),"TestEventManager"));
+            }
+            m_initialised = true;
+        }
+
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "startSetUp")
+    public void testStartReceiving() {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testStartReceiving", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            m_EventsManager.startReceiving();
+            m_EventsManager.clearAllApplicationEvents(m_appGUID,"m_version",null,-1,0,-1);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testStartReceiving", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testStartReceiving", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testStartReceiving")
+    public void testRegisterEventListener() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterEventListener", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            JUnitEventListener eventListener = new JUnitEventListener("From Register Event Listener");
+            m_EventsManager.registerEventListener(eventListener, TifosiConstants.ALL_EVENT_LISTENER,false);
+            //m_fioranoServiceProvider.getSecurityManager().createUser("testUser","testpasswd");
+            //m_fioranoServiceProvider.getSecurityManager().deleteUser("testUser");
+            m_EventsManager.unRegisterEventListner(eventListener,TifosiConstants.ALL_EVENT_LISTENER);
+             m_EventsManager.registerEventListener(eventListener, TifosiConstants.ALL_EVENT_LISTENER,false);
+            m_EventsManager.unRegisterEventListner(eventListener,TifosiConstants.ALL_EVENT_LISTENER);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterEventListener", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterEventListener", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterEventListener")
+    public void testRegisterAllEventListener() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterAllEventListener", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            JUnitEventListener eventListener = new JUnitEventListener("From Register All Event Listener");
+            m_EventsManager.registerAllEventListener(eventListener,false);
+            //m_fioranoServiceProvider.getSecurityManager().createUser("testUser","testpasswd");
+            // m_fioranoServiceProvider.getSecurityManager().deleteUser("testUser");
+            m_EventsManager.unRegisterAllEventListener(eventListener);
+            m_EventsManager.registerAllEventListener(eventListener);
+            m_EventsManager.unRegisterAllEventListener(eventListener);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterAllEventListener", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterAllEventListener", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterAllEventListener")
+    public void testRegisterApplicationEventListener() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterApplicationEventListener", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            JUnitEventListener eventListener = new JUnitEventListener("From Register Application Event Listener");
+            m_EventsManager.registerApplicationEventListener(eventListener,false);
+            m_EventsManager.unRegisterApplicationEventListener(eventListener);
+            m_EventsManager.registerApplicationEventListener(eventListener);
+            m_EventsManager.unRegisterApplicationEventListener(eventListener);
+            m_EventsManager.registerApplicationEventListener(eventListener,m_appGUID,false);
+            m_EventsManager.unRegisterApplicationEventListener(m_appGUID);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterApplicationEventListener", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterApplicationEventListener", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterApplicationEventListener")
+    public void testRegisterFPSEventListener() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterFPSEventListener", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            JUnitEventListener eventListener = new JUnitEventListener("From Register FPS Event Listener");
+            m_EventsManager.registerFPSEventListener(eventListener,false);
+            m_EventsManager.unRegisterFPSEventListener(eventListener);
+            m_EventsManager.registerFPSEventListener(eventListener);
+            m_EventsManager.unRegisterFPSEventListener(eventListener);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterFPSEventListener", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterFPSEventListener", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterFPSEventListener")
+    public void testRegisterSecurityEventListener() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterSecurityEventListener", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            JUnitEventListener eventListener = new JUnitEventListener("From Register Security Event Listener");
+            m_EventsManager.registerSecurityEventListener(eventListener,false);
+            m_EventsManager.unRegisterSecurityEventListener(eventListener);
+            m_EventsManager.registerSecurityEventListener(eventListener);
+            m_EventsManager.unRegisterSecurityEventListener(eventListener);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterSecurityEventListener", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterSecurityEventListener", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterSecurityEventListener")
+    public void testRegisterComponentEventListener() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterComponentEventListener", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            JUnitEventListener eventListener = new JUnitEventListener("From Register Component Event Listener");
+            m_EventsManager.registerComponentEventListener(eventListener,false);
+            m_EventsManager.unRegisterComponentEventListener(eventListener);
+            m_EventsManager.registerComponentEventListener(eventListener);
+            m_EventsManager.unRegisterComponentEventListener(eventListener);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterComponentEventListener", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterComponentEventListener", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterComponentEventListener", description = "written for the sake of bug 11775")
+    public void testRegisterAllEventListener2() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testRegisterAllEventListener2", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            /* clearing all events logged bofore */
+            m_EventsManager.clearAllApplicationEvents(m_appGUID,"m_version",null,-1,0,-1);
+
+            /* register new all event listener, upgrade if present */
+            JUnitEventListener eventListener = new JUnitEventListener("From Register All Event Listener");
+            m_EventsManager.registerAllEventListener(eventListener);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testRegisterAllEventListener2", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testRegisterAllEventListener2", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testRegisterAllEventListener2")
+    public void testCreateApplication() {
+        // This application is created form the SIMPLECHAT Application, and then setting the Workflow on ports. etc.
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testCreateApplication", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            System.out.println("The App File is::" + m_appFile);
+            Application application = ApplicationParser.readApplication(new File(m_appFile));
+            m_fioranoApplicationController.saveApplication(application);
+            if (m_fioranoApplicationController.getApplication(m_appGUID, m_version) == null)
+                throw new Exception("Application with GUID::" + m_appGUID + ", version::" + m_version + " not created");
+            startApplication(m_appGUID, m_version);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testCreateApplication", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testCreateApplication", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", enabled = false, dependsOnMethods = "testCreateApplication", description = "written for the sake of bug 11775")
+    public void testAPPLICATION_SAVED(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testAPPLICATION_SAVED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.APPLICATION_SAVED);
+            esc.setEventCategory("ALL");
+            esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testAPPLICATION_SAVED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testAPPLICATION_SAVED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testCreateApplication", description = "written for the sake of bug 11775")
+    public void testApplicationCreated(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testAPPLICATION_CREATED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.APPLICATION_REPOSITORY_UPDATION);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testAPPLICATION_CREATED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testAPPLICATION_CREATED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testApplicationCreated", description = "written for the sake of bug 11775")
+    public void testServiceHandleBound(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testSERVICE_HANDLE_BOUND", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            Thread.sleep(30000);
+            //as the application is lauched, services have to be launched, and so this event can be expected
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.SERVICE_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.SERVICE_HANDLE_BOUND);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,-1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testSERVICE_HANDLE_BOUND", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testSERVICE_HANDLE_BOUND", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testServiceHandleBound", description = "written for the sake of bug 11775")
+    public void testApplicationLaunched(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testAPPLICATION_LAUNCHED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT);  //event type is must for search
+            esc.setEventStatus(EventStateConstants.APPLICATION_LAUNCHED);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testAPPLICATION_LAUNCHED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testAPPLICATION_LAUNCHED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", enabled = false, dependsOnMethods = "testApplicationLaunched", description = "written for the sake of bug 11775")
+    public void testROUTE_DEBUGGER_SET(){
+       try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testROUTE_DEBUGGER_SET", "EventsManagerTest"));
+            System.out.println("Started the ESBWDetailerTestxecution of the TestCase::" + getName());
+            String m_routeGUID = testProperties.getProperty("RouteGUID");
+            JUnitDebuger interceptor = new JUnitDebuger(m_appGUID,m_routeGUID);
+            m_fioranoApplicationController.setDebugger(m_routeGUID,m_appGUID,m_version,interceptor);
+
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.ROUTE_EVENT);   //event type is must for search
+            esc.setEventStatus(EventStateConstants.ROUTE_DEBUGGER_SET);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testROUTE_DEBUGGER_SET", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testROUTE_DEBUGGER_SET", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", enabled = false, dependsOnMethods = "testROUTE_DEBUGGER_SET", description = "written for the sake of bug 11775")
+    public void testROUTE_DEBUGGER_REMOVED(){
+       try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testROUTE_DEBUGGER_REMOVED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            String m_routeGUID = testProperties.getProperty("RouteGUID");
+            m_fioranoApplicationController.removeDebugger(m_routeGUID,m_appGUID,m_version,true,false,10000L);
+
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.ROUTE_EVENT);      //event type is must for search
+            esc.setEventStatus(EventStateConstants.ROUTE_DEBUGGER_REMOVED);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,-1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testROUTE_DEBUGGER_REMOVED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testROUTE_DEBUGGER_REMOVED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testApplicationLaunched")
+    public void testGetAllApplicationEvents() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testGetAllApplicationEvents", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            String versionn=""+m_version;
+            Enumeration en = m_EventsManager.getAllApplicationEvents(m_appGUID,versionn,m_startInstance, TifosiEventTypes.APPLICATION_EVENT,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testGetAllApplicationEvents", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testGetAllApplicationEvents", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testGetAllApplicationEvents")
+    public void testSearchEvents() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testSearchEvents", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT); //event type is must for search
+            esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testSearchEvents", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testSearchEvents", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testSearchEvents")
+    public void testGetSystemEventModules() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testGetSystemEventModules", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            Hashtable ht = m_EventsManager.getSystemEventModules();
+            Enumeration en = ht.keys();
+            Assert.assertTrue(en.hasMoreElements());
+            while(en.hasMoreElements()){
+                String key = (String)en.nextElement();
+                System.out.println(key+"::"+ht.get(key));
+            }
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testGetSystemEventModules", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testGetSystemEventModules", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testGetSystemEventModules")
+    public void testGetNumberOfEvents() throws Exception {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testGetNumberofEvents", "EventsManagerTest"));
+            String versionn=""+m_version;
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            Assert.assertTrue(m_EventsManager.getTotalNumberOfEvents(TifosiEventTypes.APPLICATION_EVENT,m_appGUID,versionn,m_startInstance)>0);
+     //       Assert.assertTrue(m_EventsManager.getTotalNumberOfEvents(TifosiEventTypes.APPLICATION_EVENT,m_appGUID,m_startInstance)>0);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testGetNumberofEvents", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testGetNumberofEvents", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", enabled = false, dependsOnMethods = "testGetNumberOfEvents", description = "written for the sake of bug 11775")
+    public void testSERVICE_KILLED_ON_TPS_SHUTDOWN(){
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testSERVICE_KILLED_ON_TPS_SHUTDOWN", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            FioranoFPSManager m_FPSManager = rtlClient.getFioranoFPSManager();
+            String m_FPSName = testProperties.getProperty("fpsName");
+            System.out.println(m_FPSName);
+            Assert.assertTrue(m_FPSManager.isTPSRunning(m_FPSName));
+            m_FPSManager.restartTPS(m_FPSName);
+            Thread.sleep(25000); //wait till server restarts - change if necessary
+            //Assert.assertTrue(m_FPSManager.getIsTPSExist(m_FPSName));
+            Assert.assertTrue(m_FPSManager.isTPSRunning(m_FPSName));
+
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.SERVICE_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.SERVICE_KILLED_ON_TPS_SHUTDOWN);
+            //esc.setAppInstanceName(m_appGUID);
+            esc.setTPSName(m_FPSName);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testSERVICE_KILLED_ON_TPS_SHUTDOWN", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testSERVICE_KILLED_ON_TPS_SHUTDOWN", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", enabled = false, dependsOnMethods = "testSERVICE_KILLED_ON_TPS_SHUTDOWN", description = "written for the sake of bug 11775")
+    public void testAPPLICATION_RENAMED(){
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testAPPLICATION_RENAMED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+           // Assert.assertTrue(m_fioranoApplicationController.isApplicationRunning(m_appGUID,m_version));
+            String newGUID = "NEWTESTAPPID";
+            if(m_fioranoApplicationController.isApplicationRunning(m_appGUID,m_version)){
+                m_fioranoApplicationController.killApplication(m_appGUID,m_version);
+            }
+            m_fioranoApplicationController.renameApplication(m_appGUID,m_version, newGUID, m_version);
+            if (m_fioranoApplicationController.getApplication(newGUID, m_version) == null)
+                throw new Exception("Application name not changed");
+            m_fioranoApplicationController.renameApplication(newGUID,m_version, m_appGUID, m_version);
+            if (m_fioranoApplicationController.getApplication(m_appGUID, m_version) == null)
+                throw new Exception("Application name not changed");
+
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT);  //event type is must for search
+            esc.setEventStatus(EventStateConstants.APPLICATION_RENAMED);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testAPPLICATION_RENAMED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testAPPLICATION_RENAMED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testGetNumberOfEvents")
+    public void testAPPLICATION_KILLED(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testAPPLICATION_KILLED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.APPLICATION_KILLED);
+            esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,2);
+            Assert.assertFalse(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testAPPLICATION_KILLED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testAPPLICATION_KILLED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testAPPLICATION_KILLED")
+    public void testDeleteApplication() {
+        try {
+            Logger.LogMethodOrder(Logger.getOrderMessage("testDeleteApplication", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            if(m_fioranoApplicationController.isApplicationRunning(m_appGUID,m_version)){
+                m_fioranoApplicationController.killApplication(m_appGUID,m_version);
+            }
+            m_fioranoApplicationController.deleteApplication(m_appGUID, m_version);
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testDeleteApplication", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testDeleteApplication", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testDeleteApplication", description = "written for the sake of bug 11775")
+    public void testAPPLICATION_DELETED(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testAPPLICATION_DELETED", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.APPLICATION_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.APPLICATION_DELETED);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,2);
+            Assert.assertFalse(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testAPPLICATION_DELETED", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testAPPLICATION_DELETED", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testAPPLICATION_DELETED", description = "written for the sake of bug 11775")
+    public void testSERVICE_HANDLE_UNBOUND(){
+        try{
+            Logger.LogMethodOrder(Logger.getOrderMessage("testSERVICE_HANDLE_UNBOUND", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            //as the application is killed, services have to be killed, and so this event can be expected
+            EventSearchContext esc = new EventSearchContext();
+            esc.addEventType(TifosiEventTypes.SERVICE_EVENT); //event type is must for search
+            esc.setEventStatus(EventStateConstants.SERVICE_HANDLE_UNBOUND);
+            //esc.setAppInstanceName(m_appGUID);
+            Enumeration en = m_EventsManager.searchEvents(esc,0,1);
+            Assert.assertTrue(en.hasMoreElements());
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testSERVICE_HANDLE_UNBOUND", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testSERVICE_HANDLE_UNBOUND", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    @Test(groups = "EventManagerTest", alwaysRun = true, dependsOnMethods = "testSERVICE_HANDLE_UNBOUND")
+    public void testStopReceiving() {
+        try {
+           Logger.LogMethodOrder(Logger.getOrderMessage("testStopReceiving", "EventsManagerTest"));
+            System.out.println("Started the Execution of the TestCase::" + getName());
+            m_EventsManager.clearAllApplicationEvents(m_appGUID,"m_version",m_startInstance,TifosiEventTypes.APPLICATION_EVENT,0,1);
+            EventSearchContext esc = new EventSearchContext();
+            esc.setAppInstanceName(m_appGUID);
+            m_EventsManager.clearEventLogs(esc);
+            m_EventsManager.stopReceiving();
+            Logger.Log(Level.INFO, Logger.getFinishMessage("testStopReceiving", "EventsManagerTest"));
+        }
+        catch (Exception ex) {
+            System.err.println("Exception in the Execution of test case::" + getName());
+            ex.printStackTrace();
+            Logger.Log(Level.SEVERE, Logger.getErrMessage("testStopReceiving", "EventsManagerTest"), ex);
+            Assert.assertTrue(false, "TestCase Failed because of " + ex.getMessage());
+        }
+    }
+
+    private void sendMessageOnInputPort(String m_appGUID, String serviceInstName, String portName, String message, int count) throws Exception {
+        STFQueueSender publisher = null;
+        System.out.println("Sending the message \n" + message);
+        publisher = new STFQueueSender();
+        String fpsName = (String) m_fioranoApplicationController.getApplication(m_appGUID, m_version).getServiceInstance(serviceInstName).getNodes()[0];
+        if (fpsName == null || fpsName.trim().equals(""))
+            fpsName = "fps";
+        String url = rtlClient.getFioranoFPSManager().getConnectURLForFPS(fpsName);
+        String queueName = m_appGUID + "__" + serviceInstName + "__" + portName;
+        publisher.initialize(queueName, null, url);
+        publisher.send(message, count);
+        try {
+            Thread.sleep(200L);
+        } catch (InterruptedException e) {
+            //ignore
+        }
+
+        if (publisher != null)
+            publisher.cleanup();
+        System.out.println("Messages Published");
+    }
+    private void startApplication(String appGuid, float appVersion) throws FioranoException {
+        try {
+            m_fioranoApplicationController.compileApplication(appGuid,appVersion);
+            m_fioranoApplicationController.prepareLaunch(appGuid, appVersion);
+            m_fioranoApplicationController.launchApplication(appGuid, appVersion);
+            m_fioranoApplicationController.startAllServices(appGuid,appVersion);
+        } catch (TifosiException e) {
+            if (e.getMessage().indexOf("ERROR_APPLICATION_LAUNCH_ERROR ::") != -1 && e.getMessage().indexOf("version of this application is already running") != -1) {
+                //never mind if the application is already running.
+                return;
+            }
+            System.err.println("Error launching the application");
+            e.printStackTrace();
+            throw new FioranoException("Error launching the application");
+        }
+    }
+}

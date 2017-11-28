@@ -1,0 +1,52 @@
+<project name="testng" default="run-tests" basedir=".">
+
+<property file="resources/Test.properties"/>
+
+    <!-- COMPILE TESTS-->
+    <path id="cpath">
+        <pathelement location="lib/testng-jdk15.jar"/>
+        <pathelement location="lib/commons-lang-2.0.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/server/lib/esb-rmiInterface-api.jar"/>
+        <pathelement location="${FIORANO_HOME}/framework/lib/fiorano-rmi-client.jar"/>
+	    <pathelement location="${FIORANO_HOME}/esb/shared/lib/esb-shared-tif-dmi.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/ESBDashboard/ESBDashboard/WEB-INF/lib/dashboard-servlets.jar" />
+    </path>
+
+    <target name="compile">
+        <echo message="Compiling tests"/>
+        <mkdir dir="classes"/>
+        <javac fork="true" debug="true"
+               source="1.5"
+               classpathref="cpath"
+               srcdir="src"
+               destdir="classes"/>
+    </target>
+
+    <!-- RUN TESTS-->
+    <taskdef name="testng"
+             classname="com.beust.testng.TestNGAntTask"
+             classpathref="cpath"/>
+
+    <path id="runpath">
+        <path refid="cpath"/>
+        <pathelement location="classes"/>
+    </path>
+
+    <target name="run-tests" depends="cleanup,compile">
+        <echo message="running tests"/>
+        <testng fork="yes" classpathref="runpath" outputDir="test-output">
+            <fileset dir="src" includes="testng.xml"/>
+            <jvmarg value="-ea"/>
+        </testng>
+    </target>
+
+    <target name="cleanup">
+        <delete dir="classes"/>
+        <delete dir="test-output"/>
+        <delete dir="logs"/>
+        <delete dir="ServerLogs"/>
+        <mkdir dir="logs"/>
+        <mkdir dir="ServerLogs"/>
+    </target>
+
+</project>

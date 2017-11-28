@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.fiorano.com/fesb/activity/XML2Text1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.fiorano.com/fesb/activity/XML2Text1">
+   <xsd:element name="Employee_Schema">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Employee">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="EmployeeName">
+                        <xsd:simpleType>
+                           <xsd:restriction base="xsd:string">
+                              <xsd:minLength value="2" fixed="true"/>
+                              <xsd:maxLength value="20" fixed="true"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                     <xsd:element name="EmployeeID">
+                        <xsd:simpleType>
+                           <xsd:restriction base="xsd:string">
+                              <xsd:minLength value="6" fixed="true"/>
+                              <xsd:maxLength value="6" fixed="true"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                     <xsd:element name="EmployeeAge" type="xsd:int"/>
+                     <xsd:element name="EX">
+                        <xsd:simpleType>
+                           <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="20" fixed="true"/>
+                           </xsd:restriction>
+                        </xsd:simpleType>
+                     </xsd:element>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+</xsd:schema>

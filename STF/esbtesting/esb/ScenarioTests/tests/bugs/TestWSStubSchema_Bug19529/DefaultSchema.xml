@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:Envelope xmlns:ns1="http://www.fiorano.com/services/JMSContext/SendMessage/Input">
+   <ns1:Header/>
+   <ns1:Body/>
+</ns1:Envelope>

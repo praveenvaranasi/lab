@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:SQL_CFG_1 xmlns:ns1="http://www.fiorano.com/fesb/activity/DB1/Response">
+    <ns1:select>
+        <ns1:ORDERID>1001</ns1:ORDERID>
+        <ns1:CUSTOMERID>4001</ns1:CUSTOMERID>
+        <ns1:EMAIL>customer1@abc.com</ns1:EMAIL>
+        <ns1:MODE>Air</ns1:MODE>
+        <ns1:ADDRESS>CA</ns1:ADDRESS>
+        <ns1:COUNTRY>USA</ns1:COUNTRY>
+        <ns1:POSTALCODE>95032</ns1:POSTALCODE>
+        <ns1:PHONENUMBER>n/a</ns1:PHONENUMBER>
+        <ns1:PRODUCT>CISCO ROUTER</ns1:PRODUCT>
+        <ns1:PRICE>$450</ns1:PRICE>
+        <ns1:BILLAMOUNT>$4500</ns1:BILLAMOUNT>
+        <ns1:ORDERDATE>1/1/2004</ns1:ORDERDATE>
+    </ns1:select>
+</ns1:SQL_CFG_1>

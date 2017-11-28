@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ChatMessage xmlns:ns1="http://www.w3.org/2001/XMLSchema">
+  <Sender>
+    <Name>Name</Name>
+    <Email>Email</Email>
+  </Sender>
+  <Message>&lt;ChatMessage&gt;
+   &lt;Sender&gt;
+      &lt;Name&gt;Name&lt;/Name&gt;
+      &lt;Email&gt;Email&lt;/Email&gt;
+   &lt;/Sender&gt;
+   &lt;Message&gt;123456&lt;/Message&gt;
+&lt;/ChatMessage&gt;
+</Message>
+</ChatMessage>

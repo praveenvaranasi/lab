@@ -1,0 +1,4 @@
+<ns1:Input xmlns:ns1="http://www.fiorano.com/fesb/activity/FileReader1">
+   <FileName>Test.txt</FileName>
+   <Directory>srcDir</Directory>
+</ns1:Input>

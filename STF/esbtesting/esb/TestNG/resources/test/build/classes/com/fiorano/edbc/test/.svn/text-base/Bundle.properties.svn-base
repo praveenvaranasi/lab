@@ -1,0 +1,10 @@
+
+sent_message=Sent Message to destination: {0}. Message: {1}
+producer_created= Created producer.
+naming_exception= Naming exception while trying to lookup. Reason {0}. 
+send_dest_failed= Unable to send the message to destination: {0} <REASON>{1}</REASON>
+jms_object_creation_failed= Unable to create jms object <REASON>{0}</REASON>
+error_in_close_connection= Error in closing the connection {0} <REASON>{1}</REASON>
+invalid_configuration=service configuration is invalid.
+request_processed=Processed the input request. {0}
+message_sent_successfully=Message " {0} " sent successfully.

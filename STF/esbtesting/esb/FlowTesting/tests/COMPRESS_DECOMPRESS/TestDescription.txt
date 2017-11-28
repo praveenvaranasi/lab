@@ -1,0 +1,35 @@
+The flow has been developed to capture the functionality of Encription and Decription components.
+
+The flow reads a file "Test.txt" from a specified floder "C:\flowTesting\file\read", encrypts the message in the file and Decrypts the same.
+The message then is written to a file. 
+
+Components Used:
+===============
+1. FileReader 
+2. FileWriter
+3. Encription
+4. Decryption
+5. Display
+6. ExceptionListener
+
+EntryPoint:
+===========
+Component	: FileReader
+Instance Name	: EPFlowEntry
+
+ExitPoint:
+==========
+Component	: Dispaly
+InstanceName	: EPFlowExit
+
+
+Assumptions:
+============
+
+1. The file C:\flowTesting\file\read\Test.txt is assumed to be present.
+2. All the other components are trusted to be functional.
+
+Other Comments
+==============
+int.bat and cleanup.bat are not being used.
+Any Exceptions will be caught by Exception listener and subsequently be transfered to the output. Negitive test cases can 

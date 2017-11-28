@@ -1,0 +1,53 @@
+<fesb>
+    <connectionLess>true</connectionLess>
+    <isConfigurationRequired>true</isConfigurationRequired>
+    <isLicensed>true</isLicensed>
+    <config-map>
+        <outbound>            
+                <jca-object>
+                    <name>FileWriter</name>
+                    <description>Writes data into file</description>
+                    <icon>filewritercomponent.png</icon>
+                    <category>File</category>
+                    <type>javax.resource.cci.InteractionSpec</type>
+                    <impl-class-name>com.fiorano.adapter.jca.filewriter.cci.FileWriterInteractionSpec</impl-class-name>
+                    <javabean-class-name>com.fiorano.adapter.jca.filewriter.cci.FileWriterInteractionSpec</javabean-class-name>
+                    <supportsScheduling>true</supportsScheduling> 
+                    <enableScheduling>false</enableScheduling> 
+                    <supportsStudio>true</supportsStudio> 
+                </jca-object>
+                <jca-object>
+                    <name>FileWriter</name>
+                    <description>FileWriter</description>
+                    <icon>cf.gif</icon>
+                    <type>javax.resource.spi.ManagedConnectionFactory</type>
+                    <impl-class-name>com.fiorano.adapter.jca.filewriter.spi.outbound.FileWriterManagedConnectionFactory</impl-class-name>
+                    <javabean-class-name>com.fiorano.adapter.jca.filewriter.spi.outbound.FileWriterManagedConnectionFactory</javabean-class-name>
+                    <supportsReconnection>false</supportsReconnection> 
+                </jca-object>
+         </outbound>
+         <inbound>
+         </inbound>
+         <!-- Log Categories -->
+         <logger-categories>
+            <logger-category>
+                <logger-name>LOGGER_NAME</logger-name>
+                <logger-description>LOGGER_DESCRIPTION</logger-description>
+                <logger-display-name>LOGGER_DISPLAY_NAME</logger-display-name>
+                <log-level>SEVERE</log-level>
+            </logger-category>
+            <logger-category>
+                <logger-name>com.fiorano.adapter.jca.filewriter.cci.FileWriterInteraction</logger-name>
+                <logger-description>FileWriterInteraction</logger-description>
+                <logger-display-name>FileWriterInteraction</logger-display-name>
+                <log-level>SEVERE</log-level>
+            </logger-category>
+            <logger-category>
+                <logger-name>com.fiorano.adapter.jca.filewriter.spi.outbound.FileWriterManagedConnectionFactory</logger-name>
+                <logger-description>FileWriterManagedConnectionFactory</logger-description>
+                <logger-display-name>FileWriterManagedConnectionFactory</logger-display-name>
+                <log-level>SEVERE</log-level>
+            </logger-category>
+         </logger-categories>
+    </config-map>
+</fesb>

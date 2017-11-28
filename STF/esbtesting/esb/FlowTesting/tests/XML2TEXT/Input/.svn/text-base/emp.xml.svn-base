@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1: Employee_Schema xmlns:ns1="http://www.fiorano.com/fesb/activity/XML2Text1">
+<ns1:Employee>
+<ns1:EmployeeName>ddddd</ns1:EmployeeName>
+<ns1:EmployeeID>ddddddd</ns1:EmployeeID>
+<ns1:EmployeeAge>88888</ns1:EmployeeAge>
+<ns1: AddressRecord>
+<ns1:Address>ddddd</ns1:Address>
+<ns1:Pincode>dddd</ns1:Pincode>
+</ns1: AddressRecord>
+</ns1:Employee>
+</ns1:Employee_Schema>

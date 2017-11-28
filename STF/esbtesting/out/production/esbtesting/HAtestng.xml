@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd">
+
+<suite name="ESB Rmi HATest Suite">
+    <test name="bugs" preserve-order="true">
+        <classes>
+           <!-- Please mention lock file path, gateway machine path in testenv.xml file -->
+
+            <!--
+
+
+            <class name="com.fiorano.esb.testng.rmi.ha.TestAppRepoSync"/>
+             <class name="com.fiorano.esb.testng.rmi.ha.TestMessageLoss19937"/>
+            <class name="com.fiorano.esb.testng.rmi.ha.TestaddNewConfiguration"/> -->
+          <!--  <class name="com.fiorano.esb.testng.rmi.ha.TestNetworkDown"/>
+
+            <class name="com.fiorano.esb.testng.rmi.ha.TestLockMachineDown"/>
+
+            <class name="com.fiorano.esb.testng.rmi.ha.TestBreakHAChannel"/>
+            <class name="com.fiorano.esb.testng.rmi.ha.TestShutdownActive"/>
+            <class name="com.fiorano.esb.testng.rmi.ha.TestShutdownPassive"/> -->
+       <!--<class name="com.fiorano.esb.testng.rmi.ha.TestLPCForInMemoryComponents"/>  the machine on which the stf is running, should have FES primary-->
+
+            <!--<class name="com.fiorano.esb.testng.rmi.ha.TestDHLHA"/>-->
+
+            <!--To be tested in 4 different machines-->
+             <!-- <class name="com.fiorano.esb.testng.rmi.ha.TestRMIHA"/> -->
+
+
+
+
+
+        </classes>
+    </test>
+</suite>
+ 

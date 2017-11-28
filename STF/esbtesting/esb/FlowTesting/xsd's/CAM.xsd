@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+    targetNamespace="http://middleware.network.dhl.com/schema/CAM" 
+    attributeFormDefault="unqualified" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="http://middleware.network.dhl.com/schema/CAM"
+    xmlns:cdm="http://middleware.network.dhl.com/schema/CDM"
+>
+    <xsd:import namespace="http://middleware.network.dhl.com/schema/CDM" schemaLocation="CDM.xsd"/>
+    
+    <xsd:element name="CAM" type="tns:DHLMessageCAM" />
+    
+    <xsd:complexType name="DHLMessageCAM">
+        <xsd:sequence>
+            <xsd:element name="messageIdentifier" type="cdm:MessageIdentifierType"/>
+           
+            <xsd:element name="crewAssignments" type="tns:CrewAssignments" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="CrewAssignments">
+        <xsd:sequence>
+            <xsd:element name="crewAssignment" type="tns:CrewAssignment" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    
+    <xsd:complexType name="CrewAssignment">
+        <xsd:sequence>
+            <xsd:element name="legIdentifier"  type="tns:LegIdentifier"/>
+            <xsd:element name="assignedCrew" type="tns:AssignedCrew"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    
+    <xsd:complexType name="LegIdentifier">
+        <xsd:sequence>
+            <xsd:element name="legId">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="flight" type="tns:Flight"/>
+                        <xsd:element name="dayOfOrigin" minOccurs="0" type="xsd:token"/>
+                        <xsd:element name="scheduledDepartureDateUTC" minOccurs="0" type="xsd:token"/>
+                        <xsd:element name="depApSched"  type="xsd:token"/>
+                        <xsd:element name="counter" minOccurs="0" type="xsd:token" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+     
+    <xsd:complexType name="Flight">
+        <xsd:sequence>
+            <xsd:element name="fnCarrier" type="xsd:token"/>
+            <xsd:element name="fnNumber" type="xsd:token"/>
+            <xsd:element name="fnSuffix" minOccurs="0" type="xsd:token"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="AssignedCrew">
+        <xsd:sequence>
+            <xsd:element name="allDuties" minOccurs="0" type="xsd:token"/>
+            <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="cockpitCrewMember" type="tns:CrewMember" />
+            <xsd:element name="dhcCrewMember" type="tns:CrewMember" />
+            <xsd:element name="cabinCrewMember" type="tns:CrewMember" />
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    
+    <xsd:complexType name="CrewMember">
+        <xsd:sequence>
+            <xsd:element name="priorityInGroup" type="xsd:token" minOccurs="0" />
+            <xsd:element name="action" type="xsd:token"  minOccurs="0"/>
+            
+            <xsd:element name="crewEmployer" type="xsd:token"/>
+            <xsd:element name="crewMemberID" type="xsd:token"/>
+            <xsd:element name="crewMemberName" type="xsd:token"/>
+            <xsd:element name="crewMemberFirstName" minOccurs="0" type="xsd:token"/>
+            <xsd:element name="crewMemberSeniority" minOccurs="0" type="xsd:token"/>
+            <xsd:element name="crewMemberContact" minOccurs="0" type="tns:CrewMemberContact" />
+            <xsd:element name="crewMemberAddress" minOccurs="0" type="tns:CrewMemberAddress" />
+            <xsd:element name="group" type="xsd:token" />
+            <xsd:element name="rank" minOccurs="0" type="xsd:token" />
+            
+            <xsd:element name="additionalQualifications" minOccurs="0" type="tns:AdditionalQualifications" />
+            <xsd:element name="training" minOccurs="0" type="xsd:token"/>
+            <xsd:element name="dutyStart" type="tns:DutyStart" minOccurs="0"/>
+            <xsd:element name="addCrewMemberBool" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="cat" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="catCQualifiedAirports" minOccurs="0" type="tns:CatCQualifiedAirports" />
+            <xsd:element name="isPursor" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="isPic" type="xsd:token" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    
+    <xsd:complexType name="CrewMemberContact">
+        <xsd:sequence>
+            <xsd:element name="telephoneNr" type="xsd:token"/>
+            <xsd:element name="priority" type="xsd:token" />
+         </xsd:sequence>
+        
+    </xsd:complexType>
+    
+    
+    <xsd:complexType name="CrewMemberAddress">
+        <xsd:sequence>
+            <xsd:element name="priority" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="street" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="zipCode" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="cityName" type="xsd:token" minOccurs="0"/>
+            <xsd:element name="postalCountryCode" type="xsd:token" minOccurs="0"/>
+        </xsd:sequence>
+        
+    </xsd:complexType>
+    
+    
+    
+    <xsd:complexType name="AdditionalQualifications">
+        <xsd:sequence>
+            <xsd:element name="additionalQualification" type="xsd:token" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="CatCQualifiedAirports">
+        <xsd:sequence>
+            <xsd:element name="catCQualifiedAirport" type="xsd:token"  minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="DutyStart">
+        <xsd:sequence>
+            <xsd:element name="startDateTime" minOccurs="0" type="xsd:token"/>
+            <xsd:element name="checkInDateTime" minOccurs="0" type="xsd:token"/>
+            <xsd:element name="airport" minOccurs="0" type="xsd:token"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    
+    
+</xsd:schema>

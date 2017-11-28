@@ -1,0 +1,25 @@
+<ns1:PropertyRQ xmlns:ns1="http://hospitality.com/service/">
+   <ns1:PropertySegments>
+      <ns1:PropertySegment ChainCode="ChainCode" HotelCode="H" SystemID="A">
+         <ns1:StayDateRange End="2005-01-10" Start="2005-01-05"/>
+         <ns1:RoomStayCandidates>
+            <ns1:RoomStayCandidate>
+               <ns1:GuestCounts IsPerRoom="IsPerRoom">
+                  <ns1:GuestCount Count="Count"/>
+               </ns1:GuestCounts>
+            </ns1:RoomStayCandidate>
+         </ns1:RoomStayCandidates>
+      </ns1:PropertySegment>
+      <ns1:PropertySegment ChainCode="ChainCode" HotelCode="HotelCode" SystemID="B">
+         <ns1:StayDateRange End="2005-02-20" Start="2005-02-10"/>
+         <ns1:RoomStayCandidates>
+            <ns1:RoomStayCandidate>
+               <ns1:GuestCounts IsPerRoom="IsPerRoom">
+                  <ns1:GuestCount Count="Count"/>
+               </ns1:GuestCounts>
+            </ns1:RoomStayCandidate>
+         </ns1:RoomStayCandidates>
+      </ns1:PropertySegment>
+   </ns1:PropertySegments>
+   <ns1:RequestMods>HotelAvailability</ns1:RequestMods>
+</ns1:PropertyRQ>

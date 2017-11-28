@@ -1,0 +1,243 @@
+<project name="stf" default="makejar" basedir="." xmlns:fiorano="antlib:com.fiorano.ant">
+    <import file="../common.xml"/>
+    <property file="../../configuration/test.properties"/>
+    <target name="setup">
+        <!-- <delete dir="${user.home}/.ant/lib">
+            <include name="saxon8*.jar"/>
+        </delete>-->
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build"/>
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="--------------------------------------------------------"/>
+                <echo message="-------USING JAVAC Executable in ${java1.8}------------"/>
+                <echo message="--------------------------------------------------------"/>
+                <javac srcdir="src" destdir="build" fork="true" executable="${java1.8}/bin/javac.exe" debug="true"
+                       deprecation="false" nowarn="true">
+                    <classpath refid="common.lib"/>
+                    <include name="**/*.java"/>
+                </javac>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="--------------------------------------------------------"/>
+                <echo message="-------USING JAVAC Executable in ${java1.8}------------"/>
+                <echo message="--------------------------------------------------------"/>
+                <javac srcdir="src" destdir="build" fork="true" executable="${java1.8}/bin/javac" debug="true"
+                       deprecation="false" nowarn="true">
+                    <classpath refid="common.lib"/>
+                    <include name="**/*.java"/>
+                </javac>
+            </fiorano:else>
+        </fiorano:if>
+
+    </target>
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="build_TestNG"/>
+        <delete file="stf.jar"/>
+        <delete file="../TestNG/lib/esb-testNG.jar"/>
+        <delete file="../ScenarioTests/scenario-tests.jar"/>
+        <delete dir="../ScenarioTests/build"/>
+    </target>
+
+    <target name="makejar" depends="compile">
+        <delete file="stf.jar"/>
+        <jar destfile="stf.jar">
+            <manifest>
+                <attribute name="Main-Class" value="com.fiorano.stf.ESBTestHarness"/>
+            </manifest>
+            <fileset dir="build"/>
+            <fileset dir="." includes="config/**/*.*"/>
+        </jar>
+        <antcall target="makejar_esb-testNG"/>
+    </target>
+
+    <!--adding system property  "transfor.TransformerFactory" below, so that ConfigsParser Class can call the reset method in the factory specified.-->
+    <target name="runTests" depends="getServerRuntimeVersion">
+        <java classname="com.fiorano.stf.ESBTestHarness" fork="true">
+            <classpath>
+                <path refid="common.lib"/>
+                <pathelement location="stf.jar"/>
+                <pathelement location="../ScenarioTests/scenario-tests.jar"/>
+                <pathelement location="../TestNG/lib/esb-testNG.jar"/>
+                <pathelement location="../TestNG/lib/testng-jdk15.jar"/>
+                <!--we are in esb/STF,hence relative path-->
+                <pathelement location="../TestNG/lib/commons-lang-2.0.jar"/>
+                <!--we are in esb/STF,hence relative path-->
+                <pathelement location="${FIORANO_HOME}/esb/server/lib/esb-rmiInterface-api.jar"/>
+                <pathelement location="${FIORANO_HOME}/framework/lib/fiorano-rmi-client.jar"/>
+                <pathelement location="${FIORANO_HOME}/esb/shared/lib/esb-shared-tif-dmi.jar"/>
+                <pathelement location="${FIORANO_HOME}/esb/tools/lib/esb-tools-antDeploy.jar"/>
+				   
+                <fileset dir="${ANT_HOME}/lib">
+                    <include name="*.jar"/>
+                </fileset>
+				
+            </classpath>
+
+            <arg file="../../configuration/test.properties"/>
+            <arg value="START"/>
+            <jvmarg value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=34005"/>
+            <jvmarg value="-DFIORANO_HOME=${FIORANO_HOME}"/>
+            <jvmarg value="-Dserver.jre.version=${server.jre.version}"/>
+            <jvmarg value="-DDontSetReadOnly=true"/>
+            <jvmarg value="-Xmx256m"/>
+        </java>
+    </target>
+
+    <target name="generateReports" depends="getServerRuntimeVersion">
+        <echo message="__${server.jre.version}__"/>
+        <sequential>
+            <mkdir dir="../../reports/junitReports_${server.jre.version}"/>
+            <junitreport todir="../../reports/junitReports_${server.jre.version}">
+                <fileset dir="reports">
+                    <include name="TEST-*.xml"/>
+                </fileset>
+                <report format="frames" todir="../../reports/junitReports_${server.jre.version}/html"/>
+            </junitreport>
+            <echo message="Deleting xml reports"/>
+            <delete dir="reports"/>
+        </sequential>
+    </target>
+
+    <target name="mailReports" depends="getServerRuntimeVersion">
+        <tstamp>
+            <format property="TODAY" pattern="dd-MM-yyyy"/>
+        </tstamp>
+
+        <zip destfile="STFReports_${os.name}_${TODAY}.zip" basedir="../../reports"/>
+        <mail mailhost="mail.in.fiorano.com" subject="STFReports ${os.name} ${TODAY}">
+            <from name="stf" address="stf@fiorano.com"/>
+            <to address="${mailid}"/>
+            <message>reports after the testing was done. If the zip archive is empty, please ignore it.</message>
+            <fileset dir=".">
+                <include name="STFReports_${os.name}_${TODAY}.zip"/>
+            </fileset>
+        </mail>
+    </target>
+
+    <!-- Targets for compiling TestNG based classes-->
+    <path id="testNG_cpath">
+        <pathelement location="../TestNG/lib/testng-jdk15.jar"/>
+        <!--we are in esb/STF,hence relative path-->
+        <pathelement location="../TestNG/lib/commons-lang-2.0.jar"/>
+        <!--we are in esb/STF,hence relative path-->
+        <pathelement location="${FIORANO_HOME}/extlib/xmlunit/xmlunit.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/server/lib/esb-fps-core-tif.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/shared/lib/all/esb-shared.jar" />
+        <pathelement location="${FIORANO_HOME}/esb/server/lib/esb-rmiInterface-api.jar"/>
+        <pathelement location="${FIORANO_HOME}/fmq/lib/client/all/fmq-client.jar"/>
+        <pathelement location="${FIORANO_HOME}/framework/lib/fiorano-rmi-client.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/shared/lib/esb-shared-tif-dmi.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/client/rtl/old/esb-rtl-old.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/server/lib/all/esb-fes.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/tools/lib/esb-tools-antDeploy.jar"/>
+        <pathelement location="stf.jar"/>
+        <!--stf.jar located under esb/STF,hence no relative path-->
+    </path>
+
+    <target name="compile_TestNG_classes">
+        <echo message="${FIORANO_HOME} is used as fiorano_home for compiling testNG classes."/>
+        <echo message="Compiling testNG tests"/>
+        <mkdir dir="build_TestNG"/>
+        <!--THIS directory is created in esb/STF-->
+
+        <fiorano:if>
+            <os family="windows"/>
+            <fiorano:then>
+                <echo message="--------------------------------------------------------"/>
+                <echo message="-------USING JAVAC Executable in ${java1.8}------------"/>
+                <echo message="--------------------------------------------------------"/>
+                <!--we are in esb/STF,hence relative path for srcDir-->
+                <javac fork="true" debug="true"
+                       executable="${java1.8}/bin/javac.exe"
+                       classpathref="testNG_cpath"
+                       srcdir="../TestNG/src"
+                       destdir="build_TestNG"
+                       memoryMaximumSize="256m"/>
+            </fiorano:then>
+            <fiorano:else>
+                <echo message="--------------------------------------------------------"/>
+                <echo message="-------USING JAVAC Executable in ${java1.8}------------"/>
+                <echo message="--------------------------------------------------------"/>
+                <!--we are in esb/STF,hence relative path for srcDir-->
+                <javac fork="true" debug="true"
+                       executable="${java1.8}/bin/javac"
+                       classpathref="testNG_cpath"
+                       srcdir="../TestNG/src"
+                       destdir="build_TestNG"
+                       memoryMaximumSize="256m"/>
+            </fiorano:else>
+        </fiorano:if>
+
+    </target>
+
+    <target name="makejar_esb-testNG" depends="compile_TestNG_classes">
+        <delete file="../TestNG/lib/esb-testNG.jar"/>
+        <jar destfile="../TestNG/lib/esb-testNG.jar">
+            <fileset dir="build_TestNG"/>
+            <fileset dir="." includes="config/**/*.*"/>
+        </jar>
+    </target>
+
+    <target name="getServerRuntimeVersion">
+
+        <exec executable="${Server_Java_Run_Time_Home}/bin/java"
+              dir="${Server_Java_Run_Time_Home}/bin"
+              spawn="no"
+              output="../../reports/java_version.txt">
+            <!--arg line="-e 'echo ${userPasswd}|sudo -S mount -t nfs4 -o rw,uid=501,gid=501,umask=0022, //      					          ${gateway.ip.add}/${gateway.file.path} ${lockfile}'"/-->
+            <arg line="-version"/>
+
+        </exec>
+        <replace
+                file="../../reports/java_version.txt"
+                value="_">
+            <replacefilter
+                    token="java_version"/>
+            <replacefilter
+                    token=" "/>
+        </replace>
+
+        <replace
+                file="../../reports/java_version.txt"
+                value="_">
+            <replacefilter
+                    token="&quot;"/>
+            <replacefilter
+                    token="java_version"/>
+            <replacefilter
+                    token=" "/>
+            <replacefilter
+                    token="."/>
+        </replace>
+
+
+        <loadfile srcfile="../../reports/java_version.txt" property="server.jre.version1">
+            <filterchain>
+                <headfilter lines="1"/>
+            </filterchain>
+        </loadfile>
+
+        <!--echo message="_________${server.jre.version1}__________"/-->
+
+        <echo message="${server.jre.version1}" file="abc.txt"/>
+
+        <loadfile srcfile="abc.txt" property="server.jre.version">
+            <filterchain>
+                <filterreader classname="org.apache.tools.ant.filters.StripLineBreaks"/>
+            </filterchain>
+        </loadfile>
+
+        <echo message="_________${server.jre.version}__________"/>
+
+
+    </target>
+    <!-- Targets for compiling TestNG based classes-->
+</project>
+

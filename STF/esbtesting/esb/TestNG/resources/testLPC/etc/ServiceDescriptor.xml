@@ -1,0 +1,41 @@
+<service guid="testLPC" version="1.0">
+    <display name="testLPC" categories="Collaboration"/>
+    <icon small="icon.png" large="icon32.png"/>
+    <creation date="15-02-2011 12:33:29" last-modified="15-02-2011 12:32:35" authors="admin"/>
+    <deployment label="Development">
+        <servicerefs>
+            <serviceref guid="TifosiJavaRTL" version="4.0"/>
+            <serviceref guid="EDBCEngine" version="4.0"/>
+            <serviceref guid="jms" version="4.0"/>
+            <serviceref guid="cps" version="4.0"/>
+        </servicerefs>
+    </deployment>
+    <execution subtype="edbc">
+        <ccp min-version-supported="1.0" max-version-supported="1.0"/>
+        <launchtype supported="7"/>
+        <separate-process executable="$executable"/>
+        <inmemory executable="com.fiorano.edbc.testlpc.TestLPC"/>
+        <cps>
+            <launcher>com.fiorano.edbc.testlpc.model.testLPCPM</launcher>
+        </cps>
+        <input-ports>
+            <port name="IN_PORT_1">
+                <description>Default event port added by Business Component Creation Wizard.</description>
+            </port>
+        </input-ports>
+        <output-ports>
+            <port name="OUT_PORT_1">
+                <description>Default event port added by Business Component Creation Wizard.</description>
+            </port>
+        </output-ports>
+        <logmodules>
+            <logmodule name="ERR_HANDLER" level="WARNING"/>
+            <logmodule name="OUT_HANDLER" level="INFO"/>
+        </logmodules>
+        <runtime-arguments>
+            <runtime-argument name="JVM_PARAMS" mandatory="false">
+                <value>-DLOG_TO_STREAM=true</value>
+            </runtime-argument>
+        </runtime-arguments>
+    </execution>
+</service>

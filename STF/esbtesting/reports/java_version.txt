@@ -1,0 +1,3 @@
+___1_8_0_121_
+Java(TM)_SE_Runtime_Environment_(build_1_8_0_121-b13)
+Java_HotSpot(TM)_Server_VM_(build_25_121-b13,_mixed_mode)

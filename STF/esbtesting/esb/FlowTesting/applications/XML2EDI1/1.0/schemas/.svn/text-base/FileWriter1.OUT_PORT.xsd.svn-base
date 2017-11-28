@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.fiorano.com/fesb/activity/FileWriter1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.fiorano.com/fesb/activity/FileWriter1">
+    <xsd:complexType name="Result">
+        <xsd:sequence>
+            <xsd:element ref="FileInfo" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Result" type="Result"/>
+    <xsd:element name="FileInfo">
+        <xsd:complexType>
+            <xsd:sequence>
+	          <xsd:element name="FullName" type="xsd:string"/>
+		    <xsd:element name="FileName" type="xsd:string"/>
+		    <xsd:element name="FilePath" type="xsd:string"/>
+		    <xsd:element name="Type" type="xsd:string"/>
+		    <xsd:element name="ReadAccess" type="xsd:string"/>
+		    <xsd:element name="WriteAccess" type="xsd:string"/>
+		    <xsd:element name="Size" type="xsd:integer"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

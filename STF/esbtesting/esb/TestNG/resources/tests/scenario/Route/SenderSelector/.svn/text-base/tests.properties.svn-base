@@ -1,0 +1,8 @@
+ApplicationGUID=SENDERSELECTOR1
+ApplicationVersion=1.0
+ApplicationFile=SENDERSELECTOR1_1.0.xml
+Test1=test1.txt
+Test2=test2.txt
+Output=out.txt
+ExpectedOutput1=Expected_Out.txt
+ExpectedOutput2=Expected_Out1.txt

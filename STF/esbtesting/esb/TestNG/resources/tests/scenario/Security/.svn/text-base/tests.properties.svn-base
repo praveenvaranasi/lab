@@ -1,0 +1,10 @@
+UserName1=FIORANO
+UserName2=ESB
+Password1=fiorano
+Password2=esb
+GroupName=SOA
+AclName1=testACL1
+AclName2=testACL2
+NodeGroupName=testNodeGroup
+loggedinUsername=admin
+adminuser=admin

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ProcessTestCase" basedir="." default="result">
+
+    <property name="ProcessTestCase" value="${ant.file.ProcessTestCase}/.."/>
+    <property file="${ProcessTestCase}/build.properties"/>
+    <property name="FIORANO_HOME" value=""/>
+    <echo>"FIORANO_HOME ${FIORANO_HOME}"</echo>
+
+    <path id="proj.lib">
+        <pathelement location="${FIORANO_HOME}/esb/tools/lib/esb-tools-antDeploy.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/shared/lib/esb-shared-tif-core.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/shared/lib/esb-shared-tif-ui.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/fes/lib/esb-fes-tif.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/tools/lib/esb-tools-tif-tools-util.jar"/>
+        <pathelement location="${FIORANO_HOME}/extlib/jms/jms.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/fes/repository/components/Framework/4.0/Framework.jar"/>
+    </path>
+
+    <path id="process.lib">
+        <pathelement location="${FIORANO_HOME}/extlib/jms/jms.jar"/>
+        <pathelement location="${FIORANO_HOME}/fmq/lib/fmq-rtl.jar"/>
+        <pathelement location="${FIORANO_HOME}/antscripts/lib/antTasks.jar"/>
+        <pathelement location="${FIORANO_HOME}/esb/FlowTesting/lib/TestSuite.jar"/>
+    </path>
+
+
+    <target name="result">
+        <record name="${CONSOLE_OUTPUT_FILE}" action="start" loglevel="verbose"/>
+        <java fork="true" classname="com.fiorano.flowtest.impl.RunTest">
+            <classpath>
+                <path refid="process.lib"/>
+                <pathelement location="${FIORANO_HOME}/extlib/xmlunit/xmlunit.jar"/>
+                <pathelement location="${FIORANO_HOME}/extlib/junit/junit.jar"/>
+            </classpath>
+            <arg value="${ProcessTestCase}"/>
+        </java>
+        <record name="${CONSOLE_OUTPUT_FILE}" action="stop"/>
+    </target>
+
+</project>

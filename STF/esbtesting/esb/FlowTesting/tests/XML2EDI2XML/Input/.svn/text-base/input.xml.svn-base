@@ -1,0 +1,7 @@
+<ns1:Root xmlns:ns1="http://www.fiorano.com/fesb/activity/XML2EDI1">
+   <Empty>
+      <segment>
+         <ABC>ABC</ABC>
+      </segment>
+   </Empty>
+</ns1:Root>

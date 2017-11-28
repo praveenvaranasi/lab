@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	targetNamespace="http://middleware.network.dhl.com/schema/LDM" 
+	attributeFormDefault="unqualified" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:tns="http://middleware.network.dhl.com/schema/LDM"
+	xmlns:cdm="http://middleware.network.dhl.com/schema/CDM"
+	>
+	<xsd:import namespace="http://middleware.network.dhl.com/schema/CDM" schemaLocation="CDM.xsd"/>
+	
+	<xsd:element name="LDM" type="tns:DHLMessageLDM">
+	</xsd:element>
+	<xsd:complexType name="DHLMessageLDM">
+		<xsd:sequence>
+			<xsd:element name="messageIdentifier" type="cdm:MessageIdentifierType"/>
+			<xsd:element name="owner" type="cdm:OriginatingSystemType"/>
+			<xsd:element name="msgOperation" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="mvmtNr" type="cdm:MovementNrType" />
+			<xsd:element name="firstLegDay" type="cdm:DayOfOperationType" />
+			<xsd:element name="flightDate" minOccurs="0" type="xsd:dateTime"/>
+			<xsd:element name="vehicleRegistration" type="cdm:VehicleRegistrationType" />
+			<xsd:element name="networkTag" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="origin" type="cdm:StationType" minOccurs="1" />
+			<xsd:element name="destination" type="cdm:StationType" minOccurs="1" />
+			<xsd:element name="grossWeight" type="cdm:WeightType"/>
+			<xsd:element name="netWeight" type="cdm:WeightType"/>
+			<xsd:element name="underLoad" type="cdm:WeightType"/>
+			<xsd:element name="soulsOnBoard" type="xsd:token" minOccurs="0" />
+			<xsd:element name="crewCount" type="xsd:token" minOccurs="0" />
+			<xsd:element name="acmCount" type="xsd:token" minOccurs="0" />
+			<xsd:element name="units" type="cdm:UnitType" minOccurs="0"/>
+			<xsd:element name="takeOffFuel" type="xsd:token"  minOccurs="0"/>
+			<xsd:element name="fuelUnits" type="cdm:UnitType" minOccurs="0"/>
+			<xsd:element name="loadUnits">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="loadUnit" type="tns:loadUnit" minOccurs="0"  maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="suppInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="infoText" type="cdm:InfoTextType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="loadUnit">
+		<xsd:sequence>
+			<xsd:element name="position" type="cdm:PositionType" />
+			<xsd:element name="destination" type="cdm:StationType" minOccurs="0"/>
+			<xsd:element name="uldNr" type="cdm:UldNrType" minOccurs="0" />
+			<xsd:element name="tareWeight">
+				<xsd:simpleType>
+					<xsd:restriction base="cdm:WeightType"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="netWeight">
+				<xsd:simpleType>
+					<xsd:restriction base="cdm:WeightType"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="totalWeight">
+				<xsd:simpleType>
+					<xsd:restriction base="cdm:WeightType"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="flag" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="vol" type="xsd:token" minOccurs="0">
+				
+			</xsd:element>
+			<xsd:element name="type" type="xsd:token" minOccurs="0" />
+			<xsd:element name="huid" type="xsd:token" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:token">
+					<xsd:enumeration value="uld" />
+					<xsd:enumeration value="bulk" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+</xsd:schema>

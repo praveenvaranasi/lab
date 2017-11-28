@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dhlMsg xmlns="http://middleware.network.dhl.com/schema/cam-nmiv-in"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ messageType="messageType1">
+    <sender>NMIV</sender>
+    <rcvdByMw>2007-09-23T13:20:23Z</rcvdByMw>
+    <message>
+        <network>A</network>
+        <msgId>123456</msgId>
+        <crewAssignment>
+            <legIdentifier>
+                <legId>
+                   <flight>
+                        <fnCarrier>DHL</fnCarrier>
+                        <fnNumber>114 </fnNumber>
+                        <fnSuffix>8 </fnSuffix>
+                    </flight>
+                    <legDate>2007-11-13</legDate>
+                    <depApSched>BFL</depApSched>
+                </legId>
+            </legIdentifier>
+            <assignedCrew>
+                <allDuties>true</allDuties>
+                    <cockpitCrewMember priorityInGroup="1" action="Insert">
+                        <crewEmployer>KLM</crewEmployer>
+                        <crewMemberID>123</crewMemberID>
+                        <crewMemberName>Marc Kimpe</crewMemberName>
+                        <crewMemberContact>
+                            <telephoneNr>03-888-90-65</telephoneNr>
+                            <priority>1</priority>
+                        </crewMemberContact>
+                        <crewMemberAddress>
+                            <street>Meir 24</street>
+                            <zipCode>2018</zipCode>
+                            <cityName>Antwerpen</cityName>
+                            <priority>1</priority>
+                        </crewMemberAddress>
+                        <group>Cockpit</group>
+                        <rank>CP</rank>
+                        <additionalQualifications>
+                            <additionalQualification>AB</additionalQualification>
+                            <additionalQualification>CD</additionalQualification>
+                            <additionalQualification>EF</additionalQualification>
+                        </additionalQualifications>
+                        <training>T</training>
+                        <dutyStart>
+                            <startDateTime>2007-11-13T09:46:00Z</startDateTime>
+                            <airport>DHL</airport>
+                        </dutyStart>
+                        <addCrewMemberBool>false</addCrewMemberBool>
+                        <cat>IIIa</cat>
+                        <catCQualifiedAirport>BRU</catCQualifiedAirport>
+                        <catCQualifiedAirport>BRE</catCQualifiedAirport>
+                        <catCQualifiedAirport>FRA</catCQualifiedAirport>
+                        <isPic>true</isPic>
+                    </cockpitCrewMember>
+                    <dhcCrewMember priorityInGroup="88" action="Insert">
+                        <crewEmployer>DHL</crewEmployer>
+                        <crewMemberID>999</crewMemberID>
+                        <crewMemberName>Joske Deadhead</crewMemberName>
+                        <group>DHC</group>
+                        <addCrewMemberBool>true</addCrewMemberBool>
+                    </dhcCrewMember>
+                <cockpitCrewMember priorityInGroup="5" action="Insert">
+                    <crewEmployer>KLM</crewEmployer>
+                    <crewMemberID>555</crewMemberID>
+                    <crewMemberName>Patrick Vanderlinden</crewMemberName>
+                    <crewMemberContact>
+                        <telephoneNr>02-567-88-11</telephoneNr>
+                        <priority>1</priority>
+                    </crewMemberContact>
+                    <crewMemberAddress>
+                        <street>Steenweg op Brussel 120</street>
+                        <zipCode>1300</zipCode>
+                        <cityName>Asse</cityName>
+                        <priority>1</priority>
+                    </crewMemberAddress>
+                    <group>Cockpit</group>
+                    <rank>FO</rank>
+                    <additionalQualifications>
+                        <additionalQualification>ZZ</additionalQualification>
+                        <additionalQualification>XX</additionalQualification>
+                        <additionalQualification>VV</additionalQualification>
+                    </additionalQualifications>
+                    <dutyStart>
+                            <startDateTime>2007-11-13T09:46:00Z</startDateTime>
+                            <airport>DHL</airport>
+                    </dutyStart>
+                    <addCrewMemberBool>false</addCrewMemberBool>
+                    <cat>IIIa</cat>
+                    <catCQualifiedAirport>BRU</catCQualifiedAirport>
+                    <catCQualifiedAirport>BRE</catCQualifiedAirport>
+                    <catCQualifiedAirport>FRA</catCQualifiedAirport>
+                </cockpitCrewMember>
+                <cabinCrewMember priorityInGroup="1" action="Insert">
+                        <crewEmployer>LH</crewEmployer>
+                        <crewMemberID>9876</crewMemberID>
+                        <crewMemberName>Dirk Oeyen</crewMemberName>
+                        <crewMemberContact>
+                            <telephoneNr>0472-88-77-66</telephoneNr>
+                            <priority>1</priority>
+                        </crewMemberContact>
+                        <crewMemberAddress>
+                            <street>Brouwersvliet 2</street>
+                            <zipCode>2018</zipCode>
+                            <cityName>Antwerpen</cityName>
+                            <priority>1</priority>
+                        </crewMemberAddress>
+                        <group>Cabin</group>
+                        <rank>PR</rank>
+                        <dutyStart>
+                            <startDateTime>2007-11-13T09:46:00Z</startDateTime>
+                            <airport>DHL</airport>
+                        </dutyStart>
+                        <addCrewMemberBool>false</addCrewMemberBool>
+                        <cat>_</cat>
+                        <isPursor>true</isPursor>
+                    </cabinCrewMember>
+                <cabinCrewMember priorityInGroup="3" action="Insert">
+                    <crewEmployer>LH</crewEmployer>
+                    <crewMemberID>5923</crewMemberID>
+                    <crewMemberName>Stef Andries</crewMemberName>
+                    <group>Cabin</group>
+                    <rank>ST</rank>
+                    <dutyStart>
+                            <startDateTime>2007-11-13T09:46:00Z</startDateTime>
+                            <airport>DHL</airport>
+                    </dutyStart>
+                    <addCrewMemberBool>false</addCrewMemberBool>
+                    <cat>_</cat>
+                    <isPursor>false</isPursor>
+                </cabinCrewMember>
+                <cockpitCrewMember priorityInGroup="9" action="Update">
+                    <crewEmployer>DHL</crewEmployer>
+                    <crewMemberID>123</crewMemberID>
+                    <crewMemberName>Jeroen Devroede</crewMemberName>
+                    <crewMemberContact>
+                        <telephoneNr>02-123-45-65</telephoneNr>
+                        <priority>1</priority>
+                    </crewMemberContact>
+                    <crewMemberAddress>
+                        <street>Stationstraat 7</street>
+                        <zipCode>1920</zipCode>
+                        <cityName>Vilvoorde</cityName>
+                        <priority>1</priority>
+                    </crewMemberAddress>
+                    <group>Cockpit</group>
+                    <rank>CP</rank>
+                    <training>t</training>
+                    <dutyStart>
+                            <startDateTime>2007-11-13T09:46:00Z</startDateTime>
+                            <airport>DHL</airport>
+                    </dutyStart>
+                    <addCrewMemberBool>false</addCrewMemberBool>
+                    <cat>I</cat>
+                    <catCQualifiedAirport>BRU</catCQualifiedAirport>
+                    <catCQualifiedAirport>BRE</catCQualifiedAirport>
+                    <catCQualifiedAirport>FRA</catCQualifiedAirport>
+                </cockpitCrewMember>
+            </assignedCrew>
+        </crewAssignment>
+    </message>
+</dhlMsg>

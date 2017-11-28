@@ -1,0 +1,4 @@
+ApplicationGUID=FILETRANSMITTER
+ApplicationVersion=1.0
+ApplicationFile=FILETRANSMITTER_1.0.xml
+InputFile=InputFile.txt

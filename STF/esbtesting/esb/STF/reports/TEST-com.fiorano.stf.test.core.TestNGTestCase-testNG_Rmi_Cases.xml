@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="subbu" name="com.fiorano.stf.test.core.TestNGTestCase-testNG_Rmi_Cases" tests="0">
+  <system-err><![CDATA[fiorano.tifosi.common.TifosiException: UNABLE_TO_CONNECT :: to tsp_tcp://192.168.2.60:1948 Underlying reason fiorano.tifosi.common.TifosiException: KERNEL_IO_ERR :: Unable to connect to the server session at 127.0.0.1 on port 1948
+	at com.fiorano.esb.rtl.server.FioranoServiceProviderFactory.createServiceProvider(FioranoServiceProviderFactory.java:222)
+	at com.fiorano.stf.remote.RTLClient.<init>(RTLClient.java:103)
+	at com.fiorano.stf.remote.RTLClient.getInstance(RTLClient.java:83)
+	at com.fiorano.stf.test.core.STFTestSuite.setUp(STFTestSuite.java:227)
+	at com.fiorano.stf.test.core.STFTestSuite.run(STFTestSuite.java:197)
+	at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:200)
+	at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:164)
+	at com.fiorano.stf.ESBTestHarness.execute(ESBTestHarness.java:133)
+	at com.fiorano.stf.ESBTestHarness.main(ESBTestHarness.java:567)
+Caused by: fiorano.tifosi.common.TifosiException: KERNEL_IO_ERR :: Unable to connect to the server session at 127.0.0.1 on port 1948
+	at fiorano.tifosi.tr.uc.def.client.tcp.TCPKRPCObject.a(TCPKRPCObject.java:358)
+	at fiorano.tifosi.tr.uc.def.client.tcp.TCPKRPCObject.connect(TCPKRPCObject.java:82)
+	at fiorano.tifosi.tr.uc.def.client.UCClientSession.startup(UCClientSession.java:186)
+	at com.fiorano.esb.rtl.server.FioranoServiceProviderFactory.createServiceProvider(FioranoServiceProviderFactory.java:216)
+	... 8 more
+
+fiorano.tifosi.common.TifosiException: KERNEL_IO_ERR :: Unable to connect to the server session at 127.0.0.1 on port 1948
+	at fiorano.tifosi.tr.uc.def.client.tcp.TCPKRPCObject.a(TCPKRPCObject.java:358)
+	at fiorano.tifosi.tr.uc.def.client.tcp.TCPKRPCObject.connect(TCPKRPCObject.java:82)
+	at fiorano.tifosi.tr.uc.def.client.UCClientSession.startup(UCClientSession.java:186)
+	at com.fiorano.esb.rtl.server.FioranoServiceProviderFactory.createServiceProvider(FioranoServiceProviderFactory.java:216)
+	at com.fiorano.stf.remote.RTLClient.<init>(RTLClient.java:103)
+	at com.fiorano.stf.remote.RTLClient.getInstance(RTLClient.java:83)
+	at com.fiorano.stf.test.core.STFTestSuite.setUp(STFTestSuite.java:227)
+	at com.fiorano.stf.test.core.STFTestSuite.run(STFTestSuite.java:197)
+	at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:200)
+	at com.fiorano.stf.ESBTestHarness.runTestSuite(ESBTestHarness.java:164)
+	at com.fiorano.stf.ESBTestHarness.execute(ESBTestHarness.java:133)
+	at com.fiorano.stf.ESBTestHarness.main(ESBTestHarness.java:567)
+]]></system-err>
+</testsuite>

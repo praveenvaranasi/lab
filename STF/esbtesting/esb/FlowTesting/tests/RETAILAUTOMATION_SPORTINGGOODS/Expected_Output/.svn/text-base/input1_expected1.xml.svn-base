@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:SQL_CFG_1 xmlns:ns1="http://www.fiorano.com/fesb/activity/DB1/Response">
+   <ns1:insert843RS>
+      <ns1:UpdateCount>1</ns1:UpdateCount>
+   </ns1:insert843RS>
+</ns1:SQL_CFG_1>

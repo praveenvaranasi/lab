@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ftns:HotelAvailability_ALL_Suppliers xmlns:ftns="http://www.fiorano.com/aggregator">
+   <impl:Envelope xmlns:impl="http://localhost:1880/bcwsgateway/services/SupplierA_WS/getHotelAvailability/Output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+         <impl:Header/>
+      <impl:Body>
+            <impl:getHotelAvailability>
+            <ns1:getHotelAvailabilityResponse xmlns:ns1="http://DefaultNamespace" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+               <getHotelAvailabilityReturn xsi:type="soapenc:string">Deluxe: Double Bed (300), Standard: Double Bed (100)</getHotelAvailabilityReturn>
+            </ns1:getHotelAvailabilityResponse>
+         </impl:getHotelAvailability>
+      </impl:Body>
+   </impl:Envelope>
+   <HotelAvailibility>
+      <code>HotelCode</code>
+      <Room style="Deluxe" cost="350"/>
+      <Room style="Standard" cost="200"/>
+      <Room style="Economy" cost="100"/>
+   </HotelAvailibility>
+</ftns:HotelAvailability_ALL_Suppliers>

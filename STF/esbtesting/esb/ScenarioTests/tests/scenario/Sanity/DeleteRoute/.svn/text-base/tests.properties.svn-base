@@ -1,0 +1,7 @@
+ApplicationGUID=DELETEROUTE
+ApplicationVersion=1.0
+ApplicationFile=DELETEROUTE_1.0.xml
+RouteGUID=route1
+//InputFile=InputFile.txt
+//OutputFile=OutputFile.txt
+//CheckFile=output.txt

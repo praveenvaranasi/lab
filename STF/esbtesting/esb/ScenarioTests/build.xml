@@ -1,0 +1,83 @@
+<project name="esb-scenario" default="createjar" basedir=".">
+
+    <import file="../common.xml"/>
+
+    <path id="project.lib">
+        <pathelement location="build"/>
+        <pathelement location="../STF/stf.jar"/>
+    </path>
+
+    <property name="esb-scenario" value="${ant.file.esb-scenario}/.."/>
+	<property file="${ant.file.esb-scenario}/../base.properties"/>
+	<property name="report.dir" value="${ant.file.esb-scenario}/../${reports.path}/reports"/>
+	<property name="file" value="**/*"/>
+
+	<target name="clean">
+		<delete dir="build"/>
+        <delete file="scenario-tests.jar"/>
+	</target>
+
+	<target name="compile" >
+		<mkdir dir="build"/>
+		<javac srcdir="src" destdir="build" fork="true" executable="${java1.8}/bin/javac" debug="true" deprecation="false" nowarn="true">
+			<classpath refid="project.lib"/>
+            <classpath refid="common.lib"/>
+            <include name="${file}.java"/>
+		</javac>
+
+	</target>
+    <target name="createjar" depends="compile">
+        <jar destfile="scenario-tests.jar" basedir="build"/>
+    </target>
+
+    <target name="runtests" depends="createjar" >
+		<mkdir dir="${report.dir}/others"/>
+		<junit printsummary="withOutAndErr" haltonfailure="no" timeout="300000" dir="${esb-scenario}">
+			<classpath refid="proj.lib"/>
+			<!--<test name="com.fiorano.esb.junit.fes.test.ESBTestCase"  outfile="${report.dir}/others">
+				<formatter type="xml"/>               		
+			</test> -->	
+			<formatter type="xml"/> 			
+			<batchtest fork="yes" todir="${report.dir}/others"> 
+			
+				<fileset dir="build" includes="**/*Test.class">
+					<exclude name="**/fes/test/**/*.class"/>
+					<exclude name="**/*RTLTest.class"/>
+				</fileset>
+			</batchtest>        		
+			
+		</junit>
+	</target>
+    	
+	<target name="report" depends="runtests" >
+        <echo>The Report path is... ${reports.path}</echo>
+        <mkdir dir="${report.dir}"/>
+		<echo message="Creating the report for the Scenario Tests in ${report.dir}"/>
+		<junitreport todir="${report.dir}">    			
+			<fileset dir="${report.dir}/others">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${report.dir}"/>
+		</junitreport>
+	</target>
+	
+	<target name="cleanup" depends="report">
+		<delete dir="build"/>
+	</target>
+
+	<target name="make" depends="cleanup">
+		<zip destfile="${reports.path}/reports.zip"
+       basedir="${report.dir}"/>
+	 <!--  <mail mailhost="mailserver.fiorano.com" mailport="25" subject="Test Case Result" files = "reports.zip">
+	  <from address="sandeep.murusupalli@fiorano.com"/>
+	  <replyto address="sandeep.murusupalli@fiorano.com"/>
+	  <to address="prasanna.r@fiorano.com"/>
+	  <to address="sandeep.murusupalli@fiorano.com"/>
+	  <to address="uday.k@fiorano.com"/>
+	  <to address="vishnu.agrawal@fiorano.com"/>
+	  <message>The Test Case Results Attached</message>
+	</mail>  -->
+	</target>
+	
+</project>
+

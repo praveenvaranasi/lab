@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	targetNamespace="http://middleware.network.dhl.com/schema/UNK" 
+	attributeFormDefault="unqualified" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:tns="http://middleware.network.dhl.com/schema/UNK"
+	xmlns:cdm="http://middleware.network.dhl.com/schema/CDM"
+	>
+	<xsd:import namespace="http://middleware.network.dhl.com/schema/CDM" schemaLocation="CDM.xsd"/>
+	
+	<xsd:element name="UNK" type="tns:DHLMessageUNK">
+	</xsd:element>
+	<xsd:complexType name="DHLMessageUNK">
+		<xsd:sequence>
+			<xsd:element name="messageIdentifier" type="cdm:MessageIdentifierType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

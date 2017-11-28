@@ -1,0 +1,8 @@
+ApplicationGUID=SBWDETAILER
+ApplicationGUID1=SBWCHAT
+ApplicationVersion=1.0
+ApplicationFile=1.0.xml
+ApplicationFile1=SBWCHAT_1.0.xml
+Instance1=chat1
+Instance2=chat2
+RouteGUID=route1

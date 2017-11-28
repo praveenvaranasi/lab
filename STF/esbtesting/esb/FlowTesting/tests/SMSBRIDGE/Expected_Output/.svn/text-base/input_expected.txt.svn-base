@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><ns1:Error xmlns:ns1="http://www.fiorano.com/fesb/activity/fault"><errorCode>Request Processing Error</errorCode><errorMessage>SMSBridge could not send SMS. , error code: REQUEST_EXECUTION_ERROR</errorMessage><errorDetail><![CDATA[fiorano.esb.adapter.jca.ESBResourceException: SMSBridge could not send SMS. , error code: REQUEST_EXECUTION_ERROR
+	at com.fiorano.adapter.jca.cci.SMSBridgeInteraction.execute(SMSBridgeInteraction.java:217)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:383)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:299)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:241)
+	at fiorano.esb.adapter.jca.dii.JCAInvoker.executeRequest(JCAInvoker.java:359)
+	at fiorano.esb.adapter.jca.dii.JCAInvoker.execute(JCAInvoker.java:177)
+	at com.fiorano.bc.trgateway.bcdk.BCDKRequestHandler.process(BCDKRequestHandler.java:146)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler.execute(JMSMessageHandler.java:426)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler._onMessage(JMSMessageHandler.java:402)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler.onMessage(JMSMessageHandler.java:150)
+	at fiorano.jms.runtime.ptp.FioranoQueueReceiver.invokeCallback(FioranoQueueReceiver.java:894)
+	at fiorano.jms.runtime.ptp.FioranoQueueDispatchJob.execute(FioranoQueueDispatchJob.java:124)
+	at fiorano.jms.runtime.ptp.FioranoQueueSession.run_Consumers(FioranoQueueSession.java:999)
+	at fiorano.jms.runtime.ptp.FioranoQueueSession$PTPSessionThread.run(FioranoQueueSession.java:3136)
+caused by
+fiorano.esb.adapter.jca.ESBResourceException: SMSBridge could not send SMS. , error code: 
+Error Cause : SMSBridge could not send SMS. 
+Error Code: 107
+Error Dscr: Internet The connection timed out.
+	at com.fiorano.adapter.jca.cci.SMSBridgeInteraction.sendSMS(SMSBridgeInteraction.java:316)
+	at com.fiorano.adapter.jca.cci.SMSBridgeInteraction.execute(SMSBridgeInteraction.java:203)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:383)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:299)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:241)
+	at fiorano.esb.adapter.jca.dii.JCAInvoker.executeRequest(JCAInvoker.java:359)
+	at fiorano.esb.adapter.jca.dii.JCAInvoker.execute(JCAInvoker.java:177)
+	at com.fiorano.bc.trgateway.bcdk.BCDKRequestHandler.process(BCDKRequestHandler.java:146)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler.execute(JMSMessageHandler.java:426)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler._onMessage(JMSMessageHandler.java:402)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler.onMessage(JMSMessageHandler.java:150)
+	at fiorano.jms.runtime.ptp.FioranoQueueReceiver.invokeCallback(FioranoQueueReceiver.java:894)
+	at fiorano.jms.runtime.ptp.FioranoQueueDispatchJob.execute(FioranoQueueDispatchJob.java:124)
+	at fiorano.jms.runtime.ptp.FioranoQueueSession.run_Consumers(FioranoQueueSession.java:999)
+	at fiorano.jms.runtime.ptp.FioranoQueueSession$PTPSessionThread.run(FioranoQueueSession.java:3136)
+caused by
+java.lang.Exception: SMSBridge could not send SMS. 
+Error Code: 107
+Error Dscr: Internet The connection timed out.
+	at com.fiorano.adapter.jca.cci.SMSBridgeInteraction.sendSMS(SMSBridgeInteraction.java:301)
+	at com.fiorano.adapter.jca.cci.SMSBridgeInteraction.execute(SMSBridgeInteraction.java:203)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:383)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:299)
+	at fiorano.esb.adapter.jca.cci.AbstractESBInteraction.execute(AbstractESBInteraction.java:241)
+	at fiorano.esb.adapter.jca.dii.JCAInvoker.executeRequest(JCAInvoker.java:359)
+	at fiorano.esb.adapter.jca.dii.JCAInvoker.execute(JCAInvoker.java:177)
+	at com.fiorano.bc.trgateway.bcdk.BCDKRequestHandler.process(BCDKRequestHandler.java:146)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler.execute(JMSMessageHandler.java:426)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler._onMessage(JMSMessageHandler.java:402)
+	at com.fiorano.bc.trgateway.tr.jms.JMSMessageHandler.onMessage(JMSMessageHandler.java:150)
+	at fiorano.jms.runtime.ptp.FioranoQueueReceiver.invokeCallback(FioranoQueueReceiver.java:894)
+	at fiorano.jms.runtime.ptp.FioranoQueueDispatchJob.execute(FioranoQueueDispatchJob.java:124)
+	at fiorano.jms.runtime.ptp.FioranoQueueSession.run_Consumers(FioranoQueueSession.java:999)
+	at fiorano.jms.runtime.ptp.FioranoQueueSession$PTPSessionThread.run(FioranoQueueSession.java:3136)
+]]></errorDetail><data><inputMessage><![CDATA[Hello Mobile World
+]]></inputMessage></data></ns1:Error>

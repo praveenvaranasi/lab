@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order><OrderID>654437</OrderID><CustomerID>987651</CustomerID><Email>ayrton@fiorano.com</Email><shipDetails><Mode>Air</Mode><Address>Fiorano Software Inc. and affiliates.
+718 University Avenue, Suite 212, 
+Los Gatos, California.</Address><Country>USA</Country><PostalCode>95032</PostalCode><PhoneNumber>408.354.3210</PhoneNumber></shipDetails><Product>CISCO 1601R ROUTER</Product><Quantity>1</Quantity><Price>1000$</Price><BillAmount>1000$</BillAmount><OrderDate>13/11/07</OrderDate></Order>

@@ -1,0 +1,83 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+
+<suite name="Junit_to_TestNG Test Suite">
+    <test name="Test" preserve-order="true">
+        <classes>
+
+            <!--Converted and not tested OK-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.component.TestAddComponent"/>-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestApplicationScenario"/>-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestEventManager"/>-->
+            <!-- <class name="com.fiorano.esb.testng.rmi.scenario.TestWSGatewayService"/>-->
+
+            <!--Converted and tested OK-->
+          <!--  <class name="com.fiorano.esb.testng.rmi.bugs.TestResourceFetchForCacheEnabled"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSyncAfterStoppingComponent"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestServiceLaunchOnFESRestart"/>
+            <class name="com.fiorano.esb.testng.rmi.bugs.TestSchedulingComponentOnPeerRestart"/>-->     <!--run separate-->
+            <!--<class name="com.fiorano.esb.testng.rmi.bugs.TestWSStubSchema"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestAddApplication"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestApplicationCache"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestAddComponent"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestComponentCache"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestAddRemoteServiceInstance"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestSameApplication"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestSimpleChat"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.application.TestWorkFlow"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.component.TestOSCompatibility"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.component.TestUpgrade"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.component.TestServiceDependency"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.port.TestPortEnableDisable"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.port.TestPortDestination"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.route.TestTransformation"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.route.TestSenderSelector"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.route.TestMessageBodyXPath"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.server.TestFPSRestart"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.server.TestFPSLogs"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.server.TestFESRestart"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestAddBreakPoints"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestApplicationContext"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestBackwardCompatibility"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestChangeLogModule"/>-->
+            <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestChangeLaunch"/>-->      <!--run separate-->
+          <!--  <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestCompositeBC"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestDeleteRoute"/>-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestFileTransmitter"/> -->        <!--run separate-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestJMS"/>-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestFPSLogs"/>  -->      <!--run separate-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestJoin"/> -->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestLaunchTypeNone"/>-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestLogsInfo"/>  -->
+
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestOutOfMemory"/>-->
+          <!--  <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestRestartServer"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestSchema"/>  -->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.TestApplicationController"/>-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestApplicationCtroller"/> -->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.TestApplicationControllerManager"/> -->
+
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestDeploymentManager"/>-->
+
+            <!-- <class name="com.fiorano.esb.testng.rmi.scenario.TestExceptionUtil"/>
+             <class name="com.fiorano.esb.testng.rmi.scenario.TestFPSControllerMBean"/> -->
+           <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestFPSController"/>-->        <!--run separate-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestFPSManager"/>-->            <!--run separate-->
+                <!--run separate-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.TestAddResources"/> -->          <!--run separate-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestSWScenario"/> -->
+             <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestLog"/>-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestMessageSelector"/>-->
+           <!-- <class name="com.fiorano.esb.testng.rmi.scenario.TestSBWDetailer"/>  -->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestScenario"/> -->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestSecurity"/>-->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestServerDetailer"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.TestServiceProvider"/>
+            <class name="com.fiorano.esb.testng.rmi.scenario.TestServiceScenario"/> -->
+            <!-- Errors occured -->
+            <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestEventInterceptor"/>-->
+             <!--<class name="com.fiorano.esb.testng.rmi.scenario.TestApplicationDetailer"/>-->
+            <!-- <class name="com.fiorano.esb.testng.rmi.scenario.sanity.TestMultiplePeers"/>-->
+            <!--  <class name="com.fiorano.esb.testng.rmi.scenario.TestEventDetailer"/>-->    <!--need to be rewritten -->
+        </classes>
+    </test>
+</suite>

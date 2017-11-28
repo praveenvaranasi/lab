@@ -1,0 +1,5 @@
+#Service Information. This contains the paths of the resources and icon files.
+#Back slashes not allowed in paths (\\ is allowed) and both absolute and relative paths (relative to component's etc directory) are allowed
+#Thu Feb 24 15:20:07 IST 2011
+icon32=/home/sagar/fioranodev/installer/esb/samples/icons/png_icons/icon32.png
+icon=/home/sagar/fioranodev/installer/esb/samples/icons/png_icons/icon.png

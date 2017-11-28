@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:Result xmlns:ns1="http://www.fiorano.com/fesb/activity/FileWriter1" xmlns:ns2="http://www.w3.org/2001/XMLSchema">
+  <ns1:FileInfo>
+    <FileName>output.txt</FileName>
+  </ns1:FileInfo>
+</ns1:Result>

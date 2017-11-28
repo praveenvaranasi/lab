@@ -1,0 +1,94 @@
+<!-- TestEnvironment encpasulates all the details of the test machine, servers and profiles. -->
+<TestEnvironment>
+
+    <!-- List of servers-->
+    <Servers>
+        <!-- Server is a logical binding of machine and a profile.-->
+        <!-- name: Name of this server -->
+        <!-- machine: Name of the machine -->
+        <!-- profile: Name of the profile -->
+
+        <Server name="fes" mode="fes" isHA="false" ssl="false">
+            <Profile name="profile1" isWrapper="false">
+
+                <Machine ref="machine1"/>
+            </Profile>
+        </Server>
+
+
+        <Server name="fps" mode="fps" isHA="false" ssl="false" jetty="false" basicAuth="false">
+
+            <PrimaryFES url="machine1"/>
+            <SecondaryFES url="machine1"/>
+
+            <Profile name="profile1" isWrapper="false">
+                <Machine ref="machine1"/>
+            </Profile>
+
+        </Server>
+
+        <Server name="fps1" mode="fps" isHA="false" ssl="false">
+
+            <PrimaryFES url="machine1"/>
+            <SecondaryFES url="machine1"/>
+
+            <Profile name="profile2" isWrapper="false">
+                <Machine ref="machine1"/>
+            </Profile>
+
+        </Server>
+
+        <!--  ###############################################################################   -->
+        <!-- NOTE : If user wants to run HA servers as wrapper service in windows, the user needs to manually add
+     the local security policy-->
+
+        <Server name="hafes" mode="fes" isHA="true">
+
+            <Profile name="haprofile1/primary" isWrapper="true">
+                <!--<Machine ref="machine2" lockFile="//192.168.1.144/shred/fes.lck"/>-->
+                <Machine ref="machine1" lockFile="/home/saumil/Desktop/lock/fes.lck"/>
+            </Profile>
+
+            <Profile name="haprofile1/secondary" isWrapper="true">
+                <Machine ref="machine3" lockFile="/home/saumil/Desktop/lock/fes.lck"/>
+                <!--<Machine ref="machine2" lockFile="//192.168.1.82/ESB_TEAM_UPDATE/lock/fes.lck"/>-->
+            </Profile>
+
+            <GatewayMachine ref="machine2" shareName="ESB_TEAM_UPDATE/lock"/>
+        </Server>
+
+
+        <Server name="hafps" mode="fps" isHA="true">
+
+            <PrimaryFES url="machine1"/>
+            <SecondaryFES url="machine3"/>
+
+            <Profile name="haprofile1/primary" isWrapper="false">
+                <!--<Machine ref="machine2" lockFile="//192.168.1.82/ESB_TEAM_UPDATE/lock/fps.lck"/>-->
+                <Machine ref="machine1" lockFile="/home/saumil/Desktop/lock/fps.lck"/>
+            </Profile>
+
+            <Profile name="haprofile1/secondary" isWrapper="false">
+                <!--<Machine ref="machine2" lockFile="//192.168.1.144/shred/fps.lck"/>-->
+                <Machine ref="machine3" lockFile="/home/saumil/Desktop/lock/fps.lck"/>
+            </Profile>
+
+            <GatewayMachine ref="machine2" shareName="ESB_TEAM_UPDATE/lock"/>
+        </Server>
+
+
+    </Servers>
+
+
+    <!-- List of Machines -->
+    <Machines>
+        <!-- Machine element binds logical machine name to actual IP/Host name -->
+        <!-- name: Name of this binding -->
+        <!-- address: Ip/Hostname of the machine -->
+        <Machine name="machine1" address="192.168.1.76" isWindows="false"/>
+        <Machine name="machine2" address="192.168.1.80" isWindows="true"/>
+        <Machine name="machine3" address="192.168.1.98" isWindows="false"/>
+    </Machines>
+
+
+</TestEnvironment>

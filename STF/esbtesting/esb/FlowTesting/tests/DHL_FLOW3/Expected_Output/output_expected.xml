@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessagePublishReport xmlns="http://www.fiorano.com/fesb/activity/MQSeriesIn1In/Out">
+   <QueueName>NMIV_CAM_IN</QueueName>
+   <status>success</status>
+</MessagePublishReport>

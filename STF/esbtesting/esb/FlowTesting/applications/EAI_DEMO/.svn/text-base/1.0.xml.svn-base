@@ -1,0 +1,1789 @@
+<application guid="EAI_DEMO" version="1.0"><display name="EAI Demo" categories="Samples.Inventory" /><creation date="25-11-2005 12:00:00" authors="Admin" /><short-description>The documentation for this event process flow is available at {Fiorano Install Dir}/esb/samples/EventProcesses/EAIDemo/docs/readme.html.</short-description><deployment label="Development" /><service-instances><inst name="CRM"><service guid="CRM" version="4.0" /><long-description>CRM is a simulatorr for Clarify Management Adapter&#xd;
+Its output is a purchase order in xml format&#xd;
+Username and password can be set using custompropertysheet</long-description><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.crm.model.CrmPropertyModel"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><outputport-instances><outputport-instance name="OUT_PORT"><schema root="Order"><content><![CDATA[<?xml version="1.0" encoding="ISO-8859-1" ?>
+							<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:element name="Order">	
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="OrderID" type="xs:string"/>
+											<xs:element name="CustomerID" type="xs:string"/>
+											<xs:element name="Email" type="xs:string"/>
+											<xs:element name="shipDetails">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="Mode" type="xs:string"/>
+														<xs:element name="Address" type="xs:string"/>
+														<xs:element name="Country" type="xs:string"/>
+														<xs:element name="PostalCode" type="xs:string"/>
+														<xs:element name="PhoneNumber" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Product" type="xs:string"/>
+											<xs:element name="Quantity" type="xs:string"/>
+											<xs:element name="Price" type="xs:string"/>
+											<xs:element name="BillAmount" type="xs:string"/>
+											<xs:element name="OrderDate" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:schema>]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+							<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault">
+							<xsd:element name="Error">
+							<xsd:complexType>
+							<xsd:sequence>
+							<xsd:element name="errorCode" type="xsd:string"/>
+							<xsd:element name="errorMessage" type="xsd:string"/>
+							<xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+							<xsd:element name="data" minOccurs="0">
+							<xsd:complexType>
+							<xsd:sequence>
+							<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+							</xsd:sequence>
+							</xsd:complexType>
+							</xsd:element>
+							</xsd:sequence>
+							</xsd:complexType>
+							</xsd:element>
+							</xsd:schema>            
+							]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="CrmLog" /><logmodule name="CrmLog.Event" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="ERP"><service guid="erp" version="4.0" /><long-description>The ERP Service is a simulator for an ERP System&#xd;
+Input - Purchase Oreder in XML format&#xd;
+Output - Rejection or Acceptance of PO on respective ports</long-description><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.erp.model.ErpPropertyModel"/> 
+</java> 
+]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="PO_IN"><schema root="Order"><content><![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?>
+							<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:element name="Order">	
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="OrderID" type="xs:string"/>
+											<xs:element name="CustomerID" type="xs:string"/>
+											<xs:element name="Email" type="xs:string"/>
+											<xs:element name="shipDetails">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="Mode" type="xs:string"/>
+														<xs:element name="Address" type="xs:string"/>
+														<xs:element name="Country" type="xs:string"/>
+														<xs:element name="PostalCode" type="xs:string"/>
+														<xs:element name="PhoneNumber" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Product" type="xs:string"/>
+											<xs:element name="Quantity" type="xs:string"/>
+											<xs:element name="Price" type="xs:string"/>
+											<xs:element name="BillAmount" type="xs:string"/>
+											<xs:element name="OrderDate" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:schema>]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="PO_REJECT"><schema root="Order"><content><![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?>
+							<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:element name="Order">	
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="OrderID" type="xs:string"/>
+											<xs:element name="CustomerID" type="xs:string"/>
+											<xs:element name="Email" type="xs:string"/>
+											<xs:element name="shipDetails">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="Mode" type="xs:string"/>
+														<xs:element name="Address" type="xs:string"/>
+														<xs:element name="Country" type="xs:string"/>
+														<xs:element name="PostalCode" type="xs:string"/>
+														<xs:element name="PhoneNumber" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Product" type="xs:string"/>
+											<xs:element name="Quantity" type="xs:string"/>
+											<xs:element name="Price" type="xs:string"/>
+											<xs:element name="BillAmount" type="xs:string"/>
+											<xs:element name="OrderDate" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:schema>]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance><outputport-instance name="PO_ACCEPT"><schema root="Order"><content><![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?>
+							<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:element name="Order">	
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="OrderID" type="xs:string"/>
+											<xs:element name="CustomerID" type="xs:string"/>
+											<xs:element name="Email" type="xs:string"/>
+											<xs:element name="shipDetails">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="Mode" type="xs:string"/>
+														<xs:element name="Address" type="xs:string"/>
+														<xs:element name="Country" type="xs:string"/>
+														<xs:element name="PostalCode" type="xs:string"/>
+														<xs:element name="PhoneNumber" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Product" type="xs:string"/>
+											<xs:element name="Quantity" type="xs:string"/>
+											<xs:element name="Price" type="xs:string"/>
+											<xs:element name="BillAmount" type="xs:string"/>
+											<xs:element name="OrderDate" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:schema>]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+									<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault">
+									<xsd:element name="Error">
+									<xsd:complexType>
+									<xsd:sequence>
+									<xsd:element name="errorCode" type="xsd:string"/>
+									<xsd:element name="errorMessage" type="xsd:string"/>
+									<xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="data" minOccurs="0">
+									<xsd:complexType>
+									<xsd:sequence>
+									<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+									</xsd:sequence>
+									</xsd:complexType>
+									</xsd:element>
+									</xsd:sequence>
+									</xsd:complexType>
+									</xsd:element>
+									</xsd:schema>            
+							]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="ErpLog" /><logmodule name="ErpLog.Event" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Rejected_Orders"><service guid="Display" version="4.0" /><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="DisplayServiceInfo" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="SMTP_Bridge"><service guid="SMTP" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_15" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;false&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;true&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;true&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.4.2_15&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;SMTP1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;SMTPManagedConnectionFactory&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;SMTPManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;SMTPManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;SMTPManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;SMTPInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;SMTPInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;SMTPInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;SMTPInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.4.2_15&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.smtp.spi.outbound.SMTPManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;JNDIName&quot;&gt; 
+    &lt;string&gt;SMTP&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;8&lt;/int&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;SMTP Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;smtpconnection.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.smtp.spi.outbound.SMTPManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;SMTP&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.4.2_15&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;fiorano.esb.adapter.jca.cci.ESBConnectionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;MCFClassName&quot;&gt; 
+    &lt;string&gt;com.fiorano.adapter.jca.smtp.spi.outbound.SMTPManagedConnectionFactory&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;connectionFactoryJNDIName&quot;&gt; 
+    &lt;string&gt;SMTP&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;8&lt;/int&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;SMTP Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;smtpconnection.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;fiorano.esb.adapter.jca.cci.ESBConnectionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;SMTP&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.ConnectionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.4.2_15&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.smtp.cci.SMTPInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;1&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;/&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;id&quot;&gt; 
+    &lt;string&gt;SMTP1&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/SMTP1&lt;/string&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;Bridges&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Sends mail using SMTP mail server&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;smtpcomponent.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.smtp.cci.SMTPInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;SMTP&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_15" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"> 
+  <void property="launchMode"> 
+   <string>FEPO</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_15" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"/> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_15" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1194962826000</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="{http://www.fiorano.com/fesb/activity/SMTP1/smtp/in}Email"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in">
+  <xsd:element name="Email">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="To" type="xsd:string" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+                <xsd:documentation>Comma separated sequence of email addresses of the recipient(s)</xsd:documentation>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="From" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="CC" type="xsd:string" minOccurs="0"></xsd:element>
+        <xsd:element name="BCC" type="xsd:string" minOccurs="0"></xsd:element>
+        <xsd:element name="ReplyTo" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Subject" type="xsd:string" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+                <xsd:documentation>Subject of the mail</xsd:documentation>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="Headers" type="HeadersType" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Attachments" type="AttachmentsType" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Body" type="Body" minOccurs="0" maxOccurs="1"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="Body">
+    <xsd:sequence>
+      <xsd:element name="TextBody" type="xsd:string" minOccurs="0"></xsd:element>
+      <xsd:element name="HtmlBody" type="xsd:string" minOccurs="0"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentsType">
+    <xsd:sequence>
+      <xsd:element name="Attachment" type="AttachmentType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentType" mixed="true">
+   <xsd:simpleContent>
+   <xsd:extension base="xsd:string">
+    <xsd:attribute name="name" use="required" type="xsd:string">
+    </xsd:attribute>
+    <xsd:attribute name="readFromFile" default="no">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:NMTOKEN">
+          <xsd:enumeration value="yes"></xsd:enumeration>
+          <xsd:enumeration value="no"></xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="base64Encoded" default="no">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:NMTOKEN">
+          <xsd:enumeration value="yes"></xsd:enumeration>
+          <xsd:enumeration value="no"></xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="HeadersType">
+    <xsd:sequence>
+      <xsd:element name="Header" type="HeaderType" minOccurs="0" maxOccurs="unbounded"/>
+	</xsd:sequence>
+  </xsd:complexType>
+<xsd:complexType name="HeaderType">
+<xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+<xsd:attribute name="value" use="required" type="xsd:string"></xsd:attribute>
+</xsd:complexType>
+</xsd:schema>]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="{http://www.fiorano.com/fesb/activity/SMTP1/smtp/out}SMTP"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/SMTP1/smtp/out" xmlns="http://www.fiorano.com/fesb/activity/SMTP1/smtp/out">
+	<xsd:element name="Result" type="xsd:string"/>
+	<xsd:element name="SMTP">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Result"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[ <?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorDetail" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="com.fiorano.bc.trgateway" /><logmodule name="com.fiorano.adapter.jca.smtp.cci.SMTPInteraction" /><logmodule name="SMTPManagedConnectionFactory" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst><inst name="Xslt_Tranform"><service guid="Xslt" version="4.0" /><configuration><![CDATA[<?xml version="1.0" encoding="UTF-8"?><TrGatewayConfigurations><BCConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.bcdk.BCDKConfigurationInfo"> 
+  <void property="JCAAdapterConfig"> 
+   <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ESBAdapterConfigurations&gt;&lt;ConnectionLess&gt;true&lt;/ConnectionLess&gt;&lt;isConfigurationRequired&gt;true&lt;/isConfigurationRequired&gt;&lt;isLicensed&gt;false&lt;/isLicensed&gt;&lt;Inbound&gt;false&lt;/Inbound&gt;&lt;AdapterInstanceProperties&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ESBAdapterInstanceProperties&quot;&gt; 
+  &lt;void property=&quot;domain&quot;&gt; 
+   &lt;string&gt;BCConfigPropertySheet&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;instanceName&quot;&gt; 
+   &lt;string&gt;Xslt1&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;logCategories&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;XsltInteractionSpec&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;XsltInteractionSpec&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;XsltInteractionSpec&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;XsltInteraction&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;XsltInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;XsltInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteraction&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;XsltManagedConnectionFactory&lt;/string&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.cfg.LogCategory&quot;&gt; 
+     &lt;void property=&quot;loggerDescription&quot;&gt; 
+      &lt;string&gt;XsltManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerDisplayName&quot;&gt; 
+      &lt;string&gt;XsltManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerLevel&quot;&gt; 
+      &lt;string&gt;SEVERE&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;loggerName&quot;&gt; 
+      &lt;string&gt;com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;state&quot;&gt; 
+   &lt;int&gt;8&lt;/int&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/AdapterInstanceProperties&gt;&lt;ConfigurationObjects&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Xslt Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;cf.gif&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;Xslt Connection&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.spi.ManagedConnectionFactory&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;ConfigurationObject&gt;&lt;![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.5.0_05&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;fiorano.esb.adapter.cfg.ConfigurationObject&quot;&gt; 
+  &lt;void property=&quot;beanClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;beanObject&quot;&gt; 
+   &lt;void property=&quot;XSL&quot;&gt; 
+    &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;xsl:stylesheet version=&amp;quot;1.0&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot; xmlns:java=&amp;quot;http://xml.apache.org/xslt/java&amp;quot; xmlns:datetime=&amp;quot;http://exslt.org/dates-and-times&amp;quot; xmlns:set=&amp;quot;http://exslt.org/sets&amp;quot; xmlns:math=&amp;quot;http://exslt.org/math&amp;quot; exclude-result-prefixes=&amp;quot;java&amp;quot; xmlns:lxslt=&amp;quot;http://xml.apache.org/xslt&amp;quot; xmlns:xalan=&amp;quot;http://xml.apache.org/xslt&amp;quot; xmlns:ns0=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:ns1=&amp;quot;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&amp;quot; xmlns:dateConversion=&amp;quot;ext1&amp;quot; xmlns:myext=&amp;quot;ext2&amp;quot; xmlns:strings=&amp;quot;ext3&amp;quot; extension-element-prefixes=&amp;quot;datetime set math dateConversion myext strings&amp;quot;&amp;gt;
+  &amp;lt;xsl:output method=&amp;quot;xml&amp;quot; indent=&amp;quot;yes&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; xalan:indent-amount=&amp;quot;2&amp;quot; omit-xml-declaration=&amp;quot;no&amp;quot;&amp;gt;&amp;lt;/xsl:output&amp;gt;
+  &amp;lt;xsl:template match=&amp;quot;/&amp;quot;&amp;gt;
+    &amp;lt;ns1:Email&amp;gt;
+      &amp;lt;To&amp;gt;
+        &amp;lt;xsl:value-of select=&amp;quot;document(&amp;apos;IN_PORT&amp;apos;)/Order/Email&amp;quot;&amp;gt;&amp;lt;/xsl:value-of&amp;gt;
+      &amp;lt;/To&amp;gt;
+      &amp;lt;Subject&amp;gt;
+        &amp;lt;xsl:value-of select=&amp;quot;concat(&amp;apos;Confirmation for Order No.&amp;apos;,document(&amp;apos;IN_PORT&amp;apos;)/Order/OrderID)&amp;quot;&amp;gt;&amp;lt;/xsl:value-of&amp;gt;
+      &amp;lt;/Subject&amp;gt;
+      &amp;lt;Body&amp;gt;
+        &amp;lt;HtmlBody&amp;gt;
+          &amp;lt;xsl:value-of select=&amp;quot;concat(&amp;apos;Hi Ayrton,&amp;amp;#xa;&amp;amp;#xa;This is a confirmation message for order no.&amp;apos;,document(&amp;apos;IN_PORT&amp;apos;)/Order/OrderID,&amp;apos;&amp;amp;#xa;&amp;amp;#xa;&amp;amp;#xa;&amp;amp;#xa;Thanks,&amp;amp;#xa;Fiorano Support.&amp;apos;)&amp;quot;&amp;gt;&amp;lt;/xsl:value-of&amp;gt;
+        &amp;lt;/HtmlBody&amp;gt;
+      &amp;lt;/Body&amp;gt;
+    &amp;lt;/ns1:Email&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;errorActionsMap&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorActionsMap&quot;&gt; 
+     &lt;void property=&quot;errorActionsMap&quot;&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;2&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.RetryErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;1&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+        &lt;void method=&quot;add&quot;&gt; 
+         &lt;object class=&quot;fiorano.esb.adapter.jca.error.ErrorAction&quot;&gt; 
+          &lt;void property=&quot;errorActionID&quot;&gt; 
+           &lt;int&gt;3&lt;/int&gt; 
+          &lt;/void&gt; 
+         &lt;/object&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+      &lt;/void&gt; 
+      &lt;void method=&quot;put&quot;&gt; 
+       &lt;object class=&quot;fiorano.esb.adapter.jca.error.Error&quot;&gt; 
+        &lt;void property=&quot;errorID&quot;&gt; 
+         &lt;int&gt;0&lt;/int&gt; 
+        &lt;/void&gt; 
+       &lt;/object&gt; 
+       &lt;object class=&quot;java.util.ArrayList&quot;/&gt; 
+      &lt;/void&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;esbDefInPort&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.record.ESBRecordDefinition&quot;&gt; 
+     &lt;void property=&quot;importedStructures&quot;&gt; 
+      &lt;object class=&quot;java.util.Hashtable&quot;/&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;rootElementName&quot;&gt; 
+      &lt;string&gt;Order&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;structure&quot;&gt; 
+      &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;ISO-8859-1&amp;quot; ?&amp;gt;
+							&amp;lt;xs:schema xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&amp;gt;
+								&amp;lt;xs:element name=&amp;quot;Order&amp;quot;&amp;gt;	
+									&amp;lt;xs:complexType&amp;gt;
+										&amp;lt;xs:sequence&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;OrderID&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;CustomerID&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Email&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;shipDetails&amp;quot;&amp;gt;
+												&amp;lt;xs:complexType&amp;gt;
+													&amp;lt;xs:sequence&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;Mode&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;Address&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;Country&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;PostalCode&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;PhoneNumber&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+													&amp;lt;/xs:sequence&amp;gt;
+												&amp;lt;/xs:complexType&amp;gt;
+											&amp;lt;/xs:element&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Product&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Quantity&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Price&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;BillAmount&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;OrderDate&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+										&amp;lt;/xs:sequence&amp;gt;
+									&amp;lt;/xs:complexType&amp;gt;
+								&amp;lt;/xs:element&amp;gt;
+							&amp;lt;/xs:schema&amp;gt;&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;esbDefOutPort&quot;&gt; 
+    &lt;object class=&quot;fiorano.esb.record.ESBRecordDefinition&quot;&gt; 
+     &lt;void property=&quot;importedStructures&quot;&gt; 
+      &lt;object class=&quot;java.util.Hashtable&quot;/&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;rootElementName&quot;&gt; 
+      &lt;string&gt;Email&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;structure&quot;&gt; 
+      &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#13;
+&amp;lt;xsd:schema targetNamespace=&amp;quot;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&amp;quot; xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns=&amp;quot;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&amp;quot;&amp;gt;&amp;#13;
+  &amp;lt;xsd:element name=&amp;quot;Email&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:complexType&amp;gt;&amp;#13;
+      &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;To&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;1&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;From&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;CC&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;BCC&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;ReplyTo&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Subject&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Headers&amp;quot; type=&amp;quot;HeadersType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Attachments&amp;quot; type=&amp;quot;AttachmentsType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Body&amp;quot; type=&amp;quot;Body&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+      &amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+    &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;/xsd:element&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;Body&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;TextBody&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;HtmlBody&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+    &amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;AttachmentsType&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;Attachment&amp;quot; type=&amp;quot;AttachmentType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;unbounded&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+    &amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;AttachmentType&amp;quot; mixed=&amp;quot;true&amp;quot;&amp;gt;&amp;#13;
+   &amp;lt;xsd:simpleContent&amp;gt;&amp;#13;
+   &amp;lt;xsd:extension base=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:attribute name=&amp;quot;name&amp;quot; use=&amp;quot;required&amp;quot; type=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+    &amp;lt;xsd:attribute name=&amp;quot;readFromFile&amp;quot; default=&amp;quot;no&amp;quot;&amp;gt;&amp;#13;
+      &amp;lt;xsd:simpleType&amp;gt;&amp;#13;
+        &amp;lt;xsd:restriction base=&amp;quot;xsd:NMTOKEN&amp;quot;&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;yes&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;no&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+        &amp;lt;/xsd:restriction&amp;gt;&amp;#13;
+      &amp;lt;/xsd:simpleType&amp;gt;&amp;#13;
+    &amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+    &amp;lt;xsd:attribute name=&amp;quot;base64Encoded&amp;quot; default=&amp;quot;no&amp;quot;&amp;gt;&amp;#13;
+      &amp;lt;xsd:simpleType&amp;gt;&amp;#13;
+        &amp;lt;xsd:restriction base=&amp;quot;xsd:NMTOKEN&amp;quot;&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;yes&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;no&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+        &amp;lt;/xsd:restriction&amp;gt;&amp;#13;
+      &amp;lt;/xsd:simpleType&amp;gt;&amp;#13;
+    &amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+    &amp;lt;/xsd:extension&amp;gt;&amp;#13;
+    &amp;lt;/xsd:simpleContent&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;HeadersType&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;Header&amp;quot; type=&amp;quot;HeaderType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;unbounded&amp;quot;/&amp;gt;&amp;#13;
+	&amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+&amp;lt;xsd:complexType name=&amp;quot;HeaderType&amp;quot;&amp;gt;&amp;#13;
+&amp;lt;xsd:attribute name=&amp;quot;name&amp;quot; use=&amp;quot;required&amp;quot; type=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+&amp;lt;xsd:attribute name=&amp;quot;value&amp;quot; use=&amp;quot;required&amp;quot; type=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+&amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+&amp;lt;/xsd:schema&amp;gt;&lt;/string&gt; 
+     &lt;/void&gt; 
+     &lt;void property=&quot;targetNamespace&quot;&gt; 
+      &lt;string&gt;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&lt;/string&gt; 
+     &lt;/void&gt; 
+    &lt;/object&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;project&quot;&gt; 
+    &lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;MapperProject version=&amp;quot;3.0.1&amp;quot; suppressEmptyItems=&amp;quot;false&amp;quot; convertor=&amp;quot;nameIndexed&amp;quot;&amp;gt;
+  &amp;lt;XSLTEngine&amp;gt;Xalan&amp;lt;/XSLTEngine&amp;gt;
+  &amp;lt;XSLTEncoding&amp;gt;UTF-8&amp;lt;/XSLTEncoding&amp;gt;
+  &amp;lt;OutputEncoding&amp;gt;UTF-8&amp;lt;/OutputEncoding&amp;gt;
+  &amp;lt;indent&amp;gt;true&amp;lt;/indent&amp;gt;
+  &amp;lt;setDTD&amp;gt;false&amp;lt;/setDTD&amp;gt;
+  &amp;lt;omit-xml-declaration&amp;gt;false&amp;lt;/omit-xml-declaration&amp;gt;
+  &amp;lt;Comments&amp;gt;&amp;lt;![CDATA[]]&amp;gt;&amp;lt;/Comments&amp;gt;
+  &amp;lt;InputStructure name=&amp;quot;Application-Context&amp;quot; mime=&amp;quot;dtd&amp;quot; rootName=&amp;quot;Context&amp;quot; duplicates=&amp;quot;&amp;quot;&amp;gt;&amp;lt;![CDATA[&amp;lt;!ELEMENT Context (#PCDATA)&amp;gt;]]&amp;gt;&amp;lt;/InputStructure&amp;gt;
+  &amp;lt;InputStructure name=&amp;quot;IN_PORT&amp;quot; mime=&amp;quot;xsd&amp;quot; rootName=&amp;quot;Order&amp;quot; parser=&amp;quot;Xerces&amp;quot; duplicates=&amp;quot;&amp;quot;&amp;gt;&amp;lt;![CDATA[&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;ISO-8859-1&amp;quot; ?&amp;gt;
+							&amp;lt;xs:schema xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&amp;gt;
+								&amp;lt;xs:element name=&amp;quot;Order&amp;quot;&amp;gt;	
+									&amp;lt;xs:complexType&amp;gt;
+										&amp;lt;xs:sequence&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;OrderID&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;CustomerID&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Email&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;shipDetails&amp;quot;&amp;gt;
+												&amp;lt;xs:complexType&amp;gt;
+													&amp;lt;xs:sequence&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;Mode&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;Address&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;Country&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;PostalCode&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+														&amp;lt;xs:element name=&amp;quot;PhoneNumber&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+													&amp;lt;/xs:sequence&amp;gt;
+												&amp;lt;/xs:complexType&amp;gt;
+											&amp;lt;/xs:element&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Product&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Quantity&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;Price&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;BillAmount&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+											&amp;lt;xs:element name=&amp;quot;OrderDate&amp;quot; type=&amp;quot;xs:string&amp;quot;/&amp;gt;
+										&amp;lt;/xs:sequence&amp;gt;
+									&amp;lt;/xs:complexType&amp;gt;
+								&amp;lt;/xs:element&amp;gt;
+							&amp;lt;/xs:schema&amp;gt;]]&amp;gt;&amp;lt;/InputStructure&amp;gt;
+  &amp;lt;OutputStructure name=&amp;quot;OUT_PORT&amp;quot; mime=&amp;quot;xsd&amp;quot; rootName=&amp;quot;Email&amp;quot; namespace=&amp;quot;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&amp;quot; parser=&amp;quot;Xerces&amp;quot; duplicates=&amp;quot;0,0&amp;quot;&amp;gt;&amp;lt;![CDATA[&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#13;
+&amp;lt;xsd:schema targetNamespace=&amp;quot;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&amp;quot; xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns=&amp;quot;http://www.fiorano.com/fesb/activity/SMTP1/smtp/in&amp;quot;&amp;gt;&amp;#13;
+  &amp;lt;xsd:element name=&amp;quot;Email&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:complexType&amp;gt;&amp;#13;
+      &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;To&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;1&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;From&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;CC&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;BCC&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;ReplyTo&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Subject&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Headers&amp;quot; type=&amp;quot;HeadersType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Attachments&amp;quot; type=&amp;quot;AttachmentsType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+        &amp;lt;xsd:element name=&amp;quot;Body&amp;quot; type=&amp;quot;Body&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;1&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+      &amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+    &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;/xsd:element&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;Body&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;TextBody&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;HtmlBody&amp;quot; type=&amp;quot;xsd:string&amp;quot; minOccurs=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+    &amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;AttachmentsType&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;Attachment&amp;quot; type=&amp;quot;AttachmentType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;unbounded&amp;quot;&amp;gt;&amp;lt;/xsd:element&amp;gt;&amp;#13;
+    &amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;AttachmentType&amp;quot; mixed=&amp;quot;true&amp;quot;&amp;gt;&amp;#13;
+   &amp;lt;xsd:simpleContent&amp;gt;&amp;#13;
+   &amp;lt;xsd:extension base=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:attribute name=&amp;quot;name&amp;quot; use=&amp;quot;required&amp;quot; type=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+    &amp;lt;xsd:attribute name=&amp;quot;readFromFile&amp;quot; default=&amp;quot;no&amp;quot;&amp;gt;&amp;#13;
+      &amp;lt;xsd:simpleType&amp;gt;&amp;#13;
+        &amp;lt;xsd:restriction base=&amp;quot;xsd:NMTOKEN&amp;quot;&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;yes&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;no&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+        &amp;lt;/xsd:restriction&amp;gt;&amp;#13;
+      &amp;lt;/xsd:simpleType&amp;gt;&amp;#13;
+    &amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+    &amp;lt;xsd:attribute name=&amp;quot;base64Encoded&amp;quot; default=&amp;quot;no&amp;quot;&amp;gt;&amp;#13;
+      &amp;lt;xsd:simpleType&amp;gt;&amp;#13;
+        &amp;lt;xsd:restriction base=&amp;quot;xsd:NMTOKEN&amp;quot;&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;yes&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+          &amp;lt;xsd:enumeration value=&amp;quot;no&amp;quot;&amp;gt;&amp;lt;/xsd:enumeration&amp;gt;&amp;#13;
+        &amp;lt;/xsd:restriction&amp;gt;&amp;#13;
+      &amp;lt;/xsd:simpleType&amp;gt;&amp;#13;
+    &amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+    &amp;lt;/xsd:extension&amp;gt;&amp;#13;
+    &amp;lt;/xsd:simpleContent&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+  &amp;lt;xsd:complexType name=&amp;quot;HeadersType&amp;quot;&amp;gt;&amp;#13;
+    &amp;lt;xsd:sequence&amp;gt;&amp;#13;
+      &amp;lt;xsd:element name=&amp;quot;Header&amp;quot; type=&amp;quot;HeaderType&amp;quot; minOccurs=&amp;quot;0&amp;quot; maxOccurs=&amp;quot;unbounded&amp;quot;/&amp;gt;&amp;#13;
+	&amp;lt;/xsd:sequence&amp;gt;&amp;#13;
+  &amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+&amp;lt;xsd:complexType name=&amp;quot;HeaderType&amp;quot;&amp;gt;&amp;#13;
+&amp;lt;xsd:attribute name=&amp;quot;name&amp;quot; use=&amp;quot;required&amp;quot; type=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+&amp;lt;xsd:attribute name=&amp;quot;value&amp;quot; use=&amp;quot;required&amp;quot; type=&amp;quot;xsd:string&amp;quot;&amp;gt;&amp;lt;/xsd:attribute&amp;gt;&amp;#13;
+&amp;lt;/xsd:complexType&amp;gt;&amp;#13;
+&amp;lt;/xsd:schema&amp;gt;]]&amp;gt;&amp;lt;/OutputStructure&amp;gt;
+  &amp;lt;Extensions&amp;gt;
+    &amp;lt;Extension name=&amp;quot;dateConversion&amp;quot; language=&amp;quot;javascript&amp;quot;&amp;gt;
+      &amp;lt;Script&amp;gt;&amp;lt;![CDATA[// ===================================================================
+// You may *NOT* re-distribute this code in any way except through its
+// use. That means, you can include it in your product, or your web
+// site, or any other form where the code is actually being used. You
+// may not put the plain javascript up on your site for download or
+// include it in your javascript libraries for download. 
+// If you wish to share this code with others, please just point them
+// to the URL instead.
+// Please DO NOT link directly to my .js files from your site. Copy
+// the files to your server and use them there. Thank you.
+// ===================================================================
+
+// HISTORY
+// ------------------------------------------------------------------
+// March 11, 2003: Added parseDate() function
+// March 11, 2003: Added &amp;quot;NNN&amp;quot; formatting option. Doesn&amp;apos;t match up
+//                 perfectly with SimpleDateFormat formats, but 
+//                 backwards-compatability was required.
+
+// ------------------------------------------------------------------
+// These functions use the same &amp;apos;format&amp;apos; strings as the 
+// java.text.SimpleDateFormat class, with minor exceptions.
+// The format string consists of the following abbreviations:
+// 
+// Field        | Full Form          | Short Form
+// -------------+--------------------+-----------------------
+// Year         | yyyy (4 digits)    | yy (2 digits), y (2 or 4 digits)
+// Month        | MMM (name or abbr.)| MM (2 digits), M (1 or 2 digits)
+//              | NNN (abbr.)        |
+// Day of Month | dd (2 digits)      | d (1 or 2 digits)
+// Day of Week  | EE (name)          | E (abbr)
+// Hour (1-12)  | hh (2 digits)      | h (1 or 2 digits)
+// Hour (0-23)  | HH (2 digits)      | H (1 or 2 digits)
+// Hour (0-11)  | KK (2 digits)      | K (1 or 2 digits)
+// Hour (1-24)  | kk (2 digits)      | k (1 or 2 digits)
+// Minute       | mm (2 digits)      | m (1 or 2 digits)
+// Second       | ss (2 digits)      | s (1 or 2 digits)
+// AM/PM        | a                  |
+//
+// NOTE THE DIFFERENCE BETWEEN MM and mm! Month=MM, not mm!
+// Examples:
+//  &amp;quot;MMM d, y&amp;quot; matches: January 01, 2000
+//                      Dec 1, 1900
+//                      Nov 20, 00
+//  &amp;quot;M/d/yy&amp;quot;   matches: 01/20/00
+//                      9/2/00
+//  &amp;quot;MMM dd, yyyy hh:mm:ssa&amp;quot; matches: &amp;quot;January 01, 2000 12:30:45AM&amp;quot;
+// ------------------------------------------------------------------
+
+var MONTH_NAMES=new Array(&amp;apos;January&amp;apos;,&amp;apos;February&amp;apos;,&amp;apos;March&amp;apos;,&amp;apos;April&amp;apos;,&amp;apos;May&amp;apos;,&amp;apos;June&amp;apos;,&amp;apos;July&amp;apos;,&amp;apos;August&amp;apos;,&amp;apos;September&amp;apos;,&amp;apos;October&amp;apos;,&amp;apos;November&amp;apos;,&amp;apos;December&amp;apos;,&amp;apos;Jan&amp;apos;,&amp;apos;Feb&amp;apos;,&amp;apos;Mar&amp;apos;,&amp;apos;Apr&amp;apos;,&amp;apos;May&amp;apos;,&amp;apos;Jun&amp;apos;,&amp;apos;Jul&amp;apos;,&amp;apos;Aug&amp;apos;,&amp;apos;Sep&amp;apos;,&amp;apos;Oct&amp;apos;,&amp;apos;Nov&amp;apos;,&amp;apos;Dec&amp;apos;);
+var DAY_NAMES=new Array(&amp;apos;Sunday&amp;apos;,&amp;apos;Monday&amp;apos;,&amp;apos;Tuesday&amp;apos;,&amp;apos;Wednesday&amp;apos;,&amp;apos;Thursday&amp;apos;,&amp;apos;Friday&amp;apos;,&amp;apos;Saturday&amp;apos;,&amp;apos;Sun&amp;apos;,&amp;apos;Mon&amp;apos;,&amp;apos;Tue&amp;apos;,&amp;apos;Wed&amp;apos;,&amp;apos;Thu&amp;apos;,&amp;apos;Fri&amp;apos;,&amp;apos;Sat&amp;apos;);
+function LZ(x) {return(x&amp;lt;0||x&amp;gt;9?&amp;quot;&amp;quot;:&amp;quot;0&amp;quot;)+x}
+
+function convertDate(dateString, inFormat, outFormat)
+{
+	return formatDate(getDateFromFormat(dateString,inFormat),outFormat);
+}
+
+// ------------------------------------------------------------------
+// isDate ( date_string, format_string )
+// Returns true if date string matches format of format string and
+// is a valid date. Else returns false.
+// It is recommended that you trim whitespace around the value before
+// passing it to this function, as whitespace is NOT ignored!
+// ------------------------------------------------------------------
+function isDate(val,format) {
+	var date=getDateFromFormat(val,format);
+	if (date==0) { return false; }
+	return true;
+	}
+
+// -------------------------------------------------------------------
+// compareDates(date1,date1format,date2,date2format)
+//   Compare two date strings to see which is greater.
+//   Returns:
+//   1 if date1 is greater than date2
+//   0 if date2 is greater than date1 of if they are the same
+//  -1 if either of the dates is in an invalid format
+// -------------------------------------------------------------------
+function compareDates(date1,dateformat1,date2,dateformat2) {
+	var d1=getDateFromFormat(date1,dateformat1);
+	var d2=getDateFromFormat(date2,dateformat2);
+	if (d1==0 || d2==0) {
+		return -1;
+		}
+	else if (d1 &amp;gt; d2) {
+		return 1;
+		}
+	return 0;
+	}
+
+// ------------------------------------------------------------------
+// formatDate (date_object, format)
+// Returns a date in the output format specified.
+// The format string uses the same abbreviations as in getDateFromFormat()
+// ------------------------------------------------------------------
+function formatDate(date,format) {
+	format=format+&amp;quot;&amp;quot;;
+	var result=&amp;quot;&amp;quot;;
+	var i_format=0;
+	var c=&amp;quot;&amp;quot;;
+	var token=&amp;quot;&amp;quot;;
+	var y=date.getYear()+&amp;quot;&amp;quot;;
+	var M=date.getMonth()+1;
+	var d=date.getDate();
+	var E=date.getDay();
+	var H=date.getHours();
+	var m=date.getMinutes();
+	var s=date.getSeconds();
+	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
+	// Convert real date parts into formatted versions
+	var value=new Object();
+	if (y.length &amp;lt; 4) {y=&amp;quot;&amp;quot;+(y-0+1900);}
+	value[&amp;quot;y&amp;quot;]=&amp;quot;&amp;quot;+y;
+	value[&amp;quot;yyyy&amp;quot;]=y;
+	value[&amp;quot;yy&amp;quot;]=y.substring(2,4);
+	value[&amp;quot;M&amp;quot;]=M;
+	value[&amp;quot;MM&amp;quot;]=LZ(M);
+	value[&amp;quot;MMM&amp;quot;]=MONTH_NAMES[M-1];
+	value[&amp;quot;NNN&amp;quot;]=MONTH_NAMES[M+11];
+	value[&amp;quot;d&amp;quot;]=d;
+	value[&amp;quot;dd&amp;quot;]=LZ(d);
+	value[&amp;quot;E&amp;quot;]=DAY_NAMES[E+7];
+	value[&amp;quot;EE&amp;quot;]=DAY_NAMES[E];
+	value[&amp;quot;H&amp;quot;]=H;
+	value[&amp;quot;HH&amp;quot;]=LZ(H);
+	if (H==0){value[&amp;quot;h&amp;quot;]=12;}
+	else if (H&amp;gt;12){value[&amp;quot;h&amp;quot;]=H-12;}
+	else {value[&amp;quot;h&amp;quot;]=H;}
+	value[&amp;quot;hh&amp;quot;]=LZ(value[&amp;quot;h&amp;quot;]);
+	if (H&amp;gt;11){value[&amp;quot;K&amp;quot;]=H-12;} else {value[&amp;quot;K&amp;quot;]=H;}
+	value[&amp;quot;k&amp;quot;]=H+1;
+	value[&amp;quot;KK&amp;quot;]=LZ(value[&amp;quot;K&amp;quot;]);
+	value[&amp;quot;kk&amp;quot;]=LZ(value[&amp;quot;k&amp;quot;]);
+	if (H &amp;gt; 11) { value[&amp;quot;a&amp;quot;]=&amp;quot;PM&amp;quot;; }
+	else { value[&amp;quot;a&amp;quot;]=&amp;quot;AM&amp;quot;; }
+	value[&amp;quot;m&amp;quot;]=m;
+	value[&amp;quot;mm&amp;quot;]=LZ(m);
+	value[&amp;quot;s&amp;quot;]=s;
+	value[&amp;quot;ss&amp;quot;]=LZ(s);
+	while (i_format &amp;lt; format.length) {
+		c=format.charAt(i_format);
+		token=&amp;quot;&amp;quot;;
+		while ((format.charAt(i_format)==c) &amp;amp;&amp;amp; (i_format &amp;lt; format.length)) {
+			token += format.charAt(i_format++);
+			}
+		if (value[token] != null) { result=result + value[token]; }
+		else { result=result + token; }
+		}
+	return result;
+	}
+	
+// ------------------------------------------------------------------
+// Utility functions for parsing in getDateFromFormat()
+// ------------------------------------------------------------------
+function _isInteger(val) {
+	var digits=&amp;quot;1234567890&amp;quot;;
+	for (var i=0; i &amp;lt; val.length; i++) {
+		if (digits.indexOf(val.charAt(i))==-1) { return false; }
+		}
+	return true;
+	}
+function _getInt(str,i,minlength,maxlength) {
+	for (var x=maxlength; x&amp;gt;=minlength; x--) {
+		var token=str.substring(i,i+x);
+		if (token.length &amp;lt; minlength) { return null; }
+		if (_isInteger(token)) { return token; }
+		}
+	return null;
+	}
+	
+// ------------------------------------------------------------------
+// getDateFromFormat( date_string , format_string )
+//
+// This function takes a date string and a format string. It matches
+// If the date string matches the format string, it returns the 
+// getTime() of the date. If it does not match, it returns 0.
+// ------------------------------------------------------------------
+function getDateFromFormat(val,format) {
+	val=val+&amp;quot;&amp;quot;;
+	format=format+&amp;quot;&amp;quot;;
+	var i_val=0;
+	var i_format=0;
+	var c=&amp;quot;&amp;quot;;
+	var token=&amp;quot;&amp;quot;;
+	var token2=&amp;quot;&amp;quot;;
+	var x,y;
+	var now=new Date();
+	var year=now.getYear();
+	var month=now.getMonth()+1;
+	var date=1;
+	var hh=now.getHours();
+	var mm=now.getMinutes();
+	var ss=now.getSeconds();
+	var ampm=&amp;quot;&amp;quot;;
+	
+	while (i_format &amp;lt; format.length) {
+		// Get next token from format string
+		c=format.charAt(i_format);
+		token=&amp;quot;&amp;quot;;
+		while ((format.charAt(i_format)==c) &amp;amp;&amp;amp; (i_format &amp;lt; format.length)) {
+			token += format.charAt(i_format++);
+			}
+		// Extract contents of value based on format token
+		if (token==&amp;quot;yyyy&amp;quot; || token==&amp;quot;yy&amp;quot; || token==&amp;quot;y&amp;quot;) {
+			if (token==&amp;quot;yyyy&amp;quot;) { x=4;y=4; }
+			if (token==&amp;quot;yy&amp;quot;)   { x=2;y=2; }
+			if (token==&amp;quot;y&amp;quot;)    { x=2;y=4; }
+			year=_getInt(val,i_val,x,y);
+			if (year==null) { return 0; }
+			i_val += year.length;
+			if (year.length==2) {
+				if (year &amp;gt; 70) { year=1900+(year-0); }
+				else { year=2000+(year-0); }
+				}
+			}
+		else if (token==&amp;quot;MMM&amp;quot;||token==&amp;quot;NNN&amp;quot;){
+			month=0;
+			for (var i=0; i&amp;lt;MONTH_NAMES.length; i++) {
+				var month_name=MONTH_NAMES[i];
+				if (val.substring(i_val,i_val+month_name.length).toLowerCase()==month_name.toLowerCase()) {
+					if (token==&amp;quot;MMM&amp;quot;||(token==&amp;quot;NNN&amp;quot;&amp;amp;&amp;amp;i&amp;gt;11)) {
+						month=i+1;
+						if (month&amp;gt;12) { month -= 12; }
+						i_val += month_name.length;
+						break;
+						}
+					}
+				}
+			if ((month &amp;lt; 1)||(month&amp;gt;12)){return 0;}
+			}
+		else if (token==&amp;quot;EE&amp;quot;||token==&amp;quot;E&amp;quot;){
+			for (var i=0; i&amp;lt;DAY_NAMES.length; i++) {
+				var day_name=DAY_NAMES[i];
+				if (val.substring(i_val,i_val+day_name.length).toLowerCase()==day_name.toLowerCase()) {
+					i_val += day_name.length;
+					break;
+					}
+				}
+			}
+		else if (token==&amp;quot;MM&amp;quot;||token==&amp;quot;M&amp;quot;) {
+			month=_getInt(val,i_val,token.length,2);
+			if(month==null||(month&amp;lt;1)||(month&amp;gt;12)){return 0;}
+			i_val+=month.length;}
+		else if (token==&amp;quot;dd&amp;quot;||token==&amp;quot;d&amp;quot;) {
+			date=_getInt(val,i_val,token.length,2);
+			if(date==null||(date&amp;lt;1)||(date&amp;gt;31)){return 0;}
+			i_val+=date.length;}
+		else if (token==&amp;quot;hh&amp;quot;||token==&amp;quot;h&amp;quot;) {
+			hh=_getInt(val,i_val,token.length,2);
+			if(hh==null||(hh&amp;lt;1)||(hh&amp;gt;12)){return 0;}
+			i_val+=hh.length;}
+		else if (token==&amp;quot;HH&amp;quot;||token==&amp;quot;H&amp;quot;) {
+			hh=_getInt(val,i_val,token.length,2);
+			if(hh==null||(hh&amp;lt;0)||(hh&amp;gt;23)){return 0;}
+			i_val+=hh.length;}
+		else if (token==&amp;quot;KK&amp;quot;||token==&amp;quot;K&amp;quot;) {
+			hh=_getInt(val,i_val,token.length,2);
+			if(hh==null||(hh&amp;lt;0)||(hh&amp;gt;11)){return 0;}
+			i_val+=hh.length;}
+		else if (token==&amp;quot;kk&amp;quot;||token==&amp;quot;k&amp;quot;) {
+			hh=_getInt(val,i_val,token.length,2);
+			if(hh==null||(hh&amp;lt;1)||(hh&amp;gt;24)){return 0;}
+			i_val+=hh.length;hh--;}
+		else if (token==&amp;quot;mm&amp;quot;||token==&amp;quot;m&amp;quot;) {
+			mm=_getInt(val,i_val,token.length,2);
+			if(mm==null||(mm&amp;lt;0)||(mm&amp;gt;59)){return 0;}
+			i_val+=mm.length;}
+		else if (token==&amp;quot;ss&amp;quot;||token==&amp;quot;s&amp;quot;) {
+			ss=_getInt(val,i_val,token.length,2);
+			if(ss==null||(ss&amp;lt;0)||(ss&amp;gt;59)){return 0;}
+			i_val+=ss.length;}
+		else if (token==&amp;quot;a&amp;quot;) {
+			if (val.substring(i_val,i_val+2).toLowerCase()==&amp;quot;am&amp;quot;) {ampm=&amp;quot;AM&amp;quot;;}
+			else if (val.substring(i_val,i_val+2).toLowerCase()==&amp;quot;pm&amp;quot;) {ampm=&amp;quot;PM&amp;quot;;}
+			else {return 0;}
+			i_val+=2;}
+		else {
+			if (val.substring(i_val,i_val+token.length)!=token) {return 0;}
+			else {i_val+=token.length;}
+			}
+		}
+	// If there are any trailing characters left in the value, it doesn&amp;apos;t match
+	if (i_val != val.length) { return 0; }
+	// Is date valid for month?
+	if (month==2) {
+		// Check for leap year
+		if ( ( (year%4==0)&amp;amp;&amp;amp;(year%100 != 0) ) || (year%400==0) ) { // leap year
+			if (date &amp;gt; 29){ return 0; }
+			}
+		else { if (date &amp;gt; 28) { return 0; } }
+		}
+	if ((month==4)||(month==6)||(month==9)||(month==11)) {
+		if (date &amp;gt; 30) { return 0; }
+		}
+	// Correct hours value
+	if (hh&amp;lt;12 &amp;amp;&amp;amp; ampm==&amp;quot;PM&amp;quot;) { hh=hh-0+12; }
+	else if (hh&amp;gt;11 &amp;amp;&amp;amp; ampm==&amp;quot;AM&amp;quot;) { hh-=12; }
+	var newdate=new Date(year,month-1,date,hh,mm,ss);
+	return newdate;
+	}
+
+// ------------------------------------------------------------------
+// parseDate( date_string [, prefer_euro_format] )
+//
+// This function takes a date string and tries to match it to a
+// number of possible date formats to get the value. It will try to
+// match against the following international formats, in this order:
+// y-M-d   MMM d, y   MMM d,y   y-MMM-d   d-MMM-y  MMM d
+// M/d/y   M-d-y      M.d.y     MMM-d     M/d      M-d
+// d/M/y   d-M-y      d.M.y     d-MMM     d/M      d-M
+// A second argument may be passed to instruct the method to search
+// for formats like d/M/y (european format) before M/d/y (American).
+// Returns a Date object or null if no patterns match.
+// ------------------------------------------------------------------
+function parseDate(val) {
+	var preferEuro=(arguments.length==2)?arguments[1]:false;
+	generalFormats=new Array(&amp;apos;y-M-d&amp;apos;,&amp;apos;MMM d, y&amp;apos;,&amp;apos;MMM d,y&amp;apos;,&amp;apos;y-MMM-d&amp;apos;,&amp;apos;d-MMM-y&amp;apos;,&amp;apos;MMM d&amp;apos;);
+	monthFirst=new Array(&amp;apos;M/d/y&amp;apos;,&amp;apos;M-d-y&amp;apos;,&amp;apos;M.d.y&amp;apos;,&amp;apos;MMM-d&amp;apos;,&amp;apos;M/d&amp;apos;,&amp;apos;M-d&amp;apos;);
+	dateFirst =new Array(&amp;apos;d/M/y&amp;apos;,&amp;apos;d-M-y&amp;apos;,&amp;apos;d.M.y&amp;apos;,&amp;apos;d-MMM&amp;apos;,&amp;apos;d/M&amp;apos;,&amp;apos;d-M&amp;apos;);
+	var checkList=new Array(&amp;apos;generalFormats&amp;apos;,preferEuro?&amp;apos;dateFirst&amp;apos;:&amp;apos;monthFirst&amp;apos;,preferEuro?&amp;apos;monthFirst&amp;apos;:&amp;apos;dateFirst&amp;apos;);
+	var d=null;
+	for (var i=0; i&amp;lt;checkList.length; i++) {
+		var l=window[checkList[i]];
+		for (var j=0; j&amp;lt;l.length; j++) {
+			d=getDateFromFormat(val,l[j]);
+			if (d&amp;gt;0) { return new Date(d); }
+			}
+		}
+	return null;
+}]]&amp;gt;&amp;lt;/Script&amp;gt;
+      &amp;lt;Function name=&amp;quot;convertDate&amp;quot; return=&amp;quot;String&amp;quot;&amp;gt;
+        &amp;lt;Argument name=&amp;quot;dateString&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+        &amp;lt;Argument name=&amp;quot;inFormat&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+        &amp;lt;Argument name=&amp;quot;outFormat&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+      &amp;lt;/Function&amp;gt;
+    &amp;lt;/Extension&amp;gt;
+    &amp;lt;Extension name=&amp;quot;myext&amp;quot; language=&amp;quot;javascript&amp;quot;&amp;gt;
+      &amp;lt;Script&amp;gt;&amp;lt;![CDATA[function compute(expr){
+	return eval(expr);
+}
+
+function nextMillenium(){
+	d = new Date()    //today&amp;apos;s date
+	mill=new Date(3000, 00, 01, 00, 00, 00)    //Next millennium start date
+	diff = mill-d    //difference in milliseconds
+	mtg = new String(diff/86400000)    //calculate days and convert to string
+	point=mtg.indexOf(&amp;quot;.&amp;quot;)    //find the decimal point
+	days=mtg.substring(0,point)    //get just the whole days
+	return &amp;quot;There are only &amp;quot; + days + &amp;quot; days remaining to the start of the next millennium.&amp;quot;; 
+}
+
+function replace(input, pattern, flags, str){
+	return input.replace(new RegExp(pattern, flags), str);
+}]]&amp;gt;&amp;lt;/Script&amp;gt;
+      &amp;lt;Function name=&amp;quot;compute&amp;quot; return=&amp;quot;String&amp;quot;&amp;gt;
+        &amp;lt;Argument name=&amp;quot;expr&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+      &amp;lt;/Function&amp;gt;
+      &amp;lt;Function name=&amp;quot;nextMillenium&amp;quot; return=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Function&amp;gt;
+      &amp;lt;Function name=&amp;quot;replace&amp;quot; return=&amp;quot;String&amp;quot;&amp;gt;
+        &amp;lt;Argument name=&amp;quot;input&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+        &amp;lt;Argument name=&amp;quot;pattern&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+        &amp;lt;Argument name=&amp;quot;flags&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+        &amp;lt;Argument name=&amp;quot;str&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+      &amp;lt;/Function&amp;gt;
+    &amp;lt;/Extension&amp;gt;
+    &amp;lt;Extension name=&amp;quot;strings&amp;quot; language=&amp;quot;javascript&amp;quot;&amp;gt;
+      &amp;lt;Script&amp;gt;&amp;lt;![CDATA[function multiConcat(ctx, delim){
+    var ipString = &amp;quot;&amp;quot;;
+    if (ctx.length){
+	for (var i=0; i &amp;lt; ctx.getLength(); i++){
+  	    ctxN  = ctx.item(i);
+	    if (ctxN.nodeType == 1){
+	        ipString +=  _wander(ctxN, delim);
+	    }
+	    if (ctxN.nodeType == 2){
+	        ipString += ctxN.nodeValue;
+   	    }
+	}
+    }else{
+	return &amp;apos;&amp;apos;;
+    }
+    return ipString.length&amp;gt;1 ? ipString.substring(delim.length) : ipString;
+}
+function   _wander(ctx, delim){
+	var retStr = &amp;quot;&amp;quot;;
+	var nodelist = ctx.childNodes;
+	
+	for (var i=0; i &amp;lt; ctx.childNodes.length; i++){
+		
+		ctxN = nodelist.item(i);//ctx.childNodes[i];
+		
+		switch(ctxN.nodeType){
+			case 1:
+				retStr +=   _wander(ctxN);
+				break;
+			case 3:
+				retStr += delim +ctxN.nodeValue;
+				break;
+			default:
+				break;
+		}
+	}
+	return retStr;
+}]]&amp;gt;&amp;lt;/Script&amp;gt;
+      &amp;lt;Function name=&amp;quot;multiConcat&amp;quot; return=&amp;quot;String&amp;quot;&amp;gt;
+        &amp;lt;Argument name=&amp;quot;ctx&amp;quot; datatype=&amp;quot;Unknown&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+        &amp;lt;Argument name=&amp;quot;delim&amp;quot; datatype=&amp;quot;String&amp;quot;&amp;gt;&amp;lt;/Argument&amp;gt;
+      &amp;lt;/Function&amp;gt;
+    &amp;lt;/Extension&amp;gt;
+  &amp;lt;/Extensions&amp;gt;
+  &amp;lt;Mappings&amp;gt;
+    &amp;lt;GraphModel outputNode=&amp;quot;OUT_PORT:0.Email:0.To:0&amp;quot; x=&amp;quot;249&amp;quot; y=&amp;quot;22&amp;quot;&amp;gt;
+      &amp;lt;TreeGraphNode inputNode=&amp;quot;IN_PORT:0.Order:0.Email:0&amp;quot; x=&amp;quot;108&amp;quot; y=&amp;quot;22&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1st&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;1st&amp;lt;/OutputPins&amp;gt;
+      &amp;lt;/TreeGraphNode&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;0&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;1&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+    &amp;lt;/GraphModel&amp;gt;
+    &amp;lt;GraphModel outputNode=&amp;quot;OUT_PORT:0.Email:0.Subject:0&amp;quot; x=&amp;quot;468&amp;quot; y=&amp;quot;56&amp;quot;&amp;gt;
+      &amp;lt;TreeGraphNode inputNode=&amp;quot;IN_PORT:0.Order:0.OrderID:0&amp;quot; x=&amp;quot;127&amp;quot; y=&amp;quot;109&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1st&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;1st&amp;lt;/OutputPins&amp;gt;
+      &amp;lt;/TreeGraphNode&amp;gt;
+      &amp;lt;FunctionGraphNode label=&amp;quot;Concat&amp;quot; type=&amp;quot;20&amp;quot; x=&amp;quot;298&amp;quot; y=&amp;quot;72&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1,2,3&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;str&amp;lt;/OutputPins&amp;gt;
+        &amp;lt;Properties&amp;gt;&amp;lt;/Properties&amp;gt;
+      &amp;lt;/FunctionGraphNode&amp;gt;
+      &amp;lt;FunctionGraphNode label=&amp;quot;Confirmation for Order No.&amp;quot; type=&amp;quot;22&amp;quot; x=&amp;quot;100&amp;quot; y=&amp;quot;45&amp;quot;&amp;gt;
+        &amp;lt;OutputPins&amp;gt;str&amp;lt;/OutputPins&amp;gt;
+        &amp;lt;Properties&amp;gt;&amp;lt;/Properties&amp;gt;
+      &amp;lt;/FunctionGraphNode&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;2&amp;quot; inputIndex=&amp;quot;1&amp;quot; outputID=&amp;quot;1&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;0&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;2&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;2&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;3&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+    &amp;lt;/GraphModel&amp;gt;
+    &amp;lt;GraphModel outputNode=&amp;quot;OUT_PORT:0.Email:0.Body:0.HtmlBody:0&amp;quot; x=&amp;quot;607&amp;quot; y=&amp;quot;91&amp;quot;&amp;gt;
+      &amp;lt;FunctionGraphNode label=&amp;quot;Hi Ayrton,&amp;amp;#xa;&amp;amp;#xa;This is a confirmation message for order no.&amp;quot; type=&amp;quot;22&amp;quot; x=&amp;quot;189&amp;quot; y=&amp;quot;36&amp;quot;&amp;gt;
+        &amp;lt;OutputPins&amp;gt;str&amp;lt;/OutputPins&amp;gt;
+        &amp;lt;Properties&amp;gt;&amp;lt;/Properties&amp;gt;
+      &amp;lt;/FunctionGraphNode&amp;gt;
+      &amp;lt;TreeGraphNode inputNode=&amp;quot;IN_PORT:0.Order:0.OrderID:0&amp;quot; x=&amp;quot;189&amp;quot; y=&amp;quot;84&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1st&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;1st&amp;lt;/OutputPins&amp;gt;
+      &amp;lt;/TreeGraphNode&amp;gt;
+      &amp;lt;FunctionGraphNode label=&amp;quot;&amp;amp;#xa;&amp;amp;#xa;&amp;amp;#xa;&amp;amp;#xa;Thanks,&amp;amp;#xa;Fiorano Support.&amp;quot; type=&amp;quot;22&amp;quot; x=&amp;quot;189&amp;quot; y=&amp;quot;153&amp;quot;&amp;gt;
+        &amp;lt;OutputPins&amp;gt;str&amp;lt;/OutputPins&amp;gt;
+        &amp;lt;Properties&amp;gt;&amp;lt;/Properties&amp;gt;
+      &amp;lt;/FunctionGraphNode&amp;gt;
+      &amp;lt;FunctionGraphNode label=&amp;quot;Concat&amp;quot; type=&amp;quot;20&amp;quot; x=&amp;quot;447&amp;quot; y=&amp;quot;91&amp;quot;&amp;gt;
+        &amp;lt;InputPins&amp;gt;1,2,3,4&amp;lt;/InputPins&amp;gt;
+        &amp;lt;OutputPins&amp;gt;str&amp;lt;/OutputPins&amp;gt;
+        &amp;lt;Properties&amp;gt;&amp;lt;/Properties&amp;gt;
+      &amp;lt;/FunctionGraphNode&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;4&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;1&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;4&amp;quot; inputIndex=&amp;quot;1&amp;quot; outputID=&amp;quot;2&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;4&amp;quot; inputIndex=&amp;quot;2&amp;quot; outputID=&amp;quot;3&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+      &amp;lt;Link inputID=&amp;quot;0&amp;quot; inputIndex=&amp;quot;0&amp;quot; outputID=&amp;quot;4&amp;quot; outputIndex=&amp;quot;0&amp;quot;&amp;gt;&amp;lt;/Link&amp;gt;
+    &amp;lt;/GraphModel&amp;gt;
+  &amp;lt;/Mappings&amp;gt;
+&amp;lt;/MapperProject&amp;gt;&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;state&quot;&gt; 
+    &lt;int&gt;6&lt;/int&gt; 
+   &lt;/void&gt; 
+   &lt;void property=&quot;targetNamespace&quot;&gt; 
+    &lt;string&gt;http://www.fiorano.com/fesb/activity/Xslt1&lt;/string&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;category&quot;&gt; 
+   &lt;string&gt;Transformation&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;configParams&quot;&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;outPort&lt;/string&gt; 
+    &lt;string&gt;OUT_PORT&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsReconnection&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsScheduling&lt;/string&gt; 
+    &lt;boolean&gt;true&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;enableScheduling&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;inPort&lt;/string&gt; 
+    &lt;string&gt;IN_PORT&lt;/string&gt; 
+   &lt;/void&gt; 
+   &lt;void method=&quot;put&quot;&gt; 
+    &lt;string&gt;supportsStudio&lt;/string&gt; 
+    &lt;boolean&gt;false&lt;/boolean&gt; 
+   &lt;/void&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;description&quot;&gt; 
+   &lt;string&gt;Transforms input XML based on Mappings defined and generates an output XML&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;icon&quot;&gt; 
+   &lt;string&gt;xslt.png&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;implClassName&quot;&gt; 
+   &lt;class&gt;com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec&lt;/class&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;name&quot;&gt; 
+   &lt;string&gt;XSLT&lt;/string&gt; 
+  &lt;/void&gt; 
+  &lt;void property=&quot;type&quot;&gt; 
+   &lt;string&gt;javax.resource.cci.InteractionSpec&lt;/string&gt; 
+  &lt;/void&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+]]&gt;&lt;/ConfigurationObject&gt;&lt;/ConfigurationObjects&gt;&lt;/ESBAdapterConfigurations&gt;</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></BCConfigurations><TransportConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.tr.TrConfigurationInfo"/> 
+</java> 
+]]]]><![CDATA[></TransportConfigurations><ErrorConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.error.ErrorConfigurationInfo"> 
+  <void property="errorActionsMap"> 
+   <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorActionsMap"> 
+    <void property="errorActionsMap"> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>2</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.RetryErrorAction"> 
+         <void property="errorActionID"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="fiorano.esb.adapter.jca.error.ErrorAction"> 
+         <void property="errorActionID"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="errorActionID"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="put"> 
+      <object class="fiorano.esb.adapter.jca.error.Error"> 
+       <void property="errorID"> 
+        <int>0</int> 
+       </void> 
+      </object> 
+      <object class="java.util.ArrayList"> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="add"> 
+        <object class="com.fiorano.bc.trgateway.model.dmi.error.XErrorAction"> 
+         <void property="active"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="errorActionID"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></ErrorConfigurations><SchedulerConfigurations><![CDATA[<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_05" class="java.beans.XMLDecoder"> 
+ <object class="com.fiorano.bc.trgateway.model.dmi.scheduler.SchedulerConfigurationInfo"> 
+  <void property="startDate"> 
+   <object class="java.util.Date"> 
+    <long>1132896842390</long> 
+   </object> 
+  </void> 
+  <void property="timeOffset"> 
+   <string>+00:00</string> 
+  </void> 
+  <void property="unit"> 
+   <string>seconds</string> 
+  </void> 
+ </object> 
+</java> 
+]]]]><![CDATA[></SchedulerConfigurations></TrGatewayConfigurations>]]></configuration><deployment nodes="fps" /><execution><debug enabled="false" port="5000" /><launch first-available-node="false" /></execution><inputport-instances><inputport-instance name="IN_PORT"><schema root="Order"><content><![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?>
+							<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:element name="Order">	
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="OrderID" type="xs:string"/>
+											<xs:element name="CustomerID" type="xs:string"/>
+											<xs:element name="Email" type="xs:string"/>
+											<xs:element name="shipDetails">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="Mode" type="xs:string"/>
+														<xs:element name="Address" type="xs:string"/>
+														<xs:element name="Country" type="xs:string"/>
+														<xs:element name="PostalCode" type="xs:string"/>
+														<xs:element name="PhoneNumber" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Product" type="xs:string"/>
+											<xs:element name="Quantity" type="xs:string"/>
+											<xs:element name="Price" type="xs:string"/>
+											<xs:element name="BillAmount" type="xs:string"/>
+											<xs:element name="OrderDate" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:schema>]]></content></schema><jms><destination /><authentication /><subscriber><transaction enabled="true" /><subscription durable="false" name="null" /></subscriber></jms></inputport-instance></inputport-instances><outputport-instances><outputport-instance name="OUT_PORT"><schema root="{http://www.fiorano.com/fesb/activity/SMTP1/smtp/in}Email"><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in">
+  <xsd:element name="Email">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="To" type="xsd:string" minOccurs="1" maxOccurs="1"></xsd:element>
+        <xsd:element name="From" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="CC" type="xsd:string" minOccurs="0"></xsd:element>
+        <xsd:element name="BCC" type="xsd:string" minOccurs="0"></xsd:element>
+        <xsd:element name="ReplyTo" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Subject" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Headers" type="HeadersType" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Attachments" type="AttachmentsType" minOccurs="0" maxOccurs="1"></xsd:element>
+        <xsd:element name="Body" type="Body" minOccurs="0" maxOccurs="1"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="Body">
+    <xsd:sequence>
+      <xsd:element name="TextBody" type="xsd:string" minOccurs="0"></xsd:element>
+      <xsd:element name="HtmlBody" type="xsd:string" minOccurs="0"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentsType">
+    <xsd:sequence>
+      <xsd:element name="Attachment" type="AttachmentType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentType" mixed="true">
+   <xsd:simpleContent>
+   <xsd:extension base="xsd:string">
+    <xsd:attribute name="name" use="required" type="xsd:string">
+    </xsd:attribute>
+    <xsd:attribute name="readFromFile" default="no">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:NMTOKEN">
+          <xsd:enumeration value="yes"></xsd:enumeration>
+          <xsd:enumeration value="no"></xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="base64Encoded" default="no">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:NMTOKEN">
+          <xsd:enumeration value="yes"></xsd:enumeration>
+          <xsd:enumeration value="no"></xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="HeadersType">
+    <xsd:sequence>
+      <xsd:element name="Header" type="HeaderType" minOccurs="0" maxOccurs="unbounded"/>
+	</xsd:sequence>
+  </xsd:complexType>
+<xsd:complexType name="HeaderType">
+<xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+<xsd:attribute name="value" use="required" type="xsd:string"></xsd:attribute>
+</xsd:complexType>
+</xsd:schema>]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance><outputport-instance name="ON_EXCEPTION"><schema root="{http://www.fiorano.com/fesb/activity/fault}Error"><content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fiorano.com/fesb/activity/fault" xmlns:tns="http://www.fiorano.com/fesb/activity/fault">
+    <xsd:element name="Error">
+       <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="errorMessage" type="xsd:string"/>
+            <xsd:element name="errorTrace" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="data" type="tns:data" minOccurs="0"/>
+          </xsd:sequence>
+       </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="data">
+	  <xsd:sequence>
+         <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>]]></content></schema><jms><destination /><authentication /><publisher><messages priority="4" /></publisher></jms></outputport-instance></outputport-instances><logmanager logger="java.util.logging.FileHandler"><property name="java.util.logging.FileHandler.dir">./logs</property></logmanager><logmodules><logmodule name="com.fiorano.bc.trgateway" /><logmodule name="com.fiorano.adapter.jca.xslt.cci.XsltInteraction" /><logmodule name="com.fiorano.adapter.jca.xslt.spi.outbound.XsltManagedConnectionFactory" /><logmodule name="com.fiorano.adapter.jca.xslt.cci.XsltInteractionSpec" /><logmodule name="ERR_HANDLER" /><logmodule name="OUT_HANDLER" level="INFO" /></logmodules><runtime-arguments><runtime-argument name="JVM_PARAMS" mandatory="false" inmemory="false"><value>-DLOG_TO_STREAM=true</value></runtime-argument></runtime-arguments></inst></service-instances><routes><route name="Rejection_Event"><source inst="ERP" port="PO_REJECT" /><target inst="Rejected_Orders" port="IN_PORT" /><messages /></route><route name="Acceptance_Event"><source inst="ERP" port="PO_ACCEPT" /><target inst="Xslt_Tranform" port="IN_PORT" /><messages /></route><route name="Mail_Event"><source inst="Xslt_Tranform" port="OUT_PORT" /><target inst="SMTP_Bridge" port="IN_PORT" /><messages /></route><route name="PO_Event"><source inst="CRM" port="OUT_PORT" /><target inst="ERP" port="PO_IN" /><messages /></route></routes><layout><![CDATA[<layout zoomFactor="100">
+   <documentation>SCENARIO:
+--------
+      The EAI Demo event process is used to show a typical integration scenario, where 
+a Purchase Order (PO) comes from a CRM Service to an ERP Service. The ERP Service sends 
+out an Email to the concerned person if the Order is accepted, or sends out a rejection 
+notice in case the PO is rejected.
+
+RUNNING THE EVENT PROCESS:
+-------------------------
+1. Send a purchase order from the CRM Service.
+2. The purchase order is received by the ERP Service. When the PO arrives, a popup 
+   window appears showing that a PO has been received.
+3. Close the popup window. On closing the popup window, another window pops up displaying 
+   details of the PO. In that popup dialog, either accept or reject the PO.
+4. On accepting the order, an acceptance mail will be sent to the person who sent the 
+   PO via the CRM Service. The default user for this is Ayrton (ayrton@fiorano.com) 
+5. On rejection, the details of the PO are shown on the Rejected Orders Display Service
+</documentation>
+   <service-instance name="CRM" position="40,177"/>
+   <service-instance name="ERP" position="178,177"/>
+   <service-instance name="Rejected_Orders" position="363,100"/>
+   <service-instance name="SMTP_Bridge" position="516,281"/>
+   <service-instance name="Xslt_Tranform" position="359,280"/>
+   <route name="Rejection_Event" shape="0"/>
+   <route name="Acceptance_Event" shape="0"/>
+   <route name="Mail_Event" shape="0"/>
+   <route name="PO_Event" shape="0"/>
+   <group name="Send_Email" shortDescription="" longDescription="" color="-1644826" shape="1" expanded="true" position="435,269">
+      <member type="service-instance" name="Xslt_Tranform"/>
+      <member type="service-instance" name="SMTP_Bridge"/>
+   </group>
+</layout>]]></layout></application>

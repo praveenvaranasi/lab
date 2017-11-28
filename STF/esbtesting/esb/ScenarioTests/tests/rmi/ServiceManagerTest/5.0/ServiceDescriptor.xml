@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service guid="chatTest" version="5.0">
+  <display categories="Collaboration" name="chat"/>
+  <icon large="chat32.png" small="chat.png"/>
+  <creation authors="Fiorano Software Technologies Pvt. Ltd."
+    date="04-01-2005 12:00:00" last-modified="15-03-2005 11:45:21"/>
+  <short-description>A Simple Chat Component</short-description>
+  <deployment label="PRODUCTION">
+    <resources>
+      <resource name="fesb-comp-chat.jar"/>
+    </resources>
+    <servicerefs>
+      <serviceref guid="jms" version="4.0"/>
+      <serviceref guid="Studio" version="4.0"/>
+      <serviceref guid="BCCommon" version="4.0"/>
+      <serviceref guid="TifosiJavaRTL" version="4.0"/>
+    </servicerefs>
+  </deployment>
+  <execution>
+    <launchtype supported="5"/>
+    <separate-process executable="com.fiorano.bc.chat.ChatService"/>
+    <inmemory executable="com.fiorano.bc.chat.ChatService"/>
+    <cps inmemory-launchable="false" mandatory="false">
+      <launcher>com.fiorano.bc.chat.editor.ChatModelEditor</launcher>
+    </cps>
+    <input-ports>
+      <port name="IN_PORT">
+        <description>Accepts data which is in the format specified in Chat service</description>
+        <schema root="ChatMessage">
+          <content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">			
+  <xs:element name="ChatMessage">
+    <xs:complexType>
+	  <xs:sequence>
+	    <xs:element name="Sender" type="SenderType" minOccurs="0"/>
+	    <xs:element name="Message" type="xs:string"/>
+	  </xs:sequence>
+	</xs:complexType>
+  </xs:element>
+  <xs:complexType name="SenderType">
+    <xs:sequence>
+	  <xs:element name="Name" type="xs:string" minOccurs="0"/>
+	  <xs:element name="Email" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></content>
+        </schema>
+      </port>
+    </input-ports>
+    <output-ports>
+      <port name="OUT_PORT">
+        <description>Sends the chat message</description>
+        <schema root="ChatMessage">
+          <content><![CDATA[${null.IN_PORT}]]></content>
+        </schema>
+      </port>
+    </output-ports>
+    <logmodules>
+      <logmodule name="com.fiorano.edbc.chat"/>
+      <logmodule name="ERR_HANDLER"/>
+      <logmodule level="INFO" name="OUT_HANDLER"/>
+    </logmodules>
+    <runtime-arguments>
+      <runtime-argument inmemory="false" mandatory="false" name="JVM_PARAMS">
+        <value>-DLOG_TO_STREAM=true</value>
+      </runtime-argument>
+    </runtime-arguments>
+  </execution>
+</service>

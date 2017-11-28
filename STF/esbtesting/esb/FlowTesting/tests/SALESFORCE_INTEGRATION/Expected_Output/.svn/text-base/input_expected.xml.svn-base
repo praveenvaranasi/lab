@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><tns:Envelope xmlns:tns="urn:enterprise.soap.sforce.com/convertLead/Output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <tns:Header/><tns:Body>
+   <convertLeadResponse xmlns="urn:enterprise.soap.sforce.com"><result><accountId>0017000000MIBXBAA5</accountId><contactId>0037000000TkajsAAB</contactId><errors xsi:nil="true"/><leadId>00Q7000000IYJm1EAH</leadId><opportunityId>0067000000AiyaXAAR</opportunityId><success>true</success></result></convertLeadResponse></tns:Body>
+</tns:Envelope>

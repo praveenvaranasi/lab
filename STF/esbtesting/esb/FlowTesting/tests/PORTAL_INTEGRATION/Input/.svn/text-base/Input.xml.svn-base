@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:SQL_CFG_1 xmlns:ns2="http://www.fiorano.com/fesb/activity/DB1/Request" xmlns:ns1="http://www.w3.org/2001/XMLSchema" xmlns:ns0="http://www.fiorano.com/httpReceive" xmlns:xalan="http://xml.apache.org/xslt" xmlns:lxslt="http://xml.apache.org/xslt">
+  <ns2:select>
+    <ns2:ORDERID>1001</ns2:ORDERID>
+  </ns2:select>
+</ns2:SQL_CFG_1>

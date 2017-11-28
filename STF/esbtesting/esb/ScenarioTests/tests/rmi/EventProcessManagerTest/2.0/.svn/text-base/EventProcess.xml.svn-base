@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application guid="CHATAPPLICATION" version="2.0">
+  <display categories="eStudio" name="chatapplication"/>
+  <creation authors="eStudio" date="29-05-2008 02:57:00"/>
+  <deployment label="Development"/>
+  <service-instances>
+    <inst name="chat1">
+      <service guid="chat" version="4.0"/>
+      <deployment nodes="fps_test"/>
+      <execution>
+        <debug enabled="false" port="5000"/>
+        <launch type="1"/>
+      </execution>
+      <inputport-instances>
+        <inputport-instance name="IN_PORT">
+          <description>Accepts data which is in the format specified in
+				Chat service</description>
+        </inputport-instance>
+      </inputport-instances>
+      <outputport-instances>
+        <outputport-instance name="OUT_PORT">
+          <description>Sends the chat message</description>
+        </outputport-instance>
+      </outputport-instances>
+      <logmanager logger="java.util.logging.FileHandler"/>
+      <logmodules>
+        <logmodule level="SEVERE" name="com.fiorano.edbc.chat"/>
+        <logmodule level="SEVERE" name="ERR_HANDLER"/>
+        <logmodule level="INFO" name="OUT_HANDLER"/>
+      </logmodules>
+    </inst>
+  </service-instances>
+  <routes/>
+</application>

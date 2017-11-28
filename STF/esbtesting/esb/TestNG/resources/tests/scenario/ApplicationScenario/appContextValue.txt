@@ -1,0 +1,7 @@
+<ns1:Email xmlns:ns1="http://www.fiorano.com/fesb/activity/SMTP1/smtp/in">
+   <To>ayrton@fiorano.com</To>
+   <Subject>ScenarioTests</Subject>
+   <Body>
+      <TextBody>TextBody</TextBody>
+   </Body>
+</ns1:Email>

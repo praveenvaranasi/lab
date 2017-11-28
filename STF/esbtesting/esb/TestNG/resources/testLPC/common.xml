@@ -1,0 +1,272 @@
+<project name="project-common" basedir="." xmlns:fiorano="antlib:com.fiorano.ant">
+    <property file="build.properties"/>
+    <property name="deps.recursive" value="true"/>
+    <property name="project-common" location="${ant.file.project-common}/.."/>
+    <property name="build.dir" value="build"/>
+    <path id="module.lib"/>
+    <path id="others.lib"/>
+
+    <import file="${installer.dir}/antscripts/module/build.xml"/>
+    <import file="${installer.dir}/esb/tools/templates/tasks.xml"/>
+
+    <property name="component.deploy.dir" value="${esb.repository.directory}/components"/>
+
+    <!-- EDBC Library jar files-->
+    <path id="proj.lib">
+        <fileset dir="${installer.dir}/adapters/lib/edbc">
+            <include name="fesb-edbcdk.jar"/>
+        </fileset>
+        <fileset dir="${installer.dir}/adapters/lib/esb">
+            <include name="adapters-esb-wrapper.jar"/>
+            <include name="adapters-esb-util.jar"/>
+        </fileset>
+        <fileset dir="${installer.dir}/esb/tools/lib">
+            <include name="esb-tools-util.jar"/>
+        </fileset>
+    </path>
+
+    <property name="deploy.dir" value="${module.basedir}"/>
+    <property name="jar.path" value="${ant.project.name}.jar"/>
+
+    <target name="i18n" depends="module.i18n"/>
+    <target name="compile" depends="i18n, module.compile, xdoclet, javahelp"/>
+
+    <target name="classpath">
+        <path id="proj.lib"/>
+        <path id="others.lib"/>
+        <path id="module.lib"/>
+        <path id="module.lib.deps"/>
+        <path id="proj.lib.deps"/>
+        <path id="others.lib.deps"/>
+
+        <service-classpath
+                fioranohome="${installer.dir}"
+                fioranouserdir="${esb.user.dir}"
+                pathid="classpath"
+                servicefile="etc/ServiceDescriptor.xml"
+                resourcesfile="etc/resources.properties"
+                />
+    </target>
+
+    <target name="deploy" depends="module.deploy">
+        <service-export
+                destfile="export.zip"
+                servicefile="etc/ServiceDescriptor.xml"
+                resourcesfile="etc/resources.properties"
+                executionClass="com.fiorano.edbc.testlpc.TestLPC"
+                cpsClass="com.fiorano.edbc.testlpc.cps.TestLPCPropertySheet"
+                cpsMandatory="true"
+                inMemoryClass="com.fiorano.edbc.testlpc.TestLPC"
+                defaultLogModule="com.fiorano.edbc.testlpc.testLPC">
+            <fileset dir="${deploy.dir}">
+                <include name="${jar.path}"/>
+            </fileset>
+        </service-export>
+    </target>
+
+    <target name="xdoclet" depends="xmbean">
+        <fiorano:jmxdoclet destdir="${build.dir}/classes">
+            <fileset dir="src">
+                <include name="**/*.java"/>
+            </fileset>
+
+            <fiorano:jbossxmbean havingClassTag="fiorano:xmbean"/>
+        </fiorano:jmxdoclet>
+    </target>
+
+    <target name="xmbean">
+        <echo>{ ${ant.project.name} } Generating xdoclet ...</echo>
+        <echo>generating xdoclet for ${ant.project.name}</echo>
+        <fiorano:jmxdoclet destdir="${build.dir}/classes">
+            <fileset dir="src">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${installer.dir}/adapters/edbc/codegen">
+                <include name="**/*.java"/>
+            </fileset>
+            <fiorano:jbossxmbean havingClassTag="fiorano:xmbean"/>
+        </fiorano:jmxdoclet>
+
+        <delete file="${build.dir}/classes/com/fiorano/edbc/framework/service/configuration/AbstractConnectionConfiguration.xml"/>
+        <delete file="${build.dir}/classes/com/fiorano/edbc/framework/service/configuration/ConnectionlessServiceConfiguration.xml"/>
+        <delete file="${build.dir}/classes/com/fiorano/edbc/framework/service/configuration/ServiceConfiguration.xml"/>
+    </target>
+
+    <target name="javahelp" depends="javadoc">
+        <copy todir="${build.dir}/classes/help">
+            <fileset dir="${antscripts.dir}/jca/">
+                <include name="*.gif"/>
+                <include name="*.css"/>
+            </fileset>
+            <fileset dir="${antscripts.dir}/../esb/samples/icons/png_icons/">
+                <include name="icon.png"/>
+                <include name="icon32.png"/>
+            </fileset>
+        </copy>
+        <xslt basedir="${build.dir}/classes" includes="**/*PM.xml " destdir="${build.dir}/classes/"
+              style="${antscripts.dir}/jca/jh_edbc.xsl">
+            <classpath>
+                <path refid="boot.classpath"/>
+                <fileset dir="${installer.dir}/extlib/saxon">
+                    <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${build.dir}/classes"/>
+                <pathelement path="${classpath}"/>
+            </classpath>
+            <xmlcatalog>
+                <dtd publicId="-//JBoss//DTD JBOSS XMBEAN 1.0//EN"
+                     location="${antscripts.dir}/jca/jboss_xmbean_1_0.dtd"/>
+            </xmlcatalog>
+            <param name="basepath" expression="${ant.file}/../"/>
+            <param name="buildpath" expression="${build.dir}/classes/"/>
+            <param name="custom" expression="true"/>
+            <param name="sd_xml" expression="${ant.file}/../etc/ServiceDescriptor.xml"/>
+        </xslt>
+        <fiorano:xdoclet destdir="${build.dir}/classes" force="${imbean.force}">
+            <fileset dir="src">
+                <include name="**/*PM.java"/>
+            </fileset>
+            <template templateFile="${antscripts.dir}/jca/jh_helpset.xdt" destinationFile="{0}.hs"/>
+            <template templateFile="${antscripts.dir}/jca/jh_index.xdt" destinationFile="{0}_index.xml"/>
+            <template templateFile="${antscripts.dir}/jca/jh_map.xdt" destinationFile="{0}_map.xml"/>
+            <template templateFile="${antscripts.dir}/jca/jh_toc.xdt" destinationFile="{0}_toc.xml"/>
+        </fiorano:xdoclet>
+    </target>
+
+    <target name="javadoc" description="Generate the api specification (javadoc)">
+        <echo>{ ${ant.project.name} } Generating javadoc for ${ant.project.name} ...</echo>
+        <mkdir dir="javadocs"/>
+        <javadoc destdir="javadocs"
+                 use="true"
+                 author="false"
+                 private="true">
+            <fileset dir="." defaultexcludes="yes">
+                <include name="**/*.java"/>
+            </fileset>
+            <bootclasspath>
+                <path refid="classpath"/>
+                <path refid="boot.classpath"/>
+            </bootclasspath>
+            <tag name="todo" scope="all" enabled="false" description="ToDo :"/>
+            <tag name="created" scope="all" enabled="false" description="Created on :"/>
+            <tag name="Date." scope="all" enabled="false" description="Date :"/>
+            <tag name="jmx.descriptor" scope="all" enabled="false" description="JMX Descriptors :"/>
+            <tag name="jmx.mbean" scope="all" enabled="false" description="jmx.mbean"/>
+            <tag name="fiorano.xmbean" scope="all" enabled="false" description="fiorano.xmbean"/>
+            <tag name="jmx.managed-operation" scope="all" enabled="false" description="JMX Managed Operations :"/>
+            <tag name="jmx.managed-attribute" scope="all" enabled="false" description="JMX Managed Attributes :"/>
+            <tag name="msg.message" scope="all" enabled="false" description="Bundle String :"/>
+            <tag name="jboss.xmbean" scope="all" enabled="false" description="jboss.xmbean"/>
+            <header></header>
+            <bottom></bottom>
+            <link offline="true" href="http://java.sun.com/products/jdk/1.2/docs/api/"
+                  packagelistLoc="${deploy.dir}/${javadoc.deploy.dir}"/>
+        </javadoc>
+    </target>
+
+    <target name="logininfo">
+        <fiorano:if>
+            <isset property="proxy.url"/>
+            <fiorano:then>
+                <property name="logininfo"
+                          value="${server};${user};${passwd};true;${proxy.url};${proxy.port};${proxy.user};${proxy.passwd}"/>
+            </fiorano:then>
+            <fiorano:else>
+                <property name="logininfo" value="${server};${user};${passwd};false"/>
+            </fiorano:else>
+        </fiorano:if>
+    </target>
+
+    <target name="register" depends="deploy, logininfo">
+        <register importfile="${project-common}/export.zip" logininfo="${logininfo}"/>
+    </target>
+
+    <target name="reregister" depends="deploy, logininfo">
+        <register importfile="${project-common}/export.zip" logininfo="${logininfo}" overwrite="true"/>
+    </target>
+
+    <target name="unregister" depends="logininfo">
+        <unregister serviceGUID="${ant.project.name}" serviceVersion="${service.version}" logininfo="${logininfo}"/>
+    </target>
+
+    <target name="help">
+        <echo>ant ------------> make the build</echo>
+        <echo>ant register ---> register service in FES (fails if service already exists)</echo>
+        <echo>ant reregister ---> reregister service in FES (overwrites if service already exists)</echo>
+        <echo>ant unregister ---> unregister service in FES</echo>
+    </target>
+
+    <path id="tests.lib"/>
+
+    <!-- Check for tests directory for bc componnet testing-->
+    <condition property="testsExist">
+        <available file="tests" type="dir"/>
+    </condition>
+
+    <target name="testspreprocess">
+        <!--Pre Processing for the tests can be done here Over ridden by components-->
+        <delete dir="testLogs"/>
+    </target>
+
+    <target name="runtests" depends="classpath, testspreprocess, runtestsprocess"/>
+
+    <target name="runtestsprocess" if="testsExist">
+
+        <echo>Starting MQ server</echo>
+        <exec dir="${installer.dir}/fmq/bin" executable="runContainer.bat" resolveexecutable="true" spawn="true"/>
+        <echo>Started MQ server</echo>
+
+        <mkdir dir="testLogs"/>
+        <dirname property="comp.dir" file="${ant.file}"/>
+        <record name="${comp.dir}/testLogs/${ant.project.name}_log.txt" logLevel="verbose" action="start"/>
+
+        <fiorano:if>
+            <equals arg1="${result.store.in.db}" arg2="false"/>
+            <fiorano:then>
+                <property name="cmdarg" value=""/>
+            </fiorano:then>
+            <fiorano:else>
+                <property name="cmdarg" value="${JDBC_URL} ${JDBC_USR} ${JDBC_PWD}"/>
+            </fiorano:else>
+        </fiorano:if>
+
+        <java fork="true" classname="com.fiorano.adapter.edbc.test.EDBCTestSuiteGroup">
+
+            <bootclasspath>
+                <path refid="classpath"/>
+                <path refid="boot.classpath"/>
+                <fileset dir="${installer.dir}/esb/lib">
+                    <include name="fedbc-junit-fw.jar"/>
+                </fileset>
+
+                <fileset dir="${installer.dir}/${component.deploy.dir}/testLPC/${component.version}">
+                    <include name="**/*.jar"/>
+                </fileset>
+
+                <fileset dir="${installer.dir}/extlib">
+                    <include name="**/*.jar"/>
+                </fileset>
+
+                <path refid="tests.lib"/>
+            </bootclasspath>
+            <!-- The second argument must be changed to the local Fiorano home.-->
+            <!-- The third, forth and fifth argument must be changed according to the database settings .-->
+            <arg line="tests ${installer.dir} ${result.store.in.db} ${cmdarg}"/>
+            <jvmarg value="-DFIORANO_HOME=${installer.dir}"/>
+
+            <!-- Uncomment the below to enable debugging -->
+            <!--
+            <jvmarg line="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"/>
+            -->
+        </java>
+
+        <echo>Completed running TestSuite java process</echo>
+
+        <record name="${comp.dir}/testLogs/${ant.project.name}_log.txt" logLevel="verbose" action="stop"/>
+
+        <echo>Stopping MQ server</echo>
+        <exec dir="${installer.dir}/fmq/bin" executable="shutdown.bat" resolveexecutable="true"/>
+        <echo>Stopped MQ server</echo>
+    </target>
+
+</project>
