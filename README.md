@@ -1,3 +1,3 @@
 # lab
 to learn git
-jTry hooks
+Try hooks
